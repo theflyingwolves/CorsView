@@ -3,29 +3,44 @@ var router = Backbone.Router.extend({
 	'':'home',
 	':moduleCode':'loadModuleInfo',
 	':moduleCode/info':'loadModuleInfo',
-	':moduleCode/review':'loadModuleReview'
+	':moduleCode/reviews':'loadModuleReview'
 	},
 
 	initialize:function(){
-
+		loadNavBar();
 	},
 
 	home: function(){
-		loadNavBar();
 	},
 
 	loadModuleInfo: function(moduleCode){
-		loadNavBar();
-		this.courseView = new courseView({el:$("#module-info-container"), collection:moduledb});
-		this.courseView.render(moduleCode);
+		resetWrapper();
+		loadSidebarWrapper(moduleCode);
+		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		this.infoView.render(moduleCode);
 	},
 
 	loadModuleReview:function(moduleCode){
-		alert(moduleCode);
+		resetWrapper();
+		loadSidebarWrapper(moduleCode);
+		var moduleReview;
+		this.reviewView = new courseReviewView({el:$("#module-info-container"),collection:moduleReview});
+		this.reviewView.render(moduleCode);
 	}
 });
+
+var resetWrapper = function(){
+		if(!$("#wrapper").hasClass("toggled")){
+			$($("#wrapper").addClass("toggled"));
+		}	
+};
 
 var loadNavBar = function(){
 		this.navigationBarView = new navBarView({el:$("#navigation-bar")});
 		this.navigationBarView.render();
+};
+
+var loadSidebarWrapper = function(moduleCode){
+	this.sidebarView = new sideBarView({el:$("#sidebar-wrapper")});
+	this.sidebarView.render(moduleCode);
 };

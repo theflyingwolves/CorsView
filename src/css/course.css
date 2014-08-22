@@ -31,3 +31,15 @@
 	padding-top: 0.01em;
 	padding-bottom: 0.01em;
 }
+
+#CS2020 {
+	position: fixed;
+	top: 400px;
+	left: 400px;
+}
+
+#CS2102 {
+	position: fixed;
+	top: 450px;
+	left: 450px;
+}

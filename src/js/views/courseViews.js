@@ -1,4 +1,4 @@
-var courseView = Backbone.View.extend({
+var courseInfoView = Backbone.View.extend({
 	render:function(moduleCode){
 		var moduleData = this.collection.where({
 			moduleCode:moduleCode
@@ -16,9 +16,22 @@ var courseView = Backbone.View.extend({
 	}
 });
 
+var courseReviewView = Backbone.View.extend({
+	render:function(moduleCode){
+		this.$el.html("");
+	}
+});
+
 var navBarView = Backbone.View.extend({
 	render:function(){
 		var template = _.template(navBarHtml,{});
 		this.$el.html(template);	
+	}
+});
+
+var sideBarView = Backbone.View.extend({
+	render:function(moduleCode){
+		var template = _.template(sidebarHtml, {moduleCode:moduleCode});
+		this.$el.html(template);
 	}
 });

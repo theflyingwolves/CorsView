@@ -4,12 +4,14 @@
 	<script type="text/javascript" src = "../../libs/Underscore/underscore.js"></script>
 	<script type="text/javascript" src = "../../libs/Backbone/backbone.js"></script>
 	<script type="text/javascript" src = "../../libs/Bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src = "../js/template/sidebar-view.js"></script>
   <script type="text/javascript" src = "../js/template/navigation-bar.js"></script>
   <script type="text/javascript" src = "../js/template/course-info-view.js"></script>
   <script type="text/javascript" src = "../js/views/courseViews.js"></script>
   <script type="text/javascript" src = "../js/routers/course.js"></script>
   <script type="text/javascript" src = "../js/database/courseDB.js"></script>
   <script type="text/javascript">
+  var navbarLoaded, sidebarLoaded;
   var app;
   $(document).ready(function(){
     app = new router;
@@ -27,29 +29,8 @@
   </div>
   
   <div id="wrapper" class="toggled">
-
-      <!-- Sidebar -->
       <div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-              <li class="sidebar-brand">
-                  <a href="#">
-                      Start Bootstrap
-                  </a>
-              </li>
-              <li>
-                  <a href="#">Description</a>
-              </li>
-              <li>
-                  <a href="#">Reviews</a>
-              </li>
-              <li>
-                  <a href="#">Resources</a>
-              </li>
-              <li>
-                  <a href="#">Forum</a>
-              </li>
-          </ul>
-      </div> <!-- /#sidebar-wrapper -->
+      </div>
 
       <div id="page-content-wrapper">
         <div id="main-container">
@@ -58,21 +39,21 @@
             </div>
 
             <div class = "col-sm-6 col-md-6" id="module-info-container">
-              <!-- Course Info -->
             </div>
 
             <div class = "col-sm-6 col-md-3">
             </div>
-          </div> <!-- End of row -->
-        </div> <!-- End of main container -->
-      </div>  <!-- /#page-content-wrapper -->
+          </div>
+        </div>
+      </div>
 
       <div id = "menu-toggle">
         <button class="btn btn-default" id="menu-toggle-button">Menu</button>
       </div>
 
+      <a href="#CS2020/info"><button class="btn btn-default" id="CS2020">CS2020</button></a>
+      <a href="#CS2102/info"><button class="btn btn-default" id="CS2102">CS2102</button></a>
   </div>
-  <!-- /#wrapper -->
 
   <!-- Menu Toggle Script -->
   <script>
