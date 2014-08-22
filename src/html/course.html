@@ -1,0 +1,95 @@
+<html>
+<head>
+	<script type="text/javascript" src = "../../libs/jQuery/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src = "../../libs/Underscore/underscore.js"></script>
+	<script type="text/javascript" src = "../../libs/Backbone/backbone.js"></script>
+	<script type="text/javascript" src = "../../libs/Bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src = "../js/template/navigation-bar.js"></script>
+  <script type="text/javascript" src = "../js/template/course-info-view.js"></script>
+  <script type="text/javascript" src = "../js/views/courseViews.js"></script>
+  <script type="text/javascript" src = "../js/routers/course.js"></script>
+  <script type="text/javascript" src = "../js/database/courseDB.js"></script>
+  <script type="text/javascript">
+  var app;
+  $(document).ready(function(){
+    app = new router;
+    Backbone.history.start();
+  });
+  </script>
+
+	<link href="../../libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/course.css">
+  <link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+	<title>CorsView</title>
+</head>
+<body>
+  <div id="navigation-bar">
+  </div>
+  
+  <div id="wrapper" class="toggled">
+
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+              <li class="sidebar-brand">
+                  <a href="#">
+                      Start Bootstrap
+                  </a>
+              </li>
+              <li>
+                  <a href="#">Description</a>
+              </li>
+              <li>
+                  <a href="#">Reviews</a>
+              </li>
+              <li>
+                  <a href="#">Resources</a>
+              </li>
+              <li>
+                  <a href="#">Forum</a>
+              </li>
+          </ul>
+      </div> <!-- /#sidebar-wrapper -->
+
+      <div id="page-content-wrapper">
+        <div id="main-container">
+          <div class = "row">
+            <div class = "col-sm-6 col-md-3">
+            </div>
+
+            <div class = "col-sm-6 col-md-6" id="module-info-container">
+              <!-- Course Info -->
+            </div>
+
+            <div class = "col-sm-6 col-md-3">
+            </div>
+          </div> <!-- End of row -->
+        </div> <!-- End of main container -->
+      </div>  <!-- /#page-content-wrapper -->
+
+      <div id = "menu-toggle">
+        <button class="btn btn-default" id="menu-toggle-button">Menu</button>
+      </div>
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Menu Toggle Script -->
+  <script>
+    var showSidebar = function(e){
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    };
+
+    $("#menu-toggle").hover(function(e) {
+      showSidebar(e);
+    });
+
+    $("#sidebar-wrapper").hover(function(e) {
+      showSidebar(e);
+    });
+
+  </script>
+
+</body>
+</html>

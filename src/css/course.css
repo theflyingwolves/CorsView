@@ -1,0 +1,33 @@
+#searchText {
+	width: 100%;
+	min-width: 600;
+	max-width: 600;
+}
+
+#navigation-bar {
+
+}
+
+#module-info {
+	text-align: justify;
+	font-size: 15px;
+}
+
+#menu-toggle {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+#menu-toggle-button {
+    width: 200%;
+}
+
+.jumbotron {
+	padding-top: 3em;
+}
+
+.module-subheading {
+	padding-top: 0.01em;
+	padding-bottom: 0.01em;
+}
