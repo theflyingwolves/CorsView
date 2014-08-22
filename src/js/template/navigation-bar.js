@@ -9,9 +9,9 @@ var navBarHtml = "<nav class=\"navbar-inverse navbar-default navbar-fixed-top\" 
       "</button>"+
       "<a class=\"navbar-brand\" href=\"#\">CorsView</a>"+
     "</div>"+
-    "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">"+
+    "<div class=\"collapse navbar-collapse\">"+
       "<form class=\"navbar-form navbar-left\" role=\"search\">"+
-        "<div class=\"form-group\">"+
+        "<div class=\"form-group\" id=\"searchDiv\">"+
           "<input type=\"text\" class=\"form-control\"  id=\"searchText\" placeholder=\"Search Modules\">"+
         "</div>"+
         "<button type=\"submit\" class=\"btn btn-default\">Search</button>"+

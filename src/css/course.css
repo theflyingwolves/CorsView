@@ -4,6 +4,10 @@
 	max-width: 600;
 }
 
+#searchDiv {
+	
+}
+
 #module-info {
 	text-align: justify;
 	font-size: 15px;
@@ -38,15 +42,16 @@
 	min-height: 100px;
 	background-color: rgba(1,0,0,0.05);
 	margin: 30px 10px;
-    border-width:4px;
-    border-style:solid;
-    border-bottom-color:#aaa;
-    border-right-color:#aaa;
-    border-top-color:#ddd;
-    border-left-color:#ddd;
-    border-radius:3px
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
+	padding: 10px;
+  border-width:4px;
+  border-style:solid;
+  border-bottom-color:#aaa;
+  border-right-color:#aaa;
+  border-top-color:#ddd;
+  border-left-color:#ddd;
+  border-radius:3px
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
 }
 
 .jumbotron {
@@ -67,5 +72,17 @@
 #CS2102 {
 	position: fixed;
 	top: 200px;
+	right: 0px;
+}
+
+#MA1010 {
+	position: fixed;
+	top: 300px;
+	right: 0px;
+}
+
+#MA3238 {
+	position: fixed;
+	top: 350px;
 	right: 0px;
 }

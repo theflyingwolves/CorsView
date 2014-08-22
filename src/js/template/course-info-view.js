@@ -4,7 +4,7 @@ var courseInfoViewHtml = "<div class = \"jumbotron\">"+
   "</div>"+
   "<hr>"+
   "<div class=\"page-header module-subheading\">"+
-    "<h4>General Information</h4>"+
+    "<h4>Module Description</h4>"+
   "</div>"+
   "<p id=\"module-info\">"+
     "<%=  moduleDescription %>"+
