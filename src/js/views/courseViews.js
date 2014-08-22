@@ -18,7 +18,15 @@ var courseInfoView = Backbone.View.extend({
 
 var courseReviewView = Backbone.View.extend({
 	render:function(moduleCode){
-		this.$el.html("");
+		// alert(JSON.stringify(this.collection));
+		// alert(moduleCode);
+		var reviewData = this.collection.where({
+			moduleCode:moduleCode
+		})[0];
+
+		var reviewContentHtml = generateReviewContentHtml(reviewData.get("moduleReview"));
+		var template = _.template(reviewContentHtml,{});
+		this.$el.html(template);
 	}
 });
 

@@ -23,7 +23,7 @@ var router = Backbone.Router.extend({
 	loadModuleReview:function(moduleCode){
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
-		var moduleReview;
+		var moduleReview = moduleReviewDB;
 		this.reviewView = new courseReviewView({el:$("#module-info-container"),collection:moduleReview});
 		this.reviewView.render(moduleCode);
 	}

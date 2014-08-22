@@ -4,10 +4,6 @@
 	max-width: 600;
 }
 
-#navigation-bar {
-
-}
-
 #module-info {
 	text-align: justify;
 	font-size: 15px;
@@ -23,6 +19,36 @@
     width: 200%;
 }
 
+#review-content {
+	text-align: justify;
+	font-size: 15px;
+	font-family: sans-serif;
+}
+
+#sidebar-toggle-area {
+	height: 100%;
+	min-height: 100px;
+	min-width: 10px;
+	position: fixed;
+	top:0px;
+	left: 0px;
+}
+
+.review-box {
+	min-height: 100px;
+	background-color: rgba(1,0,0,0.05);
+	margin: 30px 10px;
+    border-width:4px;
+    border-style:solid;
+    border-bottom-color:#aaa;
+    border-right-color:#aaa;
+    border-top-color:#ddd;
+    border-left-color:#ddd;
+    border-radius:3px
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
 .jumbotron {
 	padding-top: 3em;
 }
@@ -34,12 +60,12 @@
 
 #CS2020 {
 	position: fixed;
-	top: 400px;
-	left: 400px;
+	top: 250px;
+	right: 0px;
 }
 
 #CS2102 {
 	position: fixed;
-	top: 450px;
-	left: 450px;
+	top: 200px;
+	right: 0px;
 }

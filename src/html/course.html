@@ -5,11 +5,13 @@
 	<script type="text/javascript" src = "../../libs/Backbone/backbone.js"></script>
 	<script type="text/javascript" src = "../../libs/Bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src = "../js/template/sidebar-view.js"></script>
+  <script type="text/javascript" src = "../js/template/module-review-template.js"></script>
   <script type="text/javascript" src = "../js/template/navigation-bar.js"></script>
   <script type="text/javascript" src = "../js/template/course-info-view.js"></script>
   <script type="text/javascript" src = "../js/views/courseViews.js"></script>
   <script type="text/javascript" src = "../js/routers/course.js"></script>
   <script type="text/javascript" src = "../js/database/courseDB.js"></script>
+  <script type="text/javascript" src = "../js/database/moduleReviewDB.js"></script>
   <script type="text/javascript">
   var navbarLoaded, sidebarLoaded;
   var app;
@@ -47,9 +49,7 @@
         </div>
       </div>
 
-      <div id = "menu-toggle">
-        <button class="btn btn-default" id="menu-toggle-button">Menu</button>
-      </div>
+      <div id="sidebar-toggle-area"></div>
 
       <a href="#CS2020/info"><button class="btn btn-default" id="CS2020">CS2020</button></a>
       <a href="#CS2102/info"><button class="btn btn-default" id="CS2102">CS2102</button></a>
@@ -62,14 +62,13 @@
         $("#wrapper").toggleClass("toggled");
     };
 
-    $("#menu-toggle").hover(function(e) {
-      showSidebar(e);
-    });
-
     $("#sidebar-wrapper").hover(function(e) {
       showSidebar(e);
     });
 
+    $("#sidebar-toggle-area").hover(function(e){
+      showSidebar(e);
+    });
   </script>
 
 </body>
