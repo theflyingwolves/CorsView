@@ -1,3 +1,5 @@
+import ../utility/httpUtility.js;
+
 var router = Backbone.Router.extend({
 	routes:{
 	'':'home',
@@ -16,8 +18,18 @@ var router = Backbone.Router.extend({
 	loadModuleInfo: function(moduleCode){
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
-		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		this.infoView.render(moduleCode);
+		var httpRequestData = generateModInfoReqData(moduleCode);
+		var httpRequestUrl = generateModInfoReqUrl(moduleCode);
+		$.get({
+			url:httpRequestUrl,
+			data:httpRequestData,
+			success:function(data){
+				alert("Data Received");
+				alert(JSON.stringify(data));
+			}
+		});
+		//this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		//this.infoView.render(moduleCode);
 	},
 
 	loadModuleReview:function(moduleCode){

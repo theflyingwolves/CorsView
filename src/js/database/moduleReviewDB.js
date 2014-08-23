@@ -21,10 +21,10 @@ var moduleReviewData = [
 },
 
 {
-	moduleCode:"MA1010",
-	moduleReview:["Just some randome review for MA1010",
-								"Some random review for MA1010",
-								"Random review for MA1010"]
+	moduleCode:"MA1100",
+	moduleReview:["Just some randome review for MA1100",
+								"Some random review for MA1100",
+								"Random review for MA1100"]
 }];
 
 var ReviewDB = Backbone.Collection.extend({});
