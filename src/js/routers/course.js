@@ -19,9 +19,9 @@ var router = Backbone.Router.extend({
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode);
-		var httpRequestUrl = generateModInfoReqUrl(moduleCode);
+		var serverUrl = getServerUrl();
 		$.get({
-			url:httpRequestUrl,
+			url:serverUrl,
 			data:httpRequestData,
 			success:function(data){
 				alert("Data Received");
