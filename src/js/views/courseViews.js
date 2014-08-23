@@ -30,6 +30,18 @@ var courseReviewView = Backbone.View.extend({
 	}
 });
 
+var courseResourceView = Backbone.View.extend({
+	render:function(moduleCode){
+		var resourceData = this.collection.where({
+			moduleCode:moduleCode
+		})[0];
+		// alert(JSON.stringify(resourceData));
+		var resourceContentHtml = generateResourceContentHtml(resourceData.get("moduleResource"));
+		var template = _.template(resourceContentHtml,{});
+		this.$el.html(template);
+	}
+});
+
 var navBarView = Backbone.View.extend({
 	render:function(){
 		var template = _.template(navBarHtml,{});

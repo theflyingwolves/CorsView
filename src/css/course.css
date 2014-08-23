@@ -38,7 +38,7 @@
 	left: 0px;
 }
 
-.review-box {
+.resource-box, .review-box {
 	min-height: 100px;
 	background-color: rgba(1,0,0,0.05);
 	margin: 30px 10px;
