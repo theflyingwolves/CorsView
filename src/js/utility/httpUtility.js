@@ -1,6 +1,6 @@
 // Server Url
 var getServerUrl = function(){
-	return "../../../api/index.php";
+	return "../../../api/";
 };
 
 // Module Info
@@ -15,7 +15,6 @@ var generateModInfoReqData = function(moduleCode, content){
 var generateModInfoReqUrl = function(moduleCode){
 	return "api/modules/"+moduleCode;
 };
-
 
 // Module Review
 var generateModReviewReqData = function(moduleCode, content){

@@ -1,5 +1,6 @@
 <?php
 
+//$requestURI = explode('/', $_SERVER['REQUEST_URI']);
 // $requestURI = explode('/', $_SERVER['REQUEST_URI']);
 $requestURI = explode('/', $_GET['url']);
 
