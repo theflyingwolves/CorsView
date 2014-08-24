@@ -30,18 +30,27 @@ function module_update(){
             echo $module->ModuleTitle ."<br>";
             echo $module->ModuleDescription ."<br>";
             echo "<br>";
-
-            date_default_timezone_set("Asia/Singapore"); 
-            $new_insert_query = sprintf("INSERT INTO ". MODULES_TABLE ." (Module_Code,Module_Title,Module_Description,Created_TIme) VALUES ('%s','%s','%s','%s')",
+            
+      //      $new_insert_query = sprintf("INSERT INTO ". MODULES_TABLE ." (Module_Code,Module_Title,Module_Year,Module_Sem,Faculty,Department,Module_Description,
+       //         Module_Credit,Workload,Pre_requisite,Co_requisite,Created_TIme) VALUES ('%s','%s','%s','%s')",
+          $new_insert_query = sprintf("INSERT INTO ". MODULES_TABLE ." (Module_Code,Module_Title,Module_Year,Module_Sem,Faculty,Department,Module_Description,
+                Module_Credit,Workload,Pre_requisite,Preclusion,Co_requisite,Created_TIme) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
                 $module->ModuleCode,
                 $module->ModuleTitle,
-                $module ->ModuleDescription,
+                $module->AcadYear,
+                $module->SemesterName,
+                $module->Faculty,
+                $module->Department,
+                $module->ModuleDescription,
+                $module->ModuleCredit,
+                $module->Workload,
+                $module->Prerequisite,
+                $module->Preclusion,
+                $module->Corequisite,
                 mysql_real_escape_string(date('Y-m-d H:i:s')));
-            echo $new_insert_query;
-            echo "<br>";
 
-          //  $new_insert_query = 
-           //     "INSERT INTO " .MODULES_TABLE. " (Module_Code,Module_Title,Module_Description,Created_Time,Modified_Time) VALUES (" .$module->ModuleCode. "," .$module->ModuleTitle. "," .$module->ModuleDescription. ",'2014-1-1 1:1:1','2014-2-2 2:2:2')";
+          //$new_insert_query = 
+          //      "INSERT INTO " .MODULES_TABLE. " (Module_Code,Module_Title,Module_Description,Created_Time,Modified_Time) VALUES (" .$module->ModuleCode. "," .$module->ModuleTitle. "," .$module->ModuleDescription. ",'2014-1-1 1:1:1','2014-2-2 2:2:2')";
             mysql_query($new_insert_query,$con);
            // echo "finish";
         }
