@@ -1,0 +1,88 @@
+#searchText {
+	width: 100%;
+	min-width: 600;
+	max-width: 600;
+}
+
+#searchDiv {
+	
+}
+
+#module-info {
+	text-align: justify;
+	font-size: 15px;
+}
+
+#menu-toggle {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+#menu-toggle-button {
+    width: 200%;
+}
+
+#review-content {
+	text-align: justify;
+	font-size: 15px;
+	font-family: sans-serif;
+}
+
+#sidebar-toggle-area {
+	height: 100%;
+	min-height: 100px;
+	min-width: 10px;
+	position: fixed;
+	top:0px;
+	left: 0px;
+}
+
+.resource-box, .review-box {
+	min-height: 100px;
+	background-color: rgba(1,0,0,0.05);
+	margin: 30px 10px;
+	padding: 10px;
+  border-width:4px;
+  border-style:solid;
+  border-bottom-color:#aaa;
+  border-right-color:#aaa;
+  border-top-color:#ddd;
+  border-left-color:#ddd;
+  border-radius:3px
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+
+.jumbotron {
+	padding-top: 3em;
+}
+
+.module-subheading {
+	padding-top: 0.01em;
+	padding-bottom: 0.01em;
+}
+
+#CS2020 {
+	position: fixed;
+	top: 250px;
+	right: 0px;
+}
+
+#CS2102 {
+	position: fixed;
+	top: 200px;
+	right: 0px;
+}
+
+#MA1010 {
+	position: fixed;
+	top: 300px;
+	right: 0px;
+}
+
+#MA3238 {
+	position: fixed;
+	top: 350px;
+	right: 0px;
+}
