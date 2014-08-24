@@ -7,7 +7,7 @@ function connect_database(){
 	$db_username = "root";
 
 	$db_password = "12345";
-//	$db_password = "";
+	// $db_password = "";
 	$con = mysql_connect($db_hostname, $db_username, $db_password);
 
 	if (!$con) {

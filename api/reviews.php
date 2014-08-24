@@ -113,7 +113,3 @@ function deleteReview($reviewID){
             respondToClient(400,array('message' => $returnMessage));
     }
 }
-
-
-
-

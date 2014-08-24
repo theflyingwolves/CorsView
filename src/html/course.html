@@ -1,0 +1,80 @@
+<html>
+<head>
+	<script type="text/javascript" src = "../../libs/jQuery/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src = "../../libs/Underscore/underscore.js"></script>
+	<script type="text/javascript" src = "../../libs/Backbone/backbone.js"></script>
+	<script type="text/javascript" src = "../../libs/Bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src = "../js/utility/httpUtility.js"></script>
+  <script type="text/javascript" src = "../js/template/sidebar-view.js"></script>
+  <script type="text/javascript" src = "../js/template/module-review-template.js"></script>
+  <script type="text/javascript" src = "../js/template/module-resource-template.js"></script>
+  <script type="text/javascript" src = "../js/template/navigation-bar.js"></script>
+  <script type="text/javascript" src = "../js/template/course-info-view.js"></script>
+  <script type="text/javascript" src = "../js/views/courseViews.js"></script>
+  <script type="text/javascript" src = "../js/routers/course.js"></script>
+  <script type="text/javascript" src = "../js/database/courseDB.js"></script>
+  <script type="text/javascript" src = "../js/database/moduleReviewDB.js"></script>
+  <script type="text/javascript" src = "../js/database/moduleResourceDB.js"></script>
+  <script type="text/javascript">
+  var navbarLoaded, sidebarLoaded;
+  var app;
+  $(document).ready(function(){
+    app = new router;
+    Backbone.history.start();
+  });
+  </script>
+
+	<link href="../../libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/course.css">
+  <link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+	<title>CorsView</title>
+<body>
+  <div id="navigation-bar">
+  </div>
+  
+  <div id="wrapper" class="toggled">
+      <div id="sidebar-wrapper">
+      </div>
+
+      <div id="page-content-wrapper">
+        <div id="main-container">
+          <div class = "row">
+            <div class = "col-sm-6 col-md-3">
+            </div>
+
+            <div class = "col-sm-6 col-md-6" id="module-info-container">
+            </div>
+
+            <div class = "col-sm-6 col-md-3">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sidebar-toggle-area"></div>
+
+      <a href="#CS2020/info"><button class="btn btn-default" id="CS2020">CS2020</button></a>
+      <a href="#CS2102/info"><button class="btn btn-default" id="CS2102">CS2102</button></a>
+      <a href="#MA1100/info"><button class="btn btn-default" id="MA1010">MA1100</button></a>
+      <a href="#MA3238/info"><button class="btn btn-default" id="MA3238">MA3238</button></a>
+  </div>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    var showSidebar = function(e){
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    };
+
+    $("#sidebar-wrapper").hover(function(e) {
+      showSidebar(e);
+    });
+
+    $("#sidebar-toggle-area").hover(function(e){
+      showSidebar(e);
+    });
+
+  </script>
+
+</body>
+</html>

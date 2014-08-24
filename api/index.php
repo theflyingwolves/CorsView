@@ -1,6 +1,7 @@
 <?php
 
 //$requestURI = explode('/', $_SERVER['REQUEST_URI']);
+// $requestURI = explode('/', $_SERVER['REQUEST_URI']);
 $requestURI = explode('/', $_GET['url']);
 
 //current api call starts with "localhost/corsview/api/..."
