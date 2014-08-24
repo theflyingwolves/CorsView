@@ -1,3 +1,4 @@
+var globalModuleCode;
 var router = Backbone.Router.extend({
 	routes:{
 	'':'home',
@@ -15,40 +16,50 @@ var router = Backbone.Router.extend({
 	},
 
 	loadModuleInfo: function(moduleCode){
+		globalModuleCode = moduleCode;
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode, {});
 		var serverUrl = getServerUrl();
-		// $.get({
+		// alert(serverUrl);
+		// $.ajax({
 		// 	url:serverUrl,
 		// 	data:httpRequestData,
 		// 	success:function(data){
 		// 		alert("Data Received");
 		// 		alert(JSON.stringify(data));
-		// 		var moduledb = data;
-		// 		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// 		this.infoView.render(moduleCode);
+		// 		// var moduledb = data;
+		// 		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// 		// this.infoView.render(moduleCode);
 		// 	}
 		// });
 
 		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
 		this.infoView.render(moduleCode);
+
+		initEventListeners();
 	},
 
 	loadModuleReview:function(moduleCode){
+		globalModuleCode = moduleCode;
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
 		var moduleReview = moduleReviewDB;
 		this.reviewView = new courseReviewView({el:$("#module-info-container"),collection:moduleReview});
 		this.reviewView.render(moduleCode);
+
+		initEventListeners();
 	},
 
 	loadModuleResource:function(moduleCode){
+		globalModuleCode = moduleCode;
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
 		var moduleResource = moduleResourceDB;
 		this.resourceView = new courseResourceView({el:$("#module-info-container"),collection:moduleResource});
 		this.resourceView.render(moduleCode);
+
+		initEventListeners();
 	}
 });
 
@@ -60,10 +71,37 @@ var resetWrapper = function(){
 
 var loadNavBar = function(){
 		this.navigationBarView = new navBarView({el:$("#navigation-bar")});
-		this.navigationBarView.render();
+		this.navigationBarView.render(globalModuleCode);
 };
 
 var loadSidebarWrapper = function(moduleCode){
 	this.sidebarView = new sideBarView({el:$("#sidebar-wrapper")});
 	this.sidebarView.render(moduleCode);
+};
+
+var initEventListeners = function(){
+	$("#search-button").unbind("click");
+	$("#search-button").click(function(e){
+		var serverUrl = getServerUrl();
+		var moduleCode = $("#search-text").val().toUpperCase();
+		if(moduleCode.length > 0){
+			var httpRequestData = generateModInfoReqData(moduleCode,{});
+			// $.ajax({
+			// 	url:serverUrl,
+			// 	data:httpRequestData,
+			// 	success:function(data){
+			// 		alert(JSON.stringify(data));
+			// 	}
+			// });
+			alert(serverUrl+" \n"+JSON.stringify(httpRequestData));
+		}
+	});
+
+	$(".review-like-button").click(function(e){
+		alert("liked "+e.target.id);
+	});
+
+	$(".review-dislike-button").click(function(e){
+		alert("disliked "+e.target.id);
+	});
 };

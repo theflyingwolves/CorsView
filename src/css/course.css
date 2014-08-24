@@ -1,4 +1,4 @@
-#searchText {
+#search-text {
 	width: 100%;
 	min-width: 600;
 	max-width: 600;
@@ -36,6 +36,19 @@
 	position: fixed;
 	top:0px;
 	left: 0px;
+}
+
+
+#review-submit-button {
+	margin: 10px;
+}
+
+#add-review-textbox {
+	min-height: 100px;
+}
+
+#add-review-div {
+	margin: 0px -5px;
 }
 
 .resource-box, .review-box {

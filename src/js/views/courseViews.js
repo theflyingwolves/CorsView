@@ -43,9 +43,9 @@ var courseResourceView = Backbone.View.extend({
 });
 
 var navBarView = Backbone.View.extend({
-	render:function(){
+	render:function(moduleCode){
 		var template = _.template(navBarHtml,{});
-		this.$el.html(template);	
+		this.$el.html(template);
 	}
 });
 

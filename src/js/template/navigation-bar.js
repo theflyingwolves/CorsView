@@ -12,9 +12,9 @@ var navBarHtml = "<nav class=\"navbar-inverse navbar-default navbar-fixed-top\" 
     "<div class=\"collapse navbar-collapse\">"+
       "<form class=\"navbar-form navbar-left\" role=\"search\">"+
         "<div class=\"form-group\" id=\"searchDiv\">"+
-          "<input type=\"text\" class=\"form-control\"  id=\"searchText\" placeholder=\"Search Modules\">"+
+          "<input type=\"text\" class=\"form-control\"  id=\"search-text\" placeholder=\"Search Modules\" name=\"moduleCode\">"+
         "</div>"+
-        "<button type=\"submit\" class=\"btn btn-default\">Search</button>"+
+        "<button type=\"submit\" class=\"btn btn-default\" id=\"search-button\">Search</button>"+
       "</form>"+
       "<ul class=\"nav navbar-nav navbar-right\">"+
         "<li class=\"dropdown\">"+
