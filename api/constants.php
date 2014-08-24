@@ -7,6 +7,7 @@ define("MODULES_TABLE", "Modules");
 define("MODULE_REVIEWS_TABLE", "Module_Reviews");
 define("DOCUMENTS_TABLE", "Documents");
 define("COMMENTS_TABLE", "Comments");
+define("DOCUMENTS_COMMENTS_TABLE", "documentsComments");
 define("ENROLLMENTS_TABLE","Enrollments");
 
 ?>
