@@ -1,6 +1,6 @@
 // Server Url
 var getServerUrl = function(){
-	return "../../../api/";
+	return "../../api/index.php";
 };
 
 // Module Info

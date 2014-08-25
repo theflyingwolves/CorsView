@@ -22,7 +22,6 @@ var router = Backbone.Router.extend({
 		loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode, {});
 		var serverUrl = getServerUrl();
-		alert(serverUrl);
 		$.ajax({
 			url:serverUrl,
 			data:httpRequestData,
@@ -37,8 +36,24 @@ var router = Backbone.Router.extend({
 			}
 		});
 
+		// // this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// 		// alert("Data Received");
+		// 		// alert(JSON.stringify(data));
+		// 		var moduledb = data;
+		// 		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// 		console.log("returned");
+		// 		this.infoView.render(moduleCode);
+		// 	},
+		// 	error : function(err, req) {
+		//         // alert("Your browser broke!");
+		//         console.log(err);
+		//         console.log(req);
+		//     }
+		// });
+
 		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// this.infoView.render(moduleCode);
+		// // console.log("dummy");
+		// // this.infoView.render(moduleCode);
 
 		initEventListeners();
 	},
@@ -85,18 +100,27 @@ var loadSidebarWrapper = function(moduleCode){
 var initEventListeners = function(){
 	$("#search-button").unbind("click");
 	$("#search-button").click(function(e){
+		// alert("event detected");
 		var serverUrl = getServerUrl();
+		console.log(serverUrl);
 		var moduleCode = $("#search-text").val().toUpperCase();
+		console.log(moduleCode);
 		if(moduleCode.length > 0){
+			console.log("length > 0");
 			var httpRequestData = generateModInfoReqData(moduleCode,{});
-			// $.ajax({
-			// 	url:serverUrl,
-			// 	data:httpRequestData,
-			// 	success:function(data){
-			// 		alert(JSON.stringify(data));
-			// 	}
-			// });
-			alert(serverUrl+" \n"+JSON.stringify(httpRequestData));
+			$.ajax({
+				url:serverUrl,
+				data:httpRequestData,
+				success:function(data){
+					// alert("hello");
+					// alert(JSON.stringify(data));
+					var moduledb = data;
+					this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+					console.log("returned");
+					this.infoView.render(moduleCode);
+				}
+			});
+			// alert(serverUrl+" \n"+JSON.stringify(httpRequestData));
 		}
 	});
 
