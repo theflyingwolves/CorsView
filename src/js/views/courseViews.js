@@ -1,16 +1,31 @@
 var courseInfoView = Backbone.View.extend({
 	render:function(moduleCode){
-		var moduleData = this.collection.where({
-			moduleCode:moduleCode
-		})[0];
+		// var moduleData = this.collection.where({
+		// 	moduleCode:moduleCode
+		// })[0];
+		
+		// var pageParams = {
+		// 	moduleCode:moduleData.get("moduleCode"),
+		// 	moduleTitle:moduleData.get("moduleTitle"),
+		// 	moduleDescription:moduleData.get("moduleDescription"),
+		// 	modulePrerequisite:moduleData.get("modulePrerequisite"),
+		// 	modulePreclusion:moduleData.get("modulePreclusion"),
+		// 	moduleCredit:moduleData.get("moduleCredit")
+		// };
+
+		// console.log(pageParams);
+
+		var moduleData = JSON.parse(this.collection);
+		console.log(moduleData);		
 		var pageParams = {
-			moduleCode:moduleData.get("moduleCode"),
-			moduleTitle:moduleData.get("moduleTitle"),
-			moduleDescription:moduleData.get("moduleDescription"),
-			modulePrerequisite:moduleData.get("modulePrerequisite"),
-			modulePreclusion:moduleData.get("modulePreclusion"),
-			moduleCredit:moduleData.get("moduleCredit")
+			moduleCode:moduleData['moduleCode'],
+			moduleTitle:moduleData.moduleTitle,
+			moduleDescription:moduleData.moduleDescription,
+			modulePrerequisite:moduleData.modulePrerequisite,
+			modulePreclusion:moduleData.modulePreclusion,
+			moduleCredit:moduleData.moduleCredit
 		};
+		console.log(pageParams);
 		var template = _.template(courseInfoViewHtml,pageParams);
 		this.$el.html(template);
 	}
