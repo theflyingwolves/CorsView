@@ -128,19 +128,19 @@ function database_setup(){
         )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
     mysql_query($new_table_query,$con);
 
-        $new_table_query="CREATE TABLE IF NOT EXISTS `" . MODULE_LIKES_TABLE . "`(
-        `Like_ID` int(11) NOT NULL AUTO_INCREMENT,
-        `Module_ID` int(11) NOT NULL,
-        `Module_Code` varchar(16) NOT NULL,
-        `Module_Title` varchar(128) NOT NULL, 
-        `User_ID` int(11) NOT NULL,
-        `Like_Dislike_Neutral` tinyint(1) NOT NULL,
-        `Created_Time` datetime NOT NULL,
-        `Deleted` int(1) DEFAULT '0',
-        PRIMARY KEY(`Like_ID`),
-        FOREIGN KEY(`User_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE
-        )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
-    mysql_query($new_table_query,$con);
+    //     $new_table_query="CREATE TABLE IF NOT EXISTS `" . MODULE_LIKES_TABLE . "`(
+    //     `Like_ID` int(11) NOT NULL AUTO_INCREMENT,
+    //     `Module_ID` int(11) NOT NULL,
+    //     `Module_Code` varchar(16) NOT NULL,
+    //     `Module_Title` varchar(128) NOT NULL, 
+    //     `User_ID` int(11) NOT NULL,
+    //     `Like_Dislike_Neutral` tinyint(1) NOT NULL,
+    //     `Created_Time` datetime NOT NULL,
+    //     `Deleted` int(1) DEFAULT '0',
+    //     PRIMARY KEY(`Like_ID`),
+    //     FOREIGN KEY(`User_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE
+    //     )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
+    // mysql_query($new_table_query,$con);
 /*
             $new_table_query="CREATE TABLE IF NOT EXISTS `" . REVIEW_LIKES_TABLE . "`(
         `Like_ID` int(11) NOT NULL AUTO_INCREMENT,

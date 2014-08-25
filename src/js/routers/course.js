@@ -92,7 +92,7 @@ var loadSidebarWrapper = function(moduleCode){
 var initEventListeners = function(){
 	$("#search-button").unbind("click");
 	$("#search-button").click(function(e){
-		alert("event detected");
+		// alert("event detected");
 		var serverUrl = getServerUrl();
 		console.log(serverUrl);
 		var moduleCode = $("#search-text").val().toUpperCase();
@@ -104,7 +104,7 @@ var initEventListeners = function(){
 				url:serverUrl,
 				data:httpRequestData,
 				success:function(data){
-					alert("hello");
+					// alert("hello");
 					// alert(JSON.stringify(data));
 					var moduledb = data;
 					this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
