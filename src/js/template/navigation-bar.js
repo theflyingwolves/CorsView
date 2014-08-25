@@ -1,3 +1,5 @@
+var generateNavBarHtml = function(){
+  var userName = FBUserName;
 var navBarHtml = "<nav class=\"navbar-inverse navbar-default navbar-fixed-top\" role=\"navigation\">"+
   "<div class=\"container-fluid\">"+
     "<div class=\"navbar-header\">"+
@@ -16,18 +18,28 @@ var navBarHtml = "<nav class=\"navbar-inverse navbar-default navbar-fixed-top\" 
         "</div>"+
         "<button type=\"submit\" class=\"btn btn-default\" id=\"search-button\">Search</button>"+
       "</form>"+
-      "<ul class=\"nav navbar-nav navbar-right\">"+
-        "<li class=\"dropdown\">"+
-          "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><img src=\"../../res/img/user.png\" width=20><span class=\"caret\"></span></a>"+
-          "<ul class=\"dropdown-menu\" role=\"menu\">"+
-            "<li><a href=\"#\">Action</a></li>"+
-            "<li><a href=\"#\">Another action</a></li>"+
-            "<li><a href=\"#\">Something else here</a></li>"+
-            "<li class=\"divider\"></li>"+
-            "<li><a href=\"#\">Separated link</a></li>"+
+      "<div class=\"nav navbar-nav navbar-right row\" id=\"user-info-navbar\">"+
+        "<div class=\"col-sm-6 col-md-6\">"+
+          "<fb:login-button scope=\"public_profile,email\" id=\"fb-login-button\" onlogin=\"checkLoginState();\">"+
+          "</fb:login-button>"+
+        "</div>"+
+        "<div class=\"col-sm-6 col-md-6\">"+
+          "<ul class=\"nav navbar-nav navbar-right\">"+
+            "<li class=\"dropdown\">"+
+              "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><img src=\"../../res/img/user.png\" width=20><span class=\"caret\"></span></a>"+
+              "<ul class=\"dropdown-menu\" role=\"menu\">"+
+                "<li id=\"fb-user-link\"></li>"+
+                "<li><a href=\"#\">Another action</a></li>"+
+                "<li><a href=\"#\">Something else here</a></li>"+
+                "<li class=\"divider\"></li>"+
+                "<li><a href=\"#\" onclick=\"fblogout()\">Log Out</a></li>"+
+              "</ul>"+
+            "</li>"+
           "</ul>"+
-        "</li>"+
-      "</ul>"+
+        "</div>"+
+      "</div>"+
     "</div>"+
   "</div>"+
   "</nav>";
+  return navBarHtml;
+};

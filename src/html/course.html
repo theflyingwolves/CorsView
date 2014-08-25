@@ -15,6 +15,7 @@
   <script type="text/javascript" src = "../js/database/courseDB.js"></script>
   <script type="text/javascript" src = "../js/database/moduleReviewDB.js"></script>
   <script type="text/javascript" src = "../js/database/moduleResourceDB.js"></script>
+  <script type="text/javascript" src = "../js/facebook/fbLogin.js"></script>
   <script type="text/javascript">
   var navbarLoaded, sidebarLoaded;
   var app;
@@ -22,6 +23,10 @@
     app = new router;
     Backbone.history.start();
   });
+  </script>
+
+  <script type="text/javascript">
+
   </script>
 
 	<link href="../../libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -57,7 +62,10 @@
       <a href="#CS2102/info"><button class="btn btn-default" id="CS2102">CS2102</button></a>
       <a href="#MA1100/info"><button class="btn btn-default" id="MA1010">MA1100</button></a>
       <a href="#MA3238/info"><button class="btn btn-default" id="MA3238">MA3238</button></a>
+      <button class="btn btn-default" id="logout-fb" onclick="fblogout()">Log Out</button>
   </div>
+
+  <!-- <div id="status"></div> -->
 
   <!-- Menu Toggle Script -->
   <script>
@@ -73,7 +81,6 @@
     $("#sidebar-toggle-area").hover(function(e){
       showSidebar(e);
     });
-
   </script>
 
 </body>

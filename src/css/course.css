@@ -13,6 +13,12 @@
 	font-size: 15px;
 }
 
+#status {
+	border:2px solid;
+	top: 300px;
+	left: 300px;
+}
+
 #menu-toggle {
     position: fixed;
     bottom: 0px;
@@ -97,5 +103,11 @@
 #MA3238 {
 	position: fixed;
 	top: 350px;
+	right: 0px;
+}
+
+#logout-fb {
+	position: fixed;
+	top: 400px;
 	right: 0px;
 }

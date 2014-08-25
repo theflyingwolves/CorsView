@@ -18,34 +18,26 @@ var router = Backbone.Router.extend({
 
 	loadModuleInfo: function(moduleCode){
 		globalModuleCode = moduleCode;
+		resetUrl();
 		resetWrapper();
 		loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode, {});
 		var serverUrl = getServerUrl();
-		console.log(serverUrl);
-		// alert(serverUrl);
-		console.log(httpRequestData);
 		$.ajax({
 			url:serverUrl,
 			data:httpRequestData,
 			success:function(data){
-				// alert("Data Received");
-				// alert(JSON.stringify(data));
 				var moduledb = data;
 				this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-				console.log("returned");
 				this.infoView.render(moduleCode);
 			},
 			error : function(err, req) {
-		        // alert("Your browser broke!");
 		        console.log(err);
 		        console.log(req);
-		    }
+		  }
 		});
 
-		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// console.log("dummy");
-		// this.infoView.render(moduleCode);
+		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
 
 		initEventListeners();
 	},
@@ -76,7 +68,7 @@ var router = Backbone.Router.extend({
 var resetWrapper = function(){
 		if(!$("#wrapper").hasClass("toggled")){
 			$($("#wrapper").addClass("toggled"));
-		}	
+		}
 };
 
 var loadNavBar = function(){
@@ -92,28 +84,23 @@ var loadSidebarWrapper = function(moduleCode){
 var initEventListeners = function(){
 	$("#search-button").unbind("click");
 	$("#search-button").click(function(e){
-		// alert("event detected");
-		var serverUrl = getServerUrl();
-		console.log(serverUrl);
+		// var serverUrl = getServerUrl();
+		// var moduleCode = $("#search-text").val().toUpperCase();
+		// if(moduleCode.length > 0){
+		// 	var httpRequestData = generateModInfoReqData(moduleCode,{});
+		// 	$.ajax({
+		// 		url:serverUrl,
+		// 		data:httpRequestData,
+		// 		success:function(data){
+		// 			var moduledb = data;
+		// 			this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// 			this.infoView.render(moduleCode);
+		// 		}
+		// 	});
+		// }
 		var moduleCode = $("#search-text").val().toUpperCase();
-		console.log(moduleCode);
-		if(moduleCode.length > 0){
-			console.log("length > 0");
-			var httpRequestData = generateModInfoReqData(moduleCode,{});
-			$.ajax({
-				url:serverUrl,
-				data:httpRequestData,
-				success:function(data){
-					// alert("hello");
-					// alert(JSON.stringify(data));
-					var moduledb = data;
-					this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-					console.log("returned");
-					this.infoView.render(moduleCode);
-				}
-			});
-			// alert(serverUrl+" \n"+JSON.stringify(httpRequestData));
-		}
+		globalModuleCode = moduleCode;
+		resetUrl();
 	});
 
 	$(".review-like-button").click(function(e){
@@ -123,4 +110,9 @@ var initEventListeners = function(){
 	$(".review-dislike-button").click(function(e){
 		alert("disliked "+e.target.id);
 	});
+};
+
+var resetUrl = function(){
+		var prevUrl = window.location.href;
+		window.location.href = prevUrl.substring(0,prevUrl.indexOf("?"))+"#"+globalModuleCode+"/info";
 };

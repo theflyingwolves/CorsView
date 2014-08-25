@@ -15,8 +15,7 @@ var courseInfoView = Backbone.View.extend({
 
 		// console.log(pageParams);
 
-		var moduleData = JSON.parse(this.collection);
-		console.log(moduleData);		
+		var moduleData = JSON.parse(this.collection);	
 		var pageParams = {
 			moduleCode:moduleData['moduleCode'],
 			moduleTitle:moduleData.moduleTitle,
@@ -25,7 +24,6 @@ var courseInfoView = Backbone.View.extend({
 			modulePreclusion:moduleData.modulePreclusion,
 			moduleCredit:moduleData.moduleCredit
 		};
-		console.log(pageParams);
 		var template = _.template(courseInfoViewHtml,pageParams);
 		this.$el.html(template);
 	}
@@ -33,8 +31,6 @@ var courseInfoView = Backbone.View.extend({
 
 var courseReviewView = Backbone.View.extend({
 	render:function(moduleCode){
-		// alert(JSON.stringify(this.collection));
-		// alert(moduleCode);
 		var reviewData = this.collection.where({
 			moduleCode:moduleCode
 		})[0];
@@ -59,6 +55,7 @@ var courseResourceView = Backbone.View.extend({
 
 var navBarView = Backbone.View.extend({
 	render:function(moduleCode){
+		var navBarHtml = generateNavBarHtml();
 		var template = _.template(navBarHtml,{});
 		this.$el.html(template);
 	}
