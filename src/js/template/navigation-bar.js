@@ -23,16 +23,16 @@ var navBarHtml = "<nav class=\"navbar-inverse navbar-default navbar-fixed-top\" 
           "<fb:login-button scope=\"public_profile,email\" id=\"fb-login-button\" onlogin=\"checkLoginState();\">"+
           "</fb:login-button>"+
         "</div>"+
-        "<div class=\"col-sm-6 col-md-6\">"+
+        "<div class=\"col-sm-6 col-md-6\" id=\"user-profile-dropdown\">"+
           "<ul class=\"nav navbar-nav navbar-right\">"+
             "<li class=\"dropdown\">"+
               "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><img src=\"../../res/img/user.png\" width=20><span class=\"caret\"></span></a>"+
               "<ul class=\"dropdown-menu\" role=\"menu\">"+
                 "<li id=\"fb-user-link\"></li>"+
-                "<li><a href=\"#\">Another action</a></li>"+
-                "<li><a href=\"#\">Something else here</a></li>"+
+                "<li><a href=\"#\">Profile</a></li>"+
+                "<li><a href=\"#\">Settings</a></li>"+
                 "<li class=\"divider\"></li>"+
-                "<li><a href=\"#\" onclick=\"fblogout()\">Log Out</a></li>"+
+                "<li id=\"fb-logout-navbar\"><a href=\"#\" onclick=\"fblogout()\">Log Out</a></li>"+
               "</ul>"+
             "</li>"+
           "</ul>"+

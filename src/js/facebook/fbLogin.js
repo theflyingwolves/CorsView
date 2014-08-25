@@ -9,17 +9,17 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      testAPI();
+      fblogin();
       $("#fb-login-button").hide();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+      // document.getElementById('status').innerHTML = 'Please log ' +
+        // 'into this app.';
     } else {
       // The person is not logged into Facebook, so we're not sure if
       // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
+      // document.getElementById('status').innerHTML = 'Please log ' +
+        // 'into Facebook.';
     }
   }
 
@@ -70,14 +70,16 @@
 
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
+  function fblogin() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       FBUserName = response.name;
       console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
+      // document.getElementById('status').innerHTML =
+        // 'Thanks for logging in, ' + response.name + '!';
       $("#fb-user-link").html("<a href=\"#\">"+FBUserName+"</a>");
+      // $("#fb-logout-navbar").show();
+      $("#user-profile-dropdown").show();
     });
   }
 
@@ -86,6 +88,7 @@
         console.log("Successfully Logout");
       });
       $("#fb-login-button").show();
-      $("#fb-user-link").html("");
+      // $("#fb-user-link").html("");
+      $("#user-profile-dropdown").hide();
       FBUserName = "";
   };
