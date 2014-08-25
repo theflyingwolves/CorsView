@@ -22,38 +22,30 @@ var router = Backbone.Router.extend({
 		loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode, {});
 		var serverUrl = getServerUrl();
+		console.log(serverUrl);
+		// alert(serverUrl);
+		console.log(httpRequestData);
 		$.ajax({
 			url:serverUrl,
 			data:httpRequestData,
 			success:function(data){
-				alert("Data Received");
-				alert(JSON.stringify(data));
-				
-				// To Be Changed
+				// alert("Data Received");
+				// alert(JSON.stringify(data));
 				var moduledb = data;
 				this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+				console.log("returned");
 				this.infoView.render(moduleCode);
-			}
+			},
+			error : function(err, req) {
+		        // alert("Your browser broke!");
+		        console.log(err);
+		        console.log(req);
+		    }
 		});
 
-		// // this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// 		// alert("Data Received");
-		// 		// alert(JSON.stringify(data));
-		// 		var moduledb = data;
-		// 		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// 		console.log("returned");
-		// 		this.infoView.render(moduleCode);
-		// 	},
-		// 	error : function(err, req) {
-		//         // alert("Your browser broke!");
-		//         console.log(err);
-		//         console.log(req);
-		//     }
-		// });
-
-		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// // console.log("dummy");
-		// // this.infoView.render(moduleCode);
+		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// console.log("dummy");
+		// this.infoView.render(moduleCode);
 
 		initEventListeners();
 	},
