@@ -13,6 +13,7 @@ var router = Backbone.Router.extend({
 	},
 
 	home: function(){
+		initEventListeners();
 	},
 
 	loadModuleInfo: function(moduleCode){
@@ -21,21 +22,23 @@ var router = Backbone.Router.extend({
 		loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode, {});
 		var serverUrl = getServerUrl();
-		// alert(serverUrl);
-		// $.ajax({
-		// 	url:serverUrl,
-		// 	data:httpRequestData,
-		// 	success:function(data){
-		// 		alert("Data Received");
-		// 		alert(JSON.stringify(data));
-		// 		// var moduledb = data;
-		// 		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		// 		// this.infoView.render(moduleCode);
-		// 	}
-		// });
+		alert(serverUrl);
+		$.ajax({
+			url:serverUrl,
+			data:httpRequestData,
+			success:function(data){
+				alert("Data Received");
+				alert(JSON.stringify(data));
+				
+				// To Be Changed
+				var moduledb = data;
+				this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+				this.infoView.render(moduleCode);
+			}
+		});
 
-		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-		this.infoView.render(moduleCode);
+		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// this.infoView.render(moduleCode);
 
 		initEventListeners();
 	},
