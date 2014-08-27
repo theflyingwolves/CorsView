@@ -17,6 +17,7 @@ function module_update(){
 
     $record = array();
     $count = 0;
+    date_default_timezone_set('UTC');
 
     foreach ($result as $module){
         $code = $module->ModuleCode;
@@ -29,30 +30,40 @@ function module_update(){
             echo $code ."<br>";
             echo $module->ModuleTitle ."<br>";
             echo $module->ModuleDescription ."<br>";
+            // echo $module->AcadYear ."<br>";
+            // echo $module->SemesterName ."<br>";
+            // echo $module->Faculty ."<br>";
+            // echo $module->Department ."<br>";
+            // echo $module->ModuleCredit ."<br>";
+            // echo $module->Workload ."<br>";
+            // echo $module->Prerequisite ."<br>";
+            // echo $module->Preclusion ."<br>";
+            // echo $module->Corequisite ."<br>";
             echo "<br>";
-            
+
       //      $new_insert_query = sprintf("INSERT INTO ". MODULES_TABLE ." (Module_Code,Module_Title,Module_Year,Module_Sem,Faculty,Department,Module_Description,
        //         Module_Credit,Workload,Pre_requisite,Co_requisite,Created_TIme) VALUES ('%s','%s','%s','%s')",
           $new_insert_query = sprintf("INSERT INTO ". MODULES_TABLE ." (Module_Code,Module_Title,Module_Year,Module_Sem,Faculty,Department,Module_Description,
                 Module_Credit,Workload,Pre_requisite,Preclusion,Co_requisite,Created_TIme) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-                $module->ModuleCode,
-                $module->ModuleTitle,
-                $module->AcadYear,
-                $module->SemesterName,
-                $module->Faculty,
-                $module->Department,
-                $module->ModuleDescription,
-                $module->ModuleCredit,
-                $module->Workload,
-                $module->Prerequisite,
-                $module->Preclusion,
-                $module->Corequisite,
+                mysql_real_escape_string($module->ModuleCode),
+                mysql_real_escape_string($module->ModuleTitle),
+                mysql_real_escape_string($module->AcadYear),
+                mysql_real_escape_string($module->SemesterName),
+                mysql_real_escape_string($module->Faculty),
+                mysql_real_escape_string($module->Department),
+                mysql_real_escape_string($module->ModuleDescription),
+                mysql_real_escape_string($module->ModuleCredit),
+                mysql_real_escape_string($module->Workload),
+                mysql_real_escape_string($module->Prerequisite),
+                mysql_real_escape_string($module->Preclusion),
+                mysql_real_escape_string($module->Corequisite),
                 mysql_real_escape_string(date('Y-m-d H:i:s')));
+
 
           //$new_insert_query = 
           //      "INSERT INTO " .MODULES_TABLE. " (Module_Code,Module_Title,Module_Description,Created_Time,Modified_Time) VALUES (" .$module->ModuleCode. "," .$module->ModuleTitle. "," .$module->ModuleDescription. ",'2014-1-1 1:1:1','2014-2-2 2:2:2')";
+            
             mysql_query($new_insert_query,$con);
-           // echo "finish";
         }
     }
     
