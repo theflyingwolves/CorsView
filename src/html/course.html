@@ -16,6 +16,8 @@
   <script type="text/javascript" src = "../js/database/moduleReviewDB.js"></script>
   <script type="text/javascript" src = "../js/database/moduleResourceDB.js"></script>
   <script type="text/javascript" src = "../js/facebook/fbLogin.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <script type="text/javascript">
   var navbarLoaded, sidebarLoaded;
   var app;
@@ -26,12 +28,31 @@
   </script>
 
   <script type="text/javascript">
+    $(document).ready(function(){
+      var available_tags = [
+      "CS2020",
+      "MA3238",
+      "MA2101",
+      "CS2102",
+      "CS1101S",
+      "IS1103FC",
+      "ST2132"
+      ];
+
+      $("#search-text").autocomplete({
+        source:available_tags
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
 
   </script>
 
 	<link href="../../libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/course.css">
   <link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 	<title>CorsView</title>
 <body>
   <div id="navigation-bar">
@@ -58,10 +79,10 @@
 
       <div id="sidebar-toggle-area"></div>
 
-      <a href="#CS2020/info"><button class="btn btn-default" id="CS2020">CS2020</button></a>
+<!--       <a href="#CS2020/info"><button class="btn btn-default" id="CS2020">CS2020</button></a>
       <a href="#CS2102/info"><button class="btn btn-default" id="CS2102">CS2102</button></a>
       <a href="#MA1100/info"><button class="btn btn-default" id="MA1010">MA1100</button></a>
-      <a href="#MA3238/info"><button class="btn btn-default" id="MA3238">MA3238</button></a>
+      <a href="#MA3238/info"><button class="btn btn-default" id="MA3238">MA3238</button></a> -->
   </div>
 
   <!-- <div id="status"></div> -->

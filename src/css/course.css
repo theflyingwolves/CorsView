@@ -2,10 +2,7 @@
 	width: 100%;
 	min-width: 600;
 	max-width: 600;
-}
-
-#searchDiv {
-	
+	/*z-index: 999;*/
 }
 
 #module-info {
