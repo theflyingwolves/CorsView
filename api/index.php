@@ -18,6 +18,10 @@ switch($command[$addr_offset + 0]){
                         switch($command[$addr_offset+1]){
                                     case '':
                                                 break;
+                                    case 'search':
+                                          require_once('modules.php');
+                                          getModuleInfoForSearch();
+                                                break;
                                     default:    //module code exists
                                                 switch($command[$addr_offset + 2]){
                                                             case '':
@@ -158,7 +162,6 @@ switch($command[$addr_offset + 0]){
                                                                                                       }
                                                                                                       break;
                                                                                                 case 'delete':
-                                                                                                                  echo "hah";
                                                                                                                   require_once('documents.php');
                                                                                                                   deleteDocument($command[$addr_offset+3],$command[$addr_offset+5],$command[$addr_offset+6]);
                                                                                                       break;
@@ -235,7 +238,9 @@ switch($command[$addr_offset + 0]){
                                           case 'DELETE':
                                                 require_once('users.php');
                                                 $user = json_decode(file_get_contents('php://input'),true);
-                                                userLogout($user);      
+                                                userLogout($user);     
+                                         case 'GET':
+                                                require_once('users.php'); 
                                           default:
                                                 break;
                                     }
