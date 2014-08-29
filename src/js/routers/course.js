@@ -20,24 +20,25 @@ var router = Backbone.Router.extend({
 		globalModuleCode = moduleCode;
 		resetUrl();
 		resetWrapper();
-		loadSidebarWrapper(moduleCode);
+		//loadSidebarWrapper(moduleCode);
 		var httpRequestData = generateModInfoReqData(moduleCode, {});
 		var serverUrl = getServerUrl();
-		$.ajax({
-			url:serverUrl,
-			data:httpRequestData,
-			success:function(data){
-				var moduledb = data;
-				this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
-				this.infoView.render(moduleCode);
-			},
-			error : function(err, req) {
-		        console.log(err);
-		        console.log(req);
-		  }
-		});
+		// $.ajax({
+		// 	url:serverUrl,
+		// 	data:httpRequestData,
+		// 	success:function(data){
+		// 		var moduledb = data;
+		// 		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		// 		this.infoView.render(moduleCode);
+		// 	},
+		// 	error : function(err, req) {
+		//         console.log(err);
+		//         console.log(req);
+		//   }
+		// });
 
-		// this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		this.infoView = new courseInfoView({el:$("#module-info-container"), collection:moduledb});
+		this.infoView.render(moduleCode);
 
 		initEventListeners();
 	},

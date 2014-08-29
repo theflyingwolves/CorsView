@@ -1,0 +1,10 @@
+#main-container {
+	background-color: #E6E6E6;
+	border:1px solid;
+	height: 100%;
+}
+
+.data-box {
+	border:1px solid;
+	margin: 30px
+}

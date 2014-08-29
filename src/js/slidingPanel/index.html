@@ -1,0 +1,35 @@
+<html>
+<head>
+	<script type="text/javascript" src="database.js"></script>
+	<script type="text/javascript" src="libs/jQuery/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="libs/Bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="slidingPanel.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		slidingPanelInit(database,"box-container","prev-btn","next-btn", 2);
+	});
+	</script>
+
+	<link href="libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
+	<link href="animate.css" rel="stylesheet">
+
+	<title>Layout Test</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class = "col-md-1">
+			<button class="btn btn-default" id="prev-btn">Prev</button>
+		</div>
+		<div class = "col-md-10 container" id="main-container">
+			<div class="row" id="box-container">
+			</div>
+		</div>
+		<div class = "col-md-1">
+			<button class="btn btn-default" id="next-btn">Next</button>
+		</div>
+	</div>
+</div>
+</body>
+</html>

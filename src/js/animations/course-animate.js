@@ -1,5 +1,4 @@
 $('.modulebook').mouseenter(function(){
-
 	$('.modulebook').not(this).animate({
 		opacity:'0.4'
 	},300);
@@ -8,20 +7,19 @@ $('.modulebook').mouseenter(function(){
 
 $('.modulebook').click(function(){
 	slideModuleOut($(this));
-	var moduleCode = $(this).find("h2").val().toUpperCase();
-	globalModuleCode = moduleCode;
-	resetUrl();
-	console.log("click"+$(this).attr("class"));
-})
+	var moduleCode = $(this).find("h2").text().toUpperCase();
+	console.log("The module code clicked is" + moduleCode);
 
-$(".sidebar-module").click(function(){
-		console.log("clicked2");
-
+	var currentUrl = window.location.href;
+	window.location.href = (currentUrl.substring(0,currentUrl.indexOf("#"))) + ("#"+moduleCode);
+	// resetUrl();
 })
 
 function slideModuleOut(moduleBook) {
 	var offsetLeft = moduleBook.offset().left;
-	setBgcolor(moduleBook);
+	var lightColor = moduleBook.css("background-color");
+	var darkColor = setBgcolor(moduleBook);
+	var title = moduleBook.find("h1").text();
 	moduleBook.prevAll().animate({
 		left: -offsetLeft
 	},300);
@@ -33,14 +31,36 @@ function slideModuleOut(moduleBook) {
 		width:'20px',
 		left: -offsetLeft
 	},300,	function(){
-		moduleBook.removeClass("modulebook");
-		moduleBook.addClass("sidebar-module");
-				console.log("before "+moduleBook.attr("class"));
+		$(".moduleshelf").remove();
+		$("#page-content-wrapper").append("<div id=\"sidebar-module\"></div>")
+		$("#sidebar-module, #sidebar-wrapper").css("background-color",lightColor);
+		$("#page-content-wrapper").css("background-color",darkColor);
+		$("#sidebar-module").append("<h1>"+title+"</h1>");
+		verticalAlign($("#sidebar-module").find("h1"));
+		$("#page-content-wrapper").appendChild(slidingPanelViewHtml);
+		createSidebar();
+		slidingPanelInit(database,"box-container","prev-btn","next-btn", 2);
 }
 	);
 	moduleBook.nextAll().animate({
 		right:-$(window).width()-offsetLeft
 	});
+}
+
+function createSidebar(){
+	var showSidebar = function(e){
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    };
+
+    $("#sidebar-wrapper").hover(function(e) {
+      showSidebar(e);
+    });
+
+    $("#sidebar-toggle-area").hover(function(e){
+      showSidebar(e);
+      console.log("sidebar hovered");
+    });
 }
 
 function setBgcolor(moduleBook){
@@ -50,6 +70,7 @@ function setBgcolor(moduleBook){
     var lastComma = currentColor.lastIndexOf(')');
     var newColor = "rgba"+currentColor.slice(3, lastComma) + ", 0.3 )";
 	$(".moduleshelf").css("background-color", newColor);
+	return newColor;
 }
 
 function verticalAlign(moduleBook) {

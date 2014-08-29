@@ -15,7 +15,8 @@ var courseInfoView = Backbone.View.extend({
 
 		// console.log(pageParams);
 
-		var moduleData = JSON.parse(this.collection);	
+		// var moduleData = JSON.parse(this.collection);
+		var mdouleData = [];	
 		var pageParams = {
 			moduleCode:moduleData['moduleCode'],
 			moduleTitle:moduleData.moduleTitle,
