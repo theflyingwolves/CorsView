@@ -125,7 +125,7 @@ function modifyReview($reviewID, $newReview){
         }
 
         $newQuery = sprintf("UPDATE ". MODULE_REVIEWS_TABLE ." SET Review_Content = '%s' WHERE Review_ID = '%s' ",
-                mysql_real_escape_string($newReview['newContent']),
+                mysql_real_escape_string($newReview['newCommentContent']),
                 mysql_real_escape_string($reviewID));
 
         if(mysql_query($newQuery,$dbc)){

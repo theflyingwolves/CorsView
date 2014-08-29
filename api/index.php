@@ -110,10 +110,6 @@ switch($command[$addr_offset + 0]){
                                                                                                                                                       $newReviewComment = json_decode(file_get_contents('php://input'),true);
                                                                                                                                                       modifyReviewComment($command[$addr_offset+5],$newReviewComment);
                                                                                                                                                       break;
-                                                                                                                                          case 'DELETE':
-                                                                                                                                                      require_once('review_comments.php');
-                                                                                                                                                      deleteReviewComment($command[$addr_offset+5]);
-                                                                                                                                                      break;
                                                                                                                                     }
                                                                                                                                     break; //end of case ''
                                                                                                                               case 'delete':
@@ -171,10 +167,49 @@ switch($command[$addr_offset + 0]){
                                                                                                                   $vote= json_decode(file_get_contents('php://input'),true);
                                                                                                                   documentVote($vote);
                                                                                                       break;
+                                                                                                case 'comments':
+                                                                                                            switch($command[$addr_offset+5]){
+                                                                                                                  case '':
+                                                                                                                        switch($_SERVER['REQUEST_METHOD']){
+
+                                                                                                                              case 'POST':
+                                                                                                                                          require_once('document_comments.php');
+                                                                                                                                          $newReviewComment = json_decode(file_get_contents('php://input'),true);
+                                                                                                                                          //print_r($newReviewComment);
+                                                                                                                                          postDocumentComment($newReviewComment);
+                                                                                                                                          break;
+                                                                                                                              case 'GET':
+                                                                                                                                          require_once('document_comments.php');
+                                                                                                                                          getComments($command[$addr_offset+3]);
+                                                                                                                                          break;
+                                                                                                                        }
+                                                                                                                        break;
+                                                                                                                  default: // comment id exists
+                                                                                                                        switch($command[$addr_offset+6]){
+                                                                                                                              case '':
+                                                                                                                                    switch($_SERVER['REQUEST_METHOD']){
+                                                                                                                                          case 'GET':
+                                                                                                                                                      require_once('document_comments.php');
+                                                                                                                                                      getSpecificDocumentComment($command[$addr_offset+5]);
+                                                                                                                                                      break;
+                                                                                                                                          case 'PUT':
+                                                                                                                                                      require_once('document_comments.php');
+                                                                                                                                                      $newDocumentComment = json_decode(file_get_contents('php://input'),true);
+                                                                                                                                                      modifyReviewComment($command[$addr_offset+5],$newDocumentComment);
+                                                                                                                                                      break;
+                                                                                                                                    }
+                                                                                                                                    break; //end of case ''
+                                                                                                                              case 'delete':
+                                                                                                                                    require_once('document_comments.php');
+                                                                                                                                    echo "hah";
+                                                                                                                                    deleteDocumentComment($command[$addr_offset+5],$command[$addr_offset+7],$command[$addr_offset+8]);
+                                                                                                                                    break;
+                                                                                                                        }
+                                                                                                                        break;
+                                                                                                            }
+                                                                                                            break; //end of case comments
                                                                                     }
                                                                                     break; // end of  comments:switch($command[$addr_offset+4]){
-
-
                                                                         } 
                                                                         break;
                                                             default: 
