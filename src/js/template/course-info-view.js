@@ -1,5 +1,4 @@
-var courseInfoViewHtml = "<div class = \"jumbotron\">"+
-  "<div class=\"page-header\">"+
+var courseInfoViewHtml = "<div class=\"page-header\">"+
     "<h2><%= moduleCode %> <small><%= moduleTitle %></small></h2>"+
   "</div>"+
   "<hr>"+
@@ -20,5 +19,4 @@ var courseInfoViewHtml = "<div class = \"jumbotron\">"+
   "<div class=\"page-header module-subheading\">"+
     "<h4>Module Credits</h4>"+
   "</div>"+
-  "<p id=\"module-info\"><%= moduleCredit %></p>"+
-"</div>";
+  "<p id=\"module-info\"><%= moduleCredit %></p>";
