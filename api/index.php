@@ -134,7 +134,32 @@ switch($command[$addr_offset + 0]){
                                                 break;      //end of switch($command[addr_offset +2])
                         }
                         break; // end of switch($command[$addr_offset+1])
-
+            case 'users':
+                        switch($command[$addr_offset+1]){
+                              case '':
+                                    switch($_SERVER['REQUEST_METHOD']){
+                                          case 'POST':
+                                                require_once('users.php');
+                                                $newUser = json_decode(file_get_contents('php://input'),true);
+                                                userRegister($newUser);
+                                                break;
+                                          case 'PUT':
+                                                require_once('users.php');
+                                                $user = json_decode(file_get_contents('php://input'),true);
+                                                userLogin($user);
+                                                break;
+                                          case 'DELETE':
+                                                require_once('users.php');
+                                                $user = json_decode(file_get_contents('php://input'),true);
+                                                userLogout($user);      
+                                          default:
+                                                break;
+                                    }
+                                    break;
+                              default:
+                                    break;
+                        }
+                        break;      //end of case users
             default:
                         break;
 }     //end of switch($command[$addr_offset+0])
