@@ -2,66 +2,28 @@
 require_once('constants.php');
 require_once('common_functions.php');
 
-function getComments($review_id){
-    if($review_id != null){
+function postReviewComment($commentDetails){
+    if($commentDetails != null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
 
-        $new_query  = sprintf("SELECT * FROM " . REVIEW_COMMENTS_TABLE . " WHERE Review_ID = '%s' AND deleted = 0",
-            mysql_real_escape_string($review_id) );
-        $result = mysql_query($new_query,$dbc);
-        $comments_list = array();
-        while($row = mysql_fetch_array($result)){
-            $comment = array(
-                'Comment_ID' => $row['Comment_ID'],
-                'Review_ID' => $row['Review_ID'],
-                'moduleCode' => $row['Module_Code'],
-                'moduleTitle' => $row['Module_Title'],
-                'Creator_ID' => $row['Creator_ID'],
-                'commentContent' => $row['Comment_Content'],
-                'createdTime' => $row['Created_Time'],
-                'modifiedTime' => $row['Modified_Time'],
-                'like' => $row['Like'],
-                'dislike' => $['Dislike']
-                );
-            array_push($comments_list, $comment);
+        if(!authentication($commentDetails['creatorID'],$commentDetails['accessToken'])){
+            $returnMessage = "user is not authorized.";
+            respondToClient(403,array('message' => $returnMessage));
+            return;
         }
 
-        if(sizeof()$comments_list){
-            $returnMessage = "comments are not found.";
-            respondToClient(404,array('message' => $returnMessage));
-        }
-        else{
-            $returnMessage = "get comments successfully.";
-            respondToClient(200,array('message' => $returnMessage, 'comments_list' => $comments_list));
-        }
-    }
-    else{
-            $returnMessage = "module code is missing";
-            respondToClient(400,array('message' => $returnMessage));
-    }
-}
-
-function postReviewComment($Review_ID,$Module_Code,$Module_Title,$Creator_ID,$Comment_Content){
-    if($Review_ID != null && $moduleCode != null && $moduleTitle != null && $Creator_ID != null && $commentContent != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
-
-        $new_query = sprintf("INSERT INTO " . REVIEW_COMMENTS_TABLE . "(Review_ID,Module_Code,Module_Title,Creator_ID,
-            Comment_Content,Created_Time,Modified_Time) VALUES ('%s','%s','%s','%s','%s','%s','%s')",
-         mysql_real_escape_string($Review_ID),
-         mysql_real_escape_string($Module_Code),
-         mysql_real_escape_string($Module_Title),
-         mysql_real_escape_string($Creator_ID),
-         mysql_real_escape_string($Comment_Content),
-         mysql_real_escape_string(date('Y-m-d H:i:s')),
-         mysql_real_escape_string(date('Y-m-d H:i:s')));
-        if($result = mysql_query($new_query,$dbc)){
+        $newQuery = sprintf("INSERT INTO " . REVIEW_COMMENTS_TABLE . "(Review_ID,Creator_ID,
+            Comment_Content,Created_Time) VALUES ('%s','%s','%s','%s')",
+         mysql_real_escape_string($commentDetails['reviewID']),
+         mysql_real_escape_string($commentDetails['creatorID']),
+         mysql_real_escape_string($commentDetails['commentContent']),
+         mysql_real_escape_string(timeGenerator()));
+        if($result = mysql_query($newQuery,$dbc)){
             $Comment_ID = mysql_insert_id();
             $returnMessage = "comment inserted successfully";
-            respondToClient(200,array('message' => $returnMessage,'Comment_ID' => $Comment_ID));
+            respondToClient(200,array('message' => $returnMessage,'commentID' => mysql_insert_id()));
         }
         else{
             $returnMessage = "comment inserted unccessfully";
@@ -74,16 +36,89 @@ function postReviewComment($Review_ID,$Module_Code,$Module_Title,$Creator_ID,$Co
     }
 }
 
-function modifyReviewComment($Comment_ID,$Comment_Content){
-    if（$Comment_ID != null && $Comment_Content != null）{
+function getComments($reviewID){
+    if($reviewID != null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
 
-        $new_query = sprintf("UPDATE ". REVIEW_COMMENTS_TABLE . " SET Comment_Content = '%s' WHERE $Comment_ID = '%s'",
-            mysql_real_escape_string($Comment_Content),
-            mysql_real_escape_string($Comment_ID));
-         if($result = mysql_query($new_query,$dbc)){
+        $newQuery  = sprintf("SELECT * FROM " . REVIEW_COMMENTS_TABLE . " WHERE Review_ID = '%s' AND deleted = 0",
+            mysql_real_escape_string($reviewID) );
+        $result = mysql_query($newQuery,$dbc);
+        $commentsList = array();
+        while($row = mysql_fetch_array($result)){
+            $comment = array(
+                'commentID' => $row['Comment_ID'],
+                'reviewID' => $row['Review_ID'],
+                'creatorID' => $row['Creator_ID'],
+                'commentContent' => $row['Comment_Content'],
+                'createdTime' => $row['Created_Time'],
+                'modifiedTime' => $row['Modified_Time']);
+            array_push($commentsList, $comment);
+        }
+
+        if(sizeof($commentsList)){
+            $returnMessage = "get comments successfully.";
+            respondToClient(200,array('message' => $returnMessage, 'comments_list' => $commentsList));
+
+        } else{
+            $returnMessage = "comments are not found.";
+            respondToClient(404,array('message' => $returnMessage));
+        }
+    } else{
+            $returnMessage = "module code is missing";
+            respondToClient(400,array('message' => $returnMessage));
+    }
+}
+
+function getSpecificReviewComment($commentID){
+        if($commentID != null){
+        require_once('database_setup.php');
+        $dbc = connect_database();
+        $db = select_database($dbc);
+
+        $newQuery  = sprintf("SELECT * FROM " . REVIEW_COMMENTS_TABLE . " WHERE Comment_ID = '%s' AND deleted = 0",
+            mysql_real_escape_string($commentID) );
+        $result = mysql_query($newQuery,$dbc);
+        if($row = mysql_fetch_array($result)){
+            $comment = array(
+                'commentID' => $row['Comment_ID'],
+                'reviewID' => $row['Review_ID'],
+                'creatorID' => $row['Creator_ID'],
+                'commentContent' => $row['Comment_Content'],
+                'createdTime' => $row['Created_Time'],
+                'modifiedTime' => $row['Modified_Time']);
+            $returnMessage = "get comments successfully.";
+            respondToClient(200,array('message' => $returnMessage, 'comment' => $comment));
+        } else {
+            $returnMessage = "comment is not found.";
+            respondToClient(404,array('message' => $returnMessage));
+        }
+
+
+    } else{
+            $returnMessage = "comment id is missing";
+            respondToClient(400,array('message' => $returnMessage));
+    }
+
+}
+
+function modifyReviewComment($commentID,$commentContent){
+    if($commentID != null && $commentContent != null) {
+        require_once('database_setup.php');
+        $dbc = connect_database();
+        $db = select_database($dbc);
+
+        if(!authentication($commentContent['creatorID'],$commentContent['accessToken'])){
+            $returnMessage = "user is not authorized.";
+            respondToClient(403,array('message' => $returnMessage));
+            return;
+        }
+
+        $newQuery = sprintf("UPDATE ". REVIEW_COMMENTS_TABLE . " SET Comment_Content = '%s' WHERE Comment_ID = '%s'",
+            mysql_real_escape_string($commentContent['commentContent']),
+            mysql_real_escape_string($commentID));
+         if($result = mysql_query($newQuery,$dbc)){
             $returnMessage = "comment updated successfully";
             respondToClient(200,array('message' => $returnMessage));
         }
@@ -99,15 +134,21 @@ function modifyReviewComment($Comment_ID,$Comment_Content){
     }
 }
 
-function deleteReviewComment($Comment_ID){
-    if($Comment_ID != null){
+function deleteReviewComment($commentID,$creatorID,$accessToken){
+    if($commentID != null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
 
-        $new_query = sprintf("UPDATE " . REVIEW_COMMENTS_TABLE . " SET deleted = 1 WHERE Comment_ID = '%s'",
-            mysql_real_escape_string($Comment_ID);
-        if(mysql_query($new_query,$dbc)){
+        if(!authentication($creatorID,$accessToken)){
+            $returnMessage = "user is not authorized.";
+            respondToClient(403,array('message' => $returnMessage));
+            return;
+        }
+
+        $newQuery = sprintf("UPDATE " . REVIEW_COMMENTS_TABLE . " SET deleted = 1 WHERE Comment_ID = '%s'",
+            mysql_real_escape_string($commentID));
+        if(mysql_query($newQuery,$dbc)){
             $returnMessage = "comment deleted successfully";
             respondToClient(200,array('message' => $returnMessage));
         } 
@@ -122,11 +163,4 @@ function deleteReviewComment($Comment_ID){
     }      
 }
 
-function likeComment(){
-
-}
-
-function dislikeComment(){
-    
-}
 ?>
