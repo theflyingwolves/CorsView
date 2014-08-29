@@ -128,6 +128,55 @@ switch($command[$addr_offset + 0]){
                                                                                                 break;     //end of switch($command[addr_offset +4]):
                                                                                     }
                                                                         break;      //end of case review
+
+                                                            case 'documents':
+                                                                        switch($command[$addr_offset+3]){
+                                                                              case '':
+                                                                                    switch($_SERVER['REQUEST_METHOD']){
+                                                                                          case 'POST':
+                                                                                                require_once('documents.php');
+                                                                                                $documentDetails = json_decode(file_get_contents('php://input'),true);
+                                                                                                addDocument($documentDetails);
+                                                                                                break;
+                                                                                          case 'GET':
+                                                                                                require_once('documents.php');
+                                                                                                getDocuments($command[$addr_offset+1]);
+                                                                                                break;
+                                                                                    }
+                                                                                    break;
+                                                                              default:    //document id exists
+                                                                                          switch($command[$addr_offset+4]){
+                                                                                                case '':
+                                                                                                      switch($_SERVER['REQUEST_METHOD']){
+                                                                                                                  case 'GET':
+                                                                                                                        require_once('documents.php');
+                                                                                                                        getSpecificDocument($command[$addr_offset+3]);
+                                                                                                                        break;
+                                                                                                                  case 'PUT':
+                                                                                                                        require_once('documents.php');
+                                                                                                                        $newDocument = json_decode(file_get_contents('php://input'),true);
+                                                                                                                        modifyDocument($command[$addr_offset+3],$newDocument);
+                                                                                                                        break;
+                                                                                                                  default:
+                                                                                                                        break;
+                                                                                                      }
+                                                                                                      break;
+                                                                                                case 'delete':
+                                                                                                                  echo "hah";
+                                                                                                                  require_once('documents.php');
+                                                                                                                  deleteDocument($command[$addr_offset+3],$command[$addr_offset+5],$command[$addr_offset+6]);
+                                                                                                      break;
+                                                                                                case 'votes':
+                                                                                                                  require_once('documents.php');
+                                                                                                                  $vote= json_decode(file_get_contents('php://input'),true);
+                                                                                                                  documentVote($vote);
+                                                                                                      break;
+                                                                                    }
+                                                                                    break; // end of  comments:switch($command[$addr_offset+4]){
+
+
+                                                                        } 
+                                                                        break;
                                                             default: 
                                                                          break;     //case default /api/modules/module_code
                                                 }

@@ -2,40 +2,39 @@
 require_once('constants.php');
 require_once('common_functions.php');
 
-function getReviews($moduleCode){
+function getDocuments($moduleCode){
     if($moduleCode !=null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
 
-         $newQuery = sprintf("SELECT * FROM " . MODULE_REVIEWS_TABLE ." WHERE Module_Code = '%s' AND Deleted = 0",
+         $newQuery = sprintf("SELECT * FROM " . DOCUMENTS_TABLE ." WHERE Module_Code = '%s' AND Deleted = 0",
                 mysql_real_escape_string($moduleCode));
-     //   $new_query = "SELECT * FROM " . MODULE_REVIEWS_TABLE ." WHERE Review_ID = 2";
 
         $result = mysql_query($newQuery,$dbc);
-        $reviewList = array();
+        $documentList = array();
             while($row = mysql_fetch_array($result)){
-                $review = array(
-                    'reviewID' => $row['Review_ID'],
+                $document = array(
+                    'documentID' => $row['Document_ID'],
                     'moduleCode' => $row['Module_Code'],
                     'moduleTitle' => $row['Module_Title'],
                     'creatorID' => $row['Creator_ID'],
-                    'moduleReview' => $row['Module_Title'],
+                    'documentTitle' => $row['Document_Title'],
+                    'documentLink' => $row['Document_Link'],
                     'createdTime' => $row['Created_Time'],
                     'modifiedTime' => $row['Modified_Time'],
                     'voteUp' => $row['Vote_Up'],
                     'voteDown' => $row['Vote_Down']);
-                array_push($reviewList,$review);
+                array_push($documentList,$document);
             }
-            if(sizeof($reviewList) == 0){
-                    $returnMessage = "reviews are not found.";
+            if(sizeof($documentList) == 0){
+                    $returnMessage = "documents are not found.";
                     respondToClient(404,array('message' => $returnMessage));
             }
             else{
-            $returnMessage = "get module info successfully.";
-            respondToClient(200,array('message' => $returnMessage, 'review_list' => $reviewList));
+            $returnMessage = "get documents info successfully.";
+            respondToClient(200,array('message' => $returnMessage, 'documentList' => $documentList));
             }
-
             mysql_close($dbc);      
         }
         else{
@@ -43,108 +42,112 @@ function getReviews($moduleCode){
             respondToClient(400,array('message' => $returnMessage));
         }
 }
-function getSpecificReview($reviewID){
-    if($reviewID !=null){
+function getSpecificDocument($documentID){
+    if($documentID !=null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
 
-         $newQuery = sprintf("SELECT * FROM " . MODULE_REVIEWS_TABLE ." WHERE Review_ID = '%s' AND Deleted = 0",
-                mysql_real_escape_string($reviewID));
+         $newQuery = sprintf("SELECT * FROM " . DOCUMENTS_TABLE ." WHERE Document_ID = '%s' AND Deleted = 0",
+                mysql_real_escape_string($documentID));
 
          $result=mysql_query($newQuery,$dbc);
          if($row = mysql_fetch_array($result)){
-            $review = array(
-                    'reviewID' => $row['Review_ID'],
+              $document = array(
+                    'documentID' => $row['Document_ID'],
                     'moduleCode' => $row['Module_Code'],
                     'moduleTitle' => $row['Module_Title'],
                     'creatorID' => $row['Creator_ID'],
-                    'moduleReview' => $row['Review_Content'],
+                    'documentTitle' => $row['Document_Title'],
+                    'documentLink' => $row['Document_Link'],
                     'createdTime' => $row['Created_Time'],
                     'modifiedTime' => $row['Modified_Time'],
                     'voteUp' => $row['Vote_Up'],
-                    'voteDown' => $row['Vote_Down']);      
-            $returnMessage = "review found";
-            respondToClient(200,array('message' => $returnMessage,'review' => $review));  
+                    'voteDown' => $row['Vote_Down']);    
+            $returnMessage = "document found";
+            respondToClient(200,array('message' => $returnMessage,'document' => $document));  
         }
         else{
-             $returnMessage = "review is not found.";
+             $returnMessage = "document is not found.";
             respondToClient(503,array('message' => $returnMessage));
         }
         mysql_close($dbc);
     } else{
-        $returnMessage = "review id is missing";
+        $returnMessage = "document id is missing";
         respondToClient(400,array('message' => $returnMessage));    }
 }
 
 
-function addReview($reviewDetails){
-    if($reviewDetails !=null){
+function addDocument($documentDetails){
+    if($documentDetails !=null){
+
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
         
-        if(!authentication($reviewDetails['creatorID'],$reviewDetails['accessToken'])){
+        if(!authentication($documentDetails['creatorID'],$documentDetails['accessToken'])){
             $returnMessage = "user is not authorized.";
             respondToClient(403,array('message' => $returnMessage));
             return;
         }
 
-        $newQuery = sprintf("INSERT INTO ". MODULE_REVIEWS_TABLE ." (Module_ID,Module_Code,Module_Title,Creator_ID,Review_Content,Created_Time) VALUES ('%s','%s','%s','%s','%s','%s')",
-                mysql_real_escape_string($reviewDetails['moduleID']),
-                mysql_real_escape_string($reviewDetails['moduleCode']),
-                mysql_real_escape_string($reviewDetails['moduleTitle']),
-                mysql_real_escape_string($reviewDetails['creatorID']),
-                mysql_real_escape_string($reviewDetails['reviewContent']),
+        $newQuery = sprintf("INSERT INTO ". DOCUMENTS_TABLE ." (Module_ID,Module_Code,Module_Title,Creator_ID,Document_Title,Document_Link,Created_Time) VALUES ('%s','%s','%s','%s','%s','%s','%s')",
+                mysql_real_escape_string($documentDetails['moduleID']),
+                mysql_real_escape_string($documentDetails['moduleCode']),
+                mysql_real_escape_string($documentDetails['moduleTitle']),
+                mysql_real_escape_string($documentDetails['creatorID']),
+                mysql_real_escape_string($documentDetails['documentTitle']),
+                mysql_real_escape_string($documentDetails['documentLink']),
                 mysql_real_escape_string(timeGenerator()));
         if(mysql_query($newQuery,$dbc)){
-            $returnMessage = "review added successfully";
+            $returnMessage = "document added successfully";
             respondToClient(200,array('message' => $returnMessage,'reviewID' => mysql_insert_id()));        
-        }
-        else{
-             $returnMessage = "reviews are not added.";
+        } else{
+             $returnMessage = "document is not added.";
             respondToClient(503,array('message' => $returnMessage));
         }
         mysql_close($dbc);
     } else{
-            $returnMessage = "review detail is missing";
+            $returnMessage = "document detail is missing";
             respondToClient(400,array('message' => $returnMessage));
     }
 }
 
-function modifyReview($reviewID, $newReview){
-    if($newReview !=null && $reviewID != null){
+function modifyDocument($documentID, $newDocument){
+    if($newDocument !=null && $documentID != null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
 
-       if(!authentication($newReview['creatorID'],$newReview['accessToken'])){
+       if(!authentication($newDocument['creatorID'],$newDocument['accessToken'])){
             $returnMessage = "user is not authorized.";
             respondToClient(403,array('message' => $returnMessage));
             return;
         }
 
-        $newQuery = sprintf("UPDATE ". MODULE_REVIEWS_TABLE ." SET Review_Content = '%s' WHERE Review_ID = '%s' ",
-                mysql_real_escape_string($newReview['newContent']),
-                mysql_real_escape_string($reviewID));
+        $newQuery = sprintf("UPDATE ". DOCUMENTS_TABLE ." SET Document_Title = '%s', Document_Link = '%s' WHERE Document_ID = '%s' ",
+                mysql_real_escape_string($newDocument['documentTitle']),
+                mysql_real_escape_string($newDocument['documentLink']),
+                mysql_real_escape_string($documentID));
 
         if(mysql_query($newQuery,$dbc)){
-            $returnMessage = "review modified successfully";
+            $returnMessage = "document modified successfully";
             respondToClient(200,array('message' => $returnMessage));        
         }
         else{
-            $returnMessage = "review is not modified.";
+            $returnMessage = "document is not modified.";
             respondToClient(503,array('message' => $returnMessage));
         }
         mysql_close($dbc);
     } else{
-            $returnMessage = "review id or detail is missing";
+            $returnMessage = "document id or detail is missing";
             respondToClient(400,array('message' => $returnMessage));
     }
 }
 
-function deleteReview($reviewID,$creatorID,$accessToken){
-    if($reviewID != null){
+
+function deleteDocument($documentID,$creatorID,$accessToken){
+    if($documentID != null){
         require_once('database_setup.php');
         $dbc = connect_database();
         $db = select_database($dbc);
@@ -154,22 +157,22 @@ function deleteReview($reviewID,$creatorID,$accessToken){
             return;
         } 
 
-       $new_query = sprintf("UPDATE ". MODULE_REVIEWS_TABLE ." SET Deleted = 1 WHERE Review_ID = '%s' ",
-                mysql_real_escape_string($reviewID));
-           if(mysql_query($new_query,$dbc)){
-                $returnMessage = "review deleted successfully";
+       $newQuery = sprintf("UPDATE ". DOCUMENTS_TABLE ." SET Deleted = 1 WHERE Document_ID = '%s' ",
+                mysql_real_escape_string($documentID));
+           if(mysql_query($newQuery,$dbc)){
+                $returnMessage = "document deleted successfully";
                 respondToClient(200,array('message' => $returnMessage));     
            } else{
-            $returnMessage = "review is not deleted.";
+            $returnMessage = "document is not deleted.";
             respondToClient(503,array('message' => $returnMessage));
            }
     } else{
-        $returnMessage = "review id is missing";
+        $returnMessage = "document id is missing";
         respondToClient(400,array('message' => $returnMessage));
     }
 }
 
-function reviewVote($vote){
+function documentVote($vote){
     if($vote != null){
 require_once('database_setup.php');
         $dbc = connect_database();
@@ -180,14 +183,14 @@ require_once('database_setup.php');
             return;
         }
 
-        $newQuery = sprintf("SELECT * FROM " . REVIEW_VOTES_TABLE . " WHERE Review_ID = '%s' AND User_ID = '%s'",
-            mysql_real_escape_string($vote['reviewID']),
+        $newQuery = sprintf("SELECT * FROM " . DOCUMENT_VOTES_TABLE . " WHERE Document_ID = '%s' AND User_ID = '%s'",
+            mysql_real_escape_string($vote['documentID']),
             mysql_real_escape_string($vote['userID']));         
         $result = mysql_query($newQuery,$dbc);
         if($row = mysql_fetch_array($result)){  //user voted in the past 
-            $newQuery = sprintf("UPDATE ". REVIEW_VOTES_TABLE ." SET Vote = '%s' WHERE Review_ID = '%s' AND User_ID = '%s'",
+            $newQuery = sprintf("UPDATE ". DOCUMENT_VOTES_TABLE ." SET Vote = '%s' WHERE Document_ID = '%s' AND User_ID = '%s'",
                 mysql_real_escape_string($vote['vote']),
-                mysql_real_escape_string($vote['reviewID']),
+                mysql_real_escape_string($vote['documentID']),
             mysql_real_escape_string($vote['userID']));
             if($result = mysql_query($newQuery,$dbc)){
                 $returnMessage = "user vote up successfully case 1";
@@ -197,8 +200,8 @@ require_once('database_setup.php');
                 respondToClient(503,array('message' => $returnMessage));
             }
         } else{ //vote did not vote in the past
-            $newQuery = sprintf("INSERT INTO " . REVIEW_VOTES_TABLE ."(Review_ID,User_ID,Vote,Created_Time) VALUES ('%s','%s','%s','%s')",
-                mysql_real_escape_string($vote['reviewID']),
+            $newQuery = sprintf("INSERT INTO " . DOCUMENT_VOTES_TABLE ."(Document_ID,User_ID,Vote,Created_Time) VALUES ('%s','%s','%s','%s')",
+                mysql_real_escape_string($vote['documentID']),
                 mysql_real_escape_string($vote['userID']),
                 mysql_real_escape_string($vote['vote']),
                 mysql_real_escape_string(timeGenerator()));
@@ -211,7 +214,7 @@ require_once('database_setup.php');
                 }
         }
     } else{
-       $returnMessage = "user id and review id are missing";
+       $returnMessage = "user id and document id are missing";
         respondToClient(400,array('message' => $returnMessage));
     } 
 }
@@ -219,3 +222,4 @@ require_once('database_setup.php');
 function reviewVoteDown(){
 
 }
+
