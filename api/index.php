@@ -245,6 +245,63 @@ switch($command[$addr_offset + 0]){
                                                 break;
                                     }
                                     break;
+                              
+                              case 'enroll':
+                                    switch($command[$addr_offset+2]){
+                                          case '':
+                                                switch($_SERVER['REQUEST_METHOD']){
+                                                      case 'GET':
+                                                            require_once('users_modules.php');
+                                                            getModulesTaken($command[$addr_offset+3]);
+                                                            break;
+                                                      case 'POST':
+                                                            require_once('users_modules.php');
+                                                            $enrollmentsDetails = json_decode(file_get_contents('php://input'), true);
+                                                            addEnrollment($enrollmentsDetails);
+                                                            break;
+                                                      default:
+                                                            break;    
+                                                }
+                                                break; // case '': ../../api/modules/module_code/reviews/review_id/ ended
+
+                                          case 'delete':
+                                                require_once('users_modules.php');
+                                                $enrollmentsDetails = json_decode(file_get_contents('php://input'),true);
+                                                deleteEnrollment($enrollmentsDetails);
+                                                break;
+                                          default:
+                                                break;
+                                    }
+                                    break;
+
+                              case 'bookmark':
+                                    switch($command[$addr_offset+2]){
+                                          case '':
+                                                switch($_SERVER['REQUEST_METHOD']){
+                                                      case 'GET':
+                                                            require_once('users_modules.php');
+                                                            getModulesBookmarked($command[$addr_offset+3]);
+                                                            break;
+                                                      case 'POST':
+                                                            require_once('users_modules.php');
+                                                            $bookmarkDetails = json_decode(file_get_contents('php://input'), true);
+                                                            addBookmark($bookmarkDetails);
+                                                            break;
+                                                      default:
+                                                            break;    
+                                                }
+                                                break; // case '': ../../api/modules/module_code/reviews/review_id/ ended
+
+                                          case 'delete':
+                                                require_once('users_modules.php');
+                                                $bookmarkDetails = json_decode(file_get_contents('php://input'),true);
+                                                deleteBookmark($bookmarkDetails);
+                                                break;
+                                          default:
+                                                break;
+                                    }
+                                    break;
+
                               default:
                                     break;
                         }
