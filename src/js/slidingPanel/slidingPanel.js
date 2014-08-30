@@ -11,19 +11,23 @@ var numOfElementsLoaded;
 var isEndReached, isBeginningReached;
 
 function slidingPanelInit(database,containerId,prevBtnId, nextBtnId, numOfColumns){
+	var prevBtnId = prevBtnId;
+	var nextBtnId = nextBtnId;
 	initAnimation(containerId, prevBtnId, nextBtnId);
 	numOfCols = numOfColumns;
 	id = containerId;
 	data = database;
 	isEndReached = false;
 	isBeginningReached = false;
-
+	var slideCount;
 	$(function(){
 		initTestBox();
-		initHistory();
+		colCount = initHistory();
+		slideCount = Math.ceil(colCount/3);
 		initColumnContainers(numOfCols);
 		loadNextPage();
 	});
+	return slideCount;
 }
 
 function nextPage(){
@@ -69,8 +73,6 @@ function loadNextPage(){
 	if(i != 0){
 		numOfElementsLoaded = i;
 	}
-
-	console.log("Index Ends At: "+historyIndex);
 }
 
 function loadPrevPage(){
@@ -86,6 +88,8 @@ function loadPrevPage(){
 		console.log("Reaches the Beginning");
 		isBeginningReached = true;
 		return ;
+	} else {
+		//$("#"+prevBtnId).addClass("carousel-control");
 	}
 
 	historyIndex -= numOfElementsLoaded;
@@ -112,6 +116,8 @@ function initColumnContainers(numOfColumns){
 	$("#"+id).html(html);
 }
 
+
+
 function initTestBox(){
 	var colWidth = 12 / numOfCols;
 	$("#"+id).append("<div class=\"row\" id=\"test-div\"> <div class=\"col-md-"+colWidth+"\" id=\"test-box\"></div></div>");
@@ -133,13 +139,17 @@ function initHistory(){
 	console.log("Finishing History Init");
 
 	$("#test-div").remove();
+		console.log("Index length: "+history.length);
+	console.log("Index Ends At: "+historyIndex+" slideCount"+slideCount);
+	console.log(history);
+	return slideCount;
 }
 
 function initOneSlide(data, startCount){
 	var indices = [];
 	var indicesLength = 0;
 	var totalHeight = 0;
-	var windowHeight = $(window).height();
+	var windowHeight = $(window).height()*0.8;
 	var temp = "";
 	var counter = startCount;
 
@@ -156,6 +166,7 @@ function initOneSlide(data, startCount){
 
 	return indices;
 }
+
 
 // Generate the HTML string for a column using data from database of the given indices in indexArray
 function generateColHtml(database, indexArray){
@@ -175,9 +186,14 @@ function generateColHtml(database, indexArray){
 }
 
 function generateBoxHtml(str){
-	var html = "<div class=\"data-box\">";
-	html += str;
-	html += "</div>";
+	var html = "<article class=\"data-box\">";
+	html += "<div class=\"over\">"
+	html += "<span class=\"glyphicon glyphicon-heart-empty\"></span>"
+	html += "<span class=\"glyphicon glyphicon-comment\"></span>"
+	html += "<span class=\"glyphicon glyphicon-share-alt\"></span>"
+	html += "</div>"
+	html += "<p>"+str+"</p>";
+	html += "</article>";
 	return html;
 }
 

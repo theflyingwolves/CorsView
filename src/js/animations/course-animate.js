@@ -17,8 +17,8 @@ $('.modulebook').click(function(){
 
 function slideModuleOut(moduleBook) {
 	var offsetLeft = moduleBook.offset().left;
-	var lightColor = moduleBook.css("background-color");
-	var darkColor = setBgcolor(moduleBook);
+	var currentColor = moduleBook.css("background-color");
+	var alphaColor1 = getAlphacolor(currentColor,0.3);
 	var title = moduleBook.find("h1").text();
 	moduleBook.prevAll().animate({
 		left: -offsetLeft
@@ -26,27 +26,76 @@ function slideModuleOut(moduleBook) {
 	verticalAlign(moduleBook.find("h1"));
 	moduleBook.find("p,h2,footer").animate({
 		opacity:0
-	},150)
+	},150);
 	moduleBook.animate({
 		width:'20px',
 		left: -offsetLeft
 	},300,	function(){
 		$(".moduleshelf").remove();
 		$("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>")
-		$("#sidebar-module, #sidebar-wrapper").css("background-color",lightColor);
-		$("#page-content-wrapper").css("background-color",darkColor);
-		$("#sidebar-module").append("<h1>"+title+"</h1>");
+		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+		$("#page-content-wrapper").css("background-color",alphaColor1);
+		$("#sidebar-module").append("<span class=\"glyphicon glyphicon-chevron-right\"></span>"+"<h1>"+title+"</h1>");
 		verticalAlign($("#sidebar-module").find("h1"));
 		createSidebar();
 		$("#page-content-wrapper").append(slidingPanelViewHtml);
-		slidingPanelInit(database,"box-container","prev-btn","next-btn", 3);
 		$("#page-content-wrapper").css("height","100%");
-}
-	);
+		createSlidingPanel();
+
+	});
+	bindOverPanel(currentColor);
+
 	moduleBook.nextAll().animate({
 		right:-$(window).width()-offsetLeft
 	});
+};
+
+function bindOverPanel(currentColor) {
+	$(".data-box").hover(function() {
+		$(this).find(".over").css("width",$(this).css("width"));
+		$(this).find(".over").css("height", $(this).css("height"));
+		var alphaColor2 = getAlphacolor(currentColor,0.9);
+		console.log("color: "+alphaColor2);
+		$(this).find(".over").animate({
+			backgroundColor: alphaColor2
+		}, 100);
+		}, function() {
+			$(this).find(".over").animate({
+				backgroundColor: "transparent"
+			}, 100);
+		}
+	);	
 }
+
+
+function createSlidingPanel() {
+		var slideCount = slidingPanelInit(database,"box-container","prev-btn","next-btn", 3);
+		$("#main-container").append(carouselIndicators(slideCount));
+		$(".carousel-control.right").click(function(){
+			var activeIndicator = $(".carousel-indicators .active:first");
+			if(activeIndicator.next().length>0) {
+				activeIndicator.removeClass("active");
+				activeIndicator.next().addClass("active");
+			} 
+			if((activeIndicator.next().index()+1) == $(".carousel-indicators li").length) {
+				$(".carousel-control.right").addClass("disabled");
+			} 
+			$(".carousel-control.left").removeClass("disabled");
+
+		});
+		$(".carousel-control.left").click(function(){
+			var activeIndicator = $(".carousel-indicators .active:first");
+			if(activeIndicator.prev().length>0) {
+				activeIndicator.removeClass("active");
+				activeIndicator.prev().addClass("active");
+			}
+			if(activeIndicator.prev().index()==0) {
+				$(".carousel-control.left").addClass("disabled");
+			} 
+			$(".carousel-control.right").removeClass("disabled");
+		});
+	}
+
 
 function createSidebar(){
 	var showSidebar = function(e){
@@ -64,12 +113,11 @@ function createSidebar(){
     });
 }
 
-function setBgcolor(moduleBook){
+function getAlphacolor(currentColor, alpha){
 
 	//color the background with the module book color and make the color deeper
-	var currentColor = moduleBook.css("background-color");
     var lastComma = currentColor.lastIndexOf(')');
-    var newColor = "rgba"+currentColor.slice(3, lastComma) + ", 0.3 )";
+    var newColor = "rgba"+currentColor.slice(3, lastComma) + ","+alpha+" )";
 	$(".moduleshelf").css("background-color", newColor);
 	return newColor;
 }
@@ -88,8 +136,8 @@ $('.moduleshelf').mouseout(function(){
 
 $('#fb-icon').mouseover(function(){
 	$(this).attr("src","../../res/img/fbicon-color-30.png");
-})
+});
 
 $('#fb-icon').mouseout(function(){
 	$(this).attr("src","../../res/img/fbicon-30.png");
-})
+});

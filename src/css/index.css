@@ -117,30 +117,7 @@ body {
 	position: absolute;
 }
 
-#sidebar-module {
-	width:60px;
-	height:100%;
-	padding:100px 0px 0px 0px;
-    vertical-align:top;
-    display:inline-block;
-}
 
-#sidebar-module h1 {
-	opacity: 0;
-	-webkit-transition: opacity 0.4s; /* For Safari 3.1 to 6.0 */
-    transition: opacity 0.4s;
-    float:right;
-}
-
-#wrapper.toggled #sidebar-module h1 {
-	opacity: 1.0;
-}
-
-#sidebar-wrapper div,hr {
-	opacity: 1.0;
-	-webkit-transition: opacity 0.4s;  /*For Sfari 3.1 to 6.0 */
-    transition: opacity 0.4s;
-}
 
 #wrapper.toggled #sidebar-wrapper div,hr {
 	opacity: 0.0;
@@ -153,29 +130,32 @@ body {
 	position: fixed;
 	top:0px;
 	left: 0px;
-	z-index: 10;
+	z-index: 20;
 }
 
 #page-content-wrapper {
-	margin-top: 52px;
+	padding-top: 52px;
 } 
-
-*/
 
 
 /******************sliding panel*****************/
+
+
 #review-container {
 	height: 100%;
-	display:inline-block;
-	margin: 0 auto;
+	padding:0 auto;
 }
+
+
 #review-container button{
 	display:inline;
 }
 
 #main-container {
+	position: relative;
+	left:120px;
 	height: 100%;
-	display:inline-block;
+	padding: 0 auto;
 }
 
 .data-box {
@@ -184,18 +164,70 @@ body {
 	border:0;
 	margin: 30px;
     white-space:normal;
-    padding:20px 20px 40px;
     color:black;
+    box-shadow: 0px 10px 10px rgb(10,10,10);
+}
+
+.data-box p{
+    padding:20px 20px 40px;
+}
+
+.over {
+	position: absolute;
+	color: transparent;
+	background-color: transparent;
+	text-align: center;
+	vertical-align:middle;
+	font-size:10px;
+	z-index: 20;
+	-webkit-transition: all 0.3s;
+    /* Standard syntax */
+    transition: all 0.3s;
+}
+
+.over span{
+	font-size:40px;
+	margin: 10px;
+	top:20px;
+	font-weight: 100;
+}
+
+.over span:hover{
+	font-size: 50px;
+}
+
+.over:hover {
+	color:white;
+	text-shadow: 2px 2px 2px grey;
 }
 
 .carousel-control {
-	width:60px;
-	height:100%;
 	vertical-align: center;
-		display:inline;
-
+	position: absolute;
 }
 
-.carousel-control span {
-	font-size: 100px;
+.carousel-control.left span {
+	font-size: 80px;
+}
+
+.carousel-control.right span {
+	font-size: 80px;
+}
+
+.carousel-control.left{
+	left: 20px;
+}
+
+.carousel-control.disabled {
+	opacity: 0.2;
+	cursor: default;
+}
+
+#box-container {
+	height:80%;
+}
+
+.carousel-indicators {
+	bottom:20px;
+	opacity: 0.7;
 }
