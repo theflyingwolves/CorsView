@@ -29,13 +29,13 @@ function slidingPanelInit(database,containerId,prevBtnId, nextBtnId, numOfColumn
 function nextPage(){
 	setTimeout(function(){
 		loadNextPage();
-	},1000);
+	},400);
 }
 
 function prevPage(){
 	setTimeout(function(){
 		loadPrevPage();
-	},1000);
+	},400);
 }
 
 function loadNextPage(){
@@ -216,8 +216,8 @@ function initAnimation(containerId, prevBtnId, nextBtnId){
 }
 
 function initAnimationDuration(target){
-	var cssString = "-webkit-animation-duration: 1s; -webkit-animation-delay: 0s; -webkit-animation-iteration-count: 1;";
-	cssString += "-moz-animation-duration: 1s; -moz-animation-delay: 0s; -moz-animation-iteration-count: 1;";
-	cssString += "-MS-animation-duration: 1s; -MS-animation-delay: 0s; -MS-animation-iteration-count: 1;";
+	var cssString = "-webkit-animation-duration: 0.4s; -webkit-animation-delay: 0s; -webkit-animation-iteration-count: 1;";
+	cssString += "-moz-animation-duration: 0.4s; -moz-animation-delay: 0s; -moz-animation-iteration-count: 1;";
+	cssString += "-MS-animation-duration: 0.4s; -MS-animation-delay: 0s; -MS-animation-iteration-count: 1;";
 	target.css(cssString);
 }

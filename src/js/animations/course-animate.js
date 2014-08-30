@@ -32,14 +32,15 @@ function slideModuleOut(moduleBook) {
 		left: -offsetLeft
 	},300,	function(){
 		$(".moduleshelf").remove();
-		$("#page-content-wrapper").append("<div id=\"sidebar-module\"></div>")
+		$("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>")
 		$("#sidebar-module, #sidebar-wrapper").css("background-color",lightColor);
 		$("#page-content-wrapper").css("background-color",darkColor);
 		$("#sidebar-module").append("<h1>"+title+"</h1>");
 		verticalAlign($("#sidebar-module").find("h1"));
-		$("#page-content-wrapper").appendChild(slidingPanelViewHtml);
 		createSidebar();
-		slidingPanelInit(database,"box-container","prev-btn","next-btn", 2);
+		$("#page-content-wrapper").append(slidingPanelViewHtml);
+		slidingPanelInit(database,"box-container","prev-btn","next-btn", 3);
+		$("#page-content-wrapper").css("height","100%");
 }
 	);
 	moduleBook.nextAll().animate({
@@ -90,5 +91,5 @@ $('#fb-icon').mouseover(function(){
 })
 
 $('#fb-icon').mouseout(function(){
-	$(this).attr("src","../../res/img/fbicon-30.png")
+	$(this).attr("src","../../res/img/fbicon-30.png");
 })
