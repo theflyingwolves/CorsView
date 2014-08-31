@@ -1,0 +1,87 @@
+.cell {
+	/*background-color: yellow;*/
+	/*border:10px solid;*/
+	color:#2A2A2A;
+	height: 100px;
+	/*width: 150px;*/
+}
+
+#search-container div #reg-search-input {
+	width: 90%;
+}
+
+#search-container {
+	position: fixed;
+	top: 52px;
+	width: 100%;
+	z-index: 999;
+}
+
+#search-form {
+	padding: 10px 0px;
+}
+
+#main-container {
+	margin: 52px;
+}
+
+#display-container {
+	padding-top: 80px;
+}
+
+table {
+  table-layout: fixed; 
+  width: 100%;
+}
+
+td, th {
+  padding:10px;
+  /*top:50%;*/
+}
+
+td {
+	width: 150px;
+	border:10px solid;
+	background-color: #2A2A2A;
+}
+
+th p {
+	font-size: 30px;
+	font-weight: bold;
+	position: relative;
+	left:10%;
+	top:30%;
+}
+
+td p{
+	font-size: 25px;
+	font-weight: bold;
+	position: relative;
+	left:10%;
+	top:30%;
+}
+
+th {
+  position:absolute;
+  left:0;
+  width: 150px;
+  color: #5A5A5A;
+}
+
+#add-feedback {
+	width: 98%;
+}
+
+.module-content-div {
+	width: 140px;
+	height: 90px;
+}
+
+.reg-display-table-outer {position:relative}
+
+.reg-display-table-inner {
+  overflow-x:hidden;
+  overflow-y:visible;
+  width:100%;
+  /*margin-left:100px;*/
+}

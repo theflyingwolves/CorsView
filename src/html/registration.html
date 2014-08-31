@@ -1,0 +1,59 @@
+<html>
+<head>
+	<script type="text/javascript" src="../../libs/jQuery/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="../../libs/jQueryUI/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../../libs/Bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/registration/registration.js"></script>
+	<script type="text/javascript" src="../js/registration/colorTheme.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/regIndex.css">
+	<link rel="stylesheet" type="text/css" href="../css/registrationPage.css">
+	<link rel="stylesheet" type="text/css" href="../../libs/Bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../libs/jQueryUI/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../libs/jQueryUI/jquery-ui.theme.min.css">
+	<title>Registration</title>
+
+	<script type="text/javascript">
+	var regTableNumOfRows = 6;
+	var regTableNumOfCols = 6;
+
+	$(function(){
+		addDisplayTable();
+		initEventListeners();
+		initAutoCompleteData();
+	});
+	</script>
+</head>
+<body  style="background-color:#2A2A2A">
+<header>
+  <nav class="top-nav">
+ 	 <a class="logo" href="#"><img src="../../res/img/icon.png"></img></a>
+  <div class="links">
+    <a href="#">ABOUT</a>
+  </div><div class="links">
+    <a href="#">CONTACT</a>
+    <img id="fb-icon" src="../../res/img/fbicon-30.png"></img></a>
+  </div>
+</nav>
+</header>
+
+<div id="main-container">
+	<div id="search-container">
+		<!-- <form role="form" class="form-inline" id="search-form"> -->
+		<div role="form" class="form-inline" id="search-form">
+				<input type="text" class="form-control" id="reg-search-input" placeholder="Search Module to Add"/>
+				<!-- <button class="btn btn-default" id="add-module-btn">Add</button>  -->
+				<!-- <button class="btn btn-default" id="delete-module-btn">Delete</button> -->
+		</div>
+	</div>
+
+	<div id="display-container">
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+
+});
+</script>
+</body>
+</html>
