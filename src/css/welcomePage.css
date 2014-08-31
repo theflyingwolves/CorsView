@@ -39,3 +39,9 @@ h5 {
 	top: 80%;
 	font-size: 18px;
 }
+
+.fb-login {
+	position: fixed;
+	top: 50%;
+	left: 43%;
+}

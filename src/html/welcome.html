@@ -25,6 +25,9 @@
 
 <h1 class="tlt title" data-in-effect="flipInY">Cors View - NUS</h1>
 <h5 class="tlt subtitle" data-in-effect="flipInY">Please log in with your Facebook account.</h5>
+<div class="fb-login">
+	
+</div>
 <div class="content">
 	<div class="quotes"></div>
 	<div class="author"></div>
@@ -33,17 +36,30 @@
 
 <script type="text/javascript">
 	$(function(){
-		$(".title").textillate({});
+		$(".title").textillate({
+			in:{
+				delayScale:1.0
+			}
+		});
 		$(".subtitle").textillate({
 			in: {
-				callback:loadQuote
+				callback:loadFBButton
 			}
 		});
 	});
 
+	function loadFBButton(){
+		$(".fb-login").hide()
+		.html("<img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" width=\"200\" />")
+		.fadeIn("slow",function(){
+			loadQuote();
+		});
+	}
+
 	function loadQuote(){
 		loadQuoteData();
 		$(".quote-data").textillate({
+			initialDelay:1000,
 			autoStart:true,
 			in:{
 				delayScale:1.0,
@@ -64,10 +80,30 @@
 				shuffle:true
 			},
 			out:{
-				effect:"flipOutY",
-				delayScale:0.5
+				effect:"hinge",
+				delayScale:0.5,
+				shuffle:true
 			},
 			loop:true
+		});
+
+		initWelcomeEventListeners();
+	}
+
+	function initWelcomeEventListeners(){
+		$(".fb-login-btn").hover(
+			function(){
+				console.log("Mouse Enter");
+				$(".fb-login-btn").attr("src","../../res/img/welcome-page-fblogin.png");
+			},
+			function(){
+				console.log("Mouse Out");
+				$(".fb-login-btn").attr("src","../../res/img/welcome-page-fblogin-dim.png");
+			}
+		);
+
+		$(".fb-login-btn").click(function(){
+			alert("Thanks for your interest! That's All!");
 		});
 	}
 
