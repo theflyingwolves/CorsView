@@ -31,15 +31,47 @@
     width: 250px;
 }
 
-#page-content-wrapper {
-    width: 100%;
-    padding: 15px;
-}
-
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
     margin-right: -250px;
 }
+
+#sidebar-module {
+    width:60px;
+    height:100%;
+    padding:80px 0px 0px 0px;
+    vertical-align:top;
+    display:inline-block;
+    z-index: 10;
+}
+
+#sidebar-module h1, #sidebar-module span {
+    opacity: 0.0;
+    -webkit-transition: opacity 0.4s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.4s;
+    float:right;
+}
+
+#sidebar-module span {
+    font-size: 20px;
+
+}
+
+#sidebar-module h1{
+    padding-top: 70px; 
+}
+
+
+#wrapper.toggled #sidebar-module h1,span {
+    opacity: 1.0;
+}
+
+#sidebar-wrapper div,hr {
+    opacity: 1.0;
+    -webkit-transition: opacity 0.4s;  /*For Sfari 3.1 to 6.0 */
+    transition: opacity 0.4s;
+}
+
 
 /* Sidebar Styles */
 
@@ -104,10 +136,6 @@
 
     #wrapper.toggled #sidebar-wrapper {
         width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 0px;
     }
 
     #wrapper.toggled #page-content-wrapper {
