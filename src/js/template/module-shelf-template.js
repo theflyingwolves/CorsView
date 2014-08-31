@@ -1,0 +1,3 @@
+var generateModuleShelfHtml = function(database){
+	
+};
