@@ -37,11 +37,20 @@
 <script type="text/javascript">
 	$(function(){
 		$(".title").textillate({
-			in:{
-				delayScale:1.0
-			}
+			initialDelay:1000,
+			// in:{
+			// 	delayScale:2.0
+			// }
+			// callback:function(){
+			// 	$(".title").textillate({
+			// 		in:{
+			// 			effect:"swing"
+			// 		}
+			// 	});
+			// }
 		});
 		$(".subtitle").textillate({
+			initialDelay:1500,
 			in: {
 				callback:loadFBButton
 			}
