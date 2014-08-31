@@ -1,0 +1,85 @@
+<html>
+<head>
+	<script type="text/javascript" src="../../libs/jQuery/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="../../libs/Textillate/jquery.lettering.js"></script>
+	<script type="text/javascript" src="../../libs/Textillate/jquery.textillate.js"></script>
+	<script type="text/javascript" src="../js/database/welcomePageData.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../../libs/Animatecss/animate.css" />
+	<link rel="stylesheet" type="text/css" href="../css/navigationBar.css">
+	<link rel="stylesheet" type="text/css" href="../css/welcomePage.css">
+	<title>Cors View</title>
+</head>
+<body>
+<header>
+  <nav class="top-nav">
+ 	 <a class="logo" href="#"><img src="../../res/img/icon.png"></img></a>
+  <div class="links">
+    <a href="#">ABOUT</a>
+  </div><div class="links">
+    <a href="#">CONTACT</a>
+    <img id="fb-icon" src="../../res/img/fbicon-30.png"></img></a>
+  </div>
+</nav>
+</header>
+
+<h1 class="tlt title" data-in-effect="flipInY">Cors View - NUS</h1>
+<h5 class="tlt subtitle" data-in-effect="flipInY">Please log in with your Facebook account.</h5>
+<div class="content">
+	<div class="quotes"></div>
+	<div class="author"></div>
+</div>
+</body>
+
+<script type="text/javascript">
+	$(function(){
+		$(".title").textillate({});
+		$(".subtitle").textillate({
+			in: {
+				callback:loadQuote
+			}
+		});
+	});
+
+	function loadQuote(){
+		loadQuoteData();
+		$(".quote-data").textillate({
+			autoStart:true,
+			in:{
+				delayScale:1.0,
+				shuffle:true
+			},
+			out:{
+				effect:"flipOutY",
+				delayScale:0.5
+			},
+			loop:true
+		});
+
+		$(".author-data").textillate({
+			autoStart:true,
+			initialDelay:1000,
+			in:{
+				delayScale:1.0,
+				shuffle:true
+			},
+			out:{
+				effect:"flipOutY",
+				delayScale:0.5
+			},
+			loop:true
+		});
+	}
+
+	function loadQuoteData(){
+		var len = welcomePageData.length;
+		var data = welcomePageData[Math.floor(Math.random()*len)];
+
+		var quote = "<p class=\"quote-data\" data-in-effect=\"fadeInLeft\" data-out-effect=\"hinge\">"+data.quotes+"</p>";
+		$(".quotes").html(quote);
+
+		var author = "<p class=\"author-data\" data-in-effect=\"fadeInLeft\" data-out-effect=\"hinge\"> --- "+data.author+"</p>";
+		$(".author").html(author);
+	}
+</script>
+</html>

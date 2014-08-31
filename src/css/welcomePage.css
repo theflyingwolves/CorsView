@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  background: #282828;
+  color: #eee;
+  font-family: 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+  font-size: 14px;
+}
+
+h1 {
+	position: fixed;
+	top: 20%;
+	left: 35%;
+	font-size: 50px;
+}
+
+h5 {
+	position: fixed;
+	top: 32%;
+	left: 32%;
+	font-size: 25px;
+}
+
+.content {
+	color: white;
+	border:1px solid;
+}
+
+.quotes {
+	position: fixed;
+	top: 60%;
+	left: 100px;
+	width: 90%;
+	font-size: 20px;
+}
+
+.author {
+	position: fixed;
+	right: 100px;
+	top: 80%;
+	font-size: 18px;
+}
