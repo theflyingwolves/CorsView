@@ -40,10 +40,11 @@ function slideModuleOut(moduleBook) {
 		createSidebar();
 		$("#page-content-wrapper").append(slidingPanelViewHtml);
 		$("#page-content-wrapper").css("height","100%");
+		$("#page-content-wrapper").append(addButton);
 		createSlidingPanel();
-
+		bindOverPanel(currentColor);
 	});
-	bindOverPanel(currentColor);
+			console.log("bind");
 
 	moduleBook.nextAll().animate({
 		right:-$(window).width()-offsetLeft
@@ -51,17 +52,19 @@ function slideModuleOut(moduleBook) {
 };
 
 function bindOverPanel(currentColor) {
-	$(".data-box").hover(function() {
+	$("#page-content-wrapper").on("mouseenter",".data-box", function() {
 		$(this).find(".over").css("width",$(this).css("width"));
 		$(this).find(".over").css("height", $(this).css("height"));
 		var alphaColor2 = getAlphacolor(currentColor,0.9);
-		console.log("color: "+alphaColor2);
+		$(this).find(".over").css("background-color",alphaColor2);
 		$(this).find(".over").animate({
-			backgroundColor: alphaColor2
+			opacity:1
 		}, 100);
-		}, function() {
+		}
+	);
+	$("#page-content-wrapper").on("mouseleave",".data-box", function() {
 			$(this).find(".over").animate({
-				backgroundColor: "transparent"
+				opacity:0
 			}, 100);
 		}
 	);	

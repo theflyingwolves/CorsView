@@ -187,15 +187,19 @@ function generateColHtml(database, indexArray){
 
 function generateBoxHtml(str){
 	var html = "<article class=\"data-box\">";
-	html += "<div class=\"over\">"
-	html += "<span class=\"glyphicon glyphicon-heart-empty\"></span>"
-	html += "<span class=\"glyphicon glyphicon-comment\"></span>"
-	html += "<span class=\"glyphicon glyphicon-share-alt\"></span>"
-	html += "</div>"
+	html += "<div class=\"over\">";
+	html += "<table><tr>";
+	html += "<td><span class=\"glyphicon glyphicon-heart-empty\"></span></td>";
+	html += "<td><span class=\"glyphicon glyphicon-comment\"></span></td>";
+	html += "<td><span class=\"glyphicon glyphicon-share-alt\"></span></td>";
+	html += "</tr><tr>";
+	html += "<td><p>10</p></td><td><p>15</p></td>"
+	html += "</table></div>";
 	html += "<p>"+str+"</p>";
 	html += "</article>";
 	return html;
 }
+
 
 function initAnimation(containerId, prevBtnId, nextBtnId){
 	var target = $("#"+containerId);

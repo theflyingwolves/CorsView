@@ -22,3 +22,5 @@ var slidingPanelViewHtml = "<div id=\"review-container\" >"+
  	console.log(html);
  	return html;
   }
+
+  var addButton = "<div class=\"circle\"><span class=\"glyphicon glyphicon-plus\"></span></circle>"
