@@ -15,6 +15,18 @@ $('.modulebook').click(function(){
 	// resetUrl();
 })
 
+$('.moduleshelf').mouseout(function(){
+	$('.modulebook').css("opacity","1.0");
+});
+
+$('#fb-icon').mouseover(function(){
+	$(this).attr("src","../../res/img/fbicon-color-30.png");
+});
+
+$('#fb-icon').mouseout(function(){
+	$(this).attr("src","../../res/img/fbicon-30.png");
+});
+
 function slideModuleOut(moduleBook) {
 	var offsetLeft = moduleBook.offset().left;
 	var currentColor = moduleBook.css("background-color");
@@ -133,14 +145,3 @@ function verticalAlign(moduleBook) {
 	moduleBook.css("writing-mode","vertical-lr");
 }
 
-$('.moduleshelf').mouseout(function(){
-	$('.modulebook').css("opacity","1.0");
-});
-
-$('#fb-icon').mouseover(function(){
-	$(this).attr("src","../../res/img/fbicon-color-30.png");
-});
-
-$('#fb-icon').mouseout(function(){
-	$(this).attr("src","../../res/img/fbicon-30.png");
-});

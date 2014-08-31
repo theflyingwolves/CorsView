@@ -36,7 +36,7 @@ var generateRow = function(rowId, cellWidth){
 									"<p>"+(rowId+1)+"000</p>"+
 							"</th>");
 		}else{
-			row += ("<td class=\"cell row-header\" id=\"cell-"+rowId+"-"+i+"\"></td>");
+			row += ("<td class=\"cell\" id=\"cell-"+rowId+"-"+i+"\"></td>");
 		}
 	}
 
@@ -48,7 +48,7 @@ var addModuleToTable = function(moduleToAdd){
 	if(moduleToAdd.length > 6){
 		var moduleCode = moduleToAdd.substring(0,moduleToAdd.indexOf(" "));
 		if($.inArray(moduleCode,modulesAdded) >= 0){
-			$("#add-feedback").html("<div class=\"alert alert-danger\">Module Already Exists: "+moduleToAdd+"</div>");
+			$("#add-feedback").html("<div class=\"alert alert-warning\">Module Already Exists: "+moduleToAdd+"</div>");
 		}else{
 			modulesAdded[numOfModulesAdded] = moduleCode;
 			numOfModulesAdded ++;
@@ -75,6 +75,7 @@ var regGenerateModuleTableDiv = function(moduleToAdd,rowNum){
 	var randomColor = randomColorGenerator.generate();
 	var divHtml = "<div style=\"background-color:"+randomColor+";\" class=\"module-content-div\" id=\"module-content-div-"+rowNum+"-"+rowFrontierIndices[rowNum]+"\">";
 	divHtml += "<p>"+moduleToAdd.substring(0,moduleToAdd.indexOf(" "))+"</p>";
+	divHtml += "<br><span class=\"glyphicon glyphicon-remove\"></span>";
 	divHtml += "</div>";
 	return divHtml;
 };
@@ -114,13 +115,20 @@ var downgradeHighlight = function(rowNum){
 };
 
 var deleteModule = function(row, col){
+	var moduleCode =$("#cell-"+row+"-"+col+" div").text();
+	var index = modulesAdded.indexOf(moduleCode);
+	if(index > -1){
+		modulesAdded.splice(index,1);
+	}
+	console.log("delete module: "+moduleCode+" "+index);
 	var frontier = rowFrontierIndices[row];
 	if(frontier > 2){
-		for(var c = (col+1); c <= frontier-1; c++){
+		for(var c = col; c <= frontier-1; c++){
+			c = parseInt(c);
 			var updatedHtml = $("#cell-"+row+"-"+(c+1)).html();
-			console.log(updatedHtml);
 			var divToMove = $("#cell-"+row+"-"+c);
-			
+			// console.log("#cell-"+row+"-"+(c+1));
+			divToMove.html(updatedHtml);
 			divToMove.hide()
 			.html(updatedHtml)
 			.fadeIn('slow')
@@ -146,6 +154,21 @@ var initEventListeners = function(){
 			addModuleToTable(moduleToAdd);
 			var moduleToAdd = $("#reg-search-input").val("");
 		}
+	});
+
+	$("#display-container").on("mouseenter",".module-content-div",function() {
+		console.log("enter div");
+		$(this).find("span").css("opacity","1");
+	});
+	$("#display-container").on("mouseleave",".module-content-div",function() {
+		$(this).find("span").css("opacity","0");
+	});
+	$("#display-container").on("click",".module-content-div span",function() {
+		var idInfo = $(this).parent().parent().attr("id");
+		var row = idInfo.split("-")[1];
+		var col = idInfo.split("-")[2];
+
+		deleteModule(row, col);
 	});
 };
 

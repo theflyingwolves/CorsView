@@ -10,6 +10,8 @@
 	<link rel="stylesheet" type="text/css" href="../../libs/Bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../libs/jQueryUI/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="../../libs/jQueryUI/jquery-ui.theme.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
+
 	<title>Registration</title>
 
 	<script type="text/javascript">
@@ -26,6 +28,14 @@
 <body  style="background-color:#2A2A2A">
 <header>
   <nav class="top-nav">
+   <div id="search-container">
+  	<div id="search-form" class="form-group has-feedback">
+  	 <input id="reg-search-input" type="text" class="form-control" id="inputWarning2" placeholder="Search Module to Add" >
+  	  <label class="control-label" for="inputWarning1">aa</label>
+     <span  class="glyphicon glyphicon-search form-control-feedback"></span>
+    </div>
+   </div>
+
  	 <a class="logo" href="#"><img src="../../res/img/icon.png"></img></a>
   <div class="links">
     <a href="#">ABOUT</a>
@@ -37,18 +47,18 @@
 </header>
 
 <div id="main-container">
-	<div id="search-container">
-		<!-- <form role="form" class="form-inline" id="search-form"> -->
+<!-- 	<div id="search-container">
 		<div role="form" class="form-inline" id="search-form">
 				<input type="text" class="form-control" id="reg-search-input" placeholder="Search Module to Add"/>
-				<!-- <button class="btn btn-default" id="add-module-btn">Add</button>  -->
-				<!-- <button class="btn btn-default" id="delete-module-btn">Delete</button> -->
 		</div>
-	</div>
+	</div> -->
 
-	<div id="display-container">
+	<div id="display-container" class="col-md-9">
 	</div>
+    <a class="right carousel-control"  style="position:fixed;"><span class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
+
+
 
 <script type="text/javascript">
 $(function(){

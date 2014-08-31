@@ -13,9 +13,14 @@
 }
 
 .top-nav .links{
-	display:inline-block;height:52px;line-height:16px;
-	margin:0;padding:19px 37px 0 0;position:relative;width:50%;
-	vertical-align:top;z-index:1
+	display:inline-block;
+	height:52px;
+	line-height:16px;
+	margin:0;
+	padding:19px 37px 0 0;
+	position:relative;width:50%;
+	vertical-align:top;
+	z-index:1;
 }
 
 .top-nav .links:last-child{padding-left:38px;
@@ -28,18 +33,25 @@
 }
 .top-nav .links a{
 	display:inline-block;height:16px;
-	overflow:hidden;position:relative;
-	text-decoration:none;border-bottom:1px solid transparent;color:#898989;
+	overflow:hidden;
+	position:relative;
+	text-decoration:none;
+	border-bottom:1px solid transparent;
+	color:#898989;
 	float:right;margin-left:22px;
-	text-transform:uppercase;-webkit-transition:border-bottom 0;
+	text-transform:uppercase;
+	-webkit-transition:border-bottom 0;
 	transition:border-bottom 0;
 }
 .top-nav .links a:hover span{
 	padding-top:16px
 }
 .top-nav .links a span{
-	display:block;height:16px;line-height:16px;
-	-webkit-transition:padding-top .3s;transition:padding-top .3s;
+	display:block;
+	height:16px;
+	line-height:16px;
+	-webkit-transition:padding-top .3s;
+	transition:padding-top .3s;
 }
 .top-nav .links a span:first-child{
 	margin-top:-16px;
@@ -48,7 +60,8 @@
 	padding-top:16px;
 }
 .top-nav .links a.selected{
-	border-bottom:1px solid #444;-webkit-transition:border-bottom .3s;
+	border-bottom:1px solid #444;
+	-webkit-transition:border-bottom .3s;
 	transition:border-bottom .3s;
 }
 .top-nav .links a.selected.no-transition,.top-nav .links a.selected.no-transition span{
@@ -60,7 +73,7 @@
 .touch .top-nav .links a:hover span{padding-top:0}
 .top-nav .logo{border:3px; color:#000;display:inline-block;font-size:25px;height:24px;left:50%;margin:10px 0 0 -12px;position:absolute;text-decoration:none;top:0;-webkit-transform:rotate(0);transform:rotate(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:border .3s,-webkit-transform .3s ease-out;transition:border .3s,transform .3s ease-out;width:22px;z-index:2}
 
-#search-bar {
+#search-form {
 	position: absolute;
 	width:15%; 
 	left: 10px;
@@ -72,16 +85,24 @@
 }
 
 
-#search-bar:hover {
-	width: 30%
+#search-form:hover {
+	width: 24%
 }
 
-#search-bar span {
+#search-form span {
 	color:grey;
 	position: absolute;
 	font-size: 20px;
 	top:4px;
 }
+
+#search-form input {
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: lighter;
+}
+
+
+
 
 
 /*********** body ********************/
