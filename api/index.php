@@ -1,10 +1,9 @@
 <?php
- $requestURI = explode('/', $_SERVER['REQUEST_URI']);
-//$requestURI = explode('/', $_GET['url']);
-
+$requestURI = explode('/', $_SERVER['REQUEST_URI']);
+//$requestURI = explode('/', $_REQUEST['url']);
 //current api call starts with "localhost/corsview/api/..."
-//54.164.2131/api/modules
-$addr_offset = 3;
+
+$addr_offset = 2;
 $command = array_values($requestURI);
 
 //initialize the rest of $command to empty strings 
@@ -204,7 +203,6 @@ switch($command[$addr_offset + 0]){
                                                                                                                                     break; //end of case ''
                                                                                                                               case 'delete':
                                                                                                                                     require_once('document_comments.php');
-                                                                                                                                    echo "hah";
                                                                                                                                     deleteDocumentComment($command[$addr_offset+5],$command[$addr_offset+7],$command[$addr_offset+8]);
                                                                                                                                     break;
                                                                                                                         }
@@ -234,75 +232,87 @@ switch($command[$addr_offset + 0]){
                                                 require_once('users.php');
                                                 $user = json_decode(file_get_contents('php://input'),true);
                                                 userLogin($user);
-                                                break;
-                                          case 'DELETE':
-                                                require_once('users.php');
-                                                $user = json_decode(file_get_contents('php://input'),true);
-                                                userLogout($user);     
-                                         case 'GET':
-                                                require_once('users.php'); 
-                                          default:
-                                                break;
-                                    }
-                                    break;
-                              
-                              case 'enroll':
-                                    switch($command[$addr_offset+2]){
-                                          case '':
-                                                switch($_SERVER['REQUEST_METHOD']){
-                                                      case 'GET':
-                                                            require_once('users_modules.php');
-                                                            getModulesTaken($command[$addr_offset+3]);
-                                                            break;
-                                                      case 'POST':
-                                                            require_once('users_modules.php');
-                                                            $enrollmentsDetails = json_decode(file_get_contents('php://input'), true);
-                                                            addEnrollment($enrollmentsDetails);
-                                                            break;
-                                                      default:
-                                                            break;    
-                                                }
-                                                break; // case '': ../../api/modules/module_code/reviews/review_id/ ended
-
-                                          case 'delete':
-                                                require_once('users_modules.php');
-                                                $enrollmentsDetails = json_decode(file_get_contents('php://input'),true);
-                                                deleteEnrollment($enrollmentsDetails);
-                                                break;
+                                                break;                                 
                                           default:
                                                 break;
                                     }
                                     break;
 
-                              case 'bookmark':
-                                    switch($command[$addr_offset+2]){
-                                          case '':
-                                                switch($_SERVER['REQUEST_METHOD']){
-                                                      case 'GET':
-                                                            require_once('users_modules.php');
-                                                            getModulesBookmarked($command[$addr_offset+3]);
-                                                            break;
-                                                      case 'POST':
-                                                            require_once('users_modules.php');
-                                                            $bookmarkDetails = json_decode(file_get_contents('php://input'), true);
-                                                            addBookmark($bookmarkDetails);
-                                                            break;
-                                                      default:
-                                                            break;    
-                                                }
-                                                break; // case '': ../../api/modules/module_code/reviews/review_id/ ended
+                              default: //user id exists
+                                          switch($command[$addr_offset+2]){
+                                                case '':
+                                                      switch($_SERVER['REQUEST_METHOD']){
+                                                            case 'GET':
+                                                                  //get user's frofile
+                                                                  break;
+                                                            case 'DELETE':
+                                                                  require_once('users.php');
+                                                                  userLogout($command[$addr_offset+1]); 
+                                                                  break;
+                                                      }
+                                                      break;
+                                                case 'enrollments':
+                                                      switch($command[$addr_offset+3]){
+                                                            case '':
+                                                                  switch($_SERVER['REQUEST_METHOD']){
+                                                                        case 'GET':
+                                                                              require_once('users_modules.php');
+                                                                              getModulesTaken($command[$addr_offset+1]);
+                                                                              break;
+                                                                        case 'POST':
+                                                                              require_once('users_modules.php');
+                                                                              $enrollmentsDetails = json_decode(file_get_contents('php://input'), true);
+                                                                              addEnrollment($enrollmentsDetails);
+                                                                              break;
+                                                                        default:
+                                                                              break;    
+                                                                  }
+                                                                  break; 
+                                                            default: //enrollment id exists
+                                                                  switch($_SERVER['REQUEST_METHOD']){
+                                                                        case 'DELETE':
+                                                                              require_once('users_modules.php');
+                                                                              deleteEnrollment($command[$addr_offset+3],$command[$addr_offset+1],$command[$addr_offset+4]);
+                                                                              break;
+                                                                        }
+                                                                  break;
+                                                      }
+                                                      break;
+            
+                                                case 'bookmarks':
+                                                      switch($command[$addr_offset+3]){
+                                                            case '':
+                                                                  switch($_SERVER['REQUEST_METHOD']){
+                                                                        case 'GET':
+                                                                              require_once('users_modules.php');
+                                                                              getModulesBookmarked($command[$addr_offset+1]);
+                                                                              break;
+                                                                        case 'POST':
+                                                                              require_once('users_modules.php');
+                                                                              $bookmarkDetails = json_decode(file_get_contents('php://input'), true);
+                                                                              addBookmark($bookmarkDetails);
+                                                                              break;
+                                                                        default:
+                                                                              break;    
+                                                                  }
+                                                                  break; // case ''
+                                                                  
+                                                            default:    //bookmark id exists
+                                                                  switch($_SERVER['REQUEST_METHOD']){
+                                                                        case 'DELETE':
+                                                                              require_once('users_modules.php');
+                                                                              deleteBookmark($command[$addr_offset+3],$command[$addr_offset+1],$command[$addr_offset+4]);
+                                                                              break;
+                                                                        }
+                                                                  break;
+                                                      }
+                                                      break;
 
-                                          case 'delete':
-                                                require_once('users_modules.php');
-                                                $bookmarkDetails = json_decode(file_get_contents('php://input'),true);
-                                                deleteBookmark($bookmarkDetails);
-                                                break;
-                                          default:
-                                                break;
-                                    }
-                                    break;
+                                                default:
+                                                      break;
+                                    
 
-                              default:
+                                          }
                                     break;
                         }
                         break;      //end of case users

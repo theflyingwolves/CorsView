@@ -1,21 +1,21 @@
 <?php
+require_once('config.php');
 require_once('constants.php');
 require_once('common_functions.php');
 
 function userRegister($newUser){
     if($newUser != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+         $mysqli = connect_database();
 
-         $newQuery = sprintf("INSERT INTO ". USERS_TABLE ." (Facebook_ID,Access_Token,Created_Time) VALUES ('%s','%s','%s')",
-            mysql_real_escape_string($newUser['facebookID']),
-            mysql_real_escape_string($newUser['accessToken']),
-            mysql_real_escape_string(timeGenerator()));
-        if(mysql_query($newQuery,$dbc)){
+         $newQuery = sprintf("INSERT INTO ". USERS_TABLE ." (Facebook_ID,Facebook_Name,Gender,Access_Token,Created_Time) VALUES ('%s','%s','%s','%s','%s')",
+            $mysqli->real_escape_string($newUser['facebookID']),
+            $mysqli->real_escape_string($newUser['facebookName']),
+            $mysqli->real_escape_string($newUser['gender']),
+            $mysqli->real_escape_string($newUser['accessToken']),
+            $mysqli->real_escape_string(timeGenerator()));
+        if($mysqli->query($newQuery)){
             $returnMessage = "user registers successfully";
                 userLogin($newUser);
-            //respondToClient(200,array('message' => $returnMessage,'userID' => mysql_insert_id()));
         }
         else{
             $returnMessage = "user registers unsuccessfully";
@@ -30,18 +30,15 @@ function userRegister($newUser){
 
 function userLogin($user){
     if($user != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
-
+         $mysqli = connect_database();
            $newQuery = sprintf("UPDATE " . USERS_TABLE . " SET Access_Token = '%s' WHERE Facebook_ID = '%s' LIMIT 1",
-            mysql_real_escape_string($user['accessToken']),
-            mysql_real_escape_string($user['facebookID']));
-           if(mysql_query($newQuery,$dbc)){
+            $mysqli->real_escape_string($user['accessToken']),
+            $mysqli->real_escape_string($user['facebookID']));
+           if($mysqli->query($newQuery)){
                 $newQuery = sprintf("SELECT User_ID FROM " . USERS_TABLE . " WHERE Facebook_ID = '%s'",
-                    mysql_real_escape_string($user['facebookID']));
-                $result = mysql_query($newQuery,$dbc);
-                $row = mysql_fetch_array($result);
+                    $mysqli->real_escape_string($user['facebookID']));
+                $result = $mysqli->query($newQuery);
+                $row = $result->fetch_array(MYSQLI_ASSOC);
                 $userID = $row['User_ID'];
                 $returnMessage = "user logs in successfully";
                 respondToClient(200,array('message' => $returnMessage,'userID' => $userID));
@@ -55,15 +52,12 @@ function userLogin($user){
     }
 }
 
-function userLogout($user){
-    if($user != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
-       
-       $newQuery = sprintf("UPDATE " . USERS_TABLE . " SET Access_Token = '' WHERE Facebook_ID = '%s' LIMIT 1",
-        mysql_real_escape_string($user['facebookID']));
-       if(mysql_query($newQuery,$dbc)){
+function userLogout($userID){
+    if($userID != null){
+       $mysqli = connect_database();
+       $newQuery = sprintf("UPDATE " . USERS_TABLE . " SET Access_Token = '' WHERE User_ID = '%s' LIMIT 1",
+        $mysqli->real_escape_string($userID));
+       if($mysqli->query($newQuery)){
             $returnMessage = "user logs out successfully";
             respondToClient(200,array('message' => $returnMessage));
        } else{
@@ -73,5 +67,28 @@ function userLogout($user){
     } else{
         $returnMessage = "inputs are missing";
         respondToClient(400,array('message' => $returnMessage));
+    }
+}
+
+function getUserInfo($facebookID){
+    if($facebookID != null){
+       $mysqli = connect_database();
+        $newQuery  = sprintf("SELECT * FROM " . USERS_TABLE . " WHERE Facebook_ID = '%s'",
+            $mysqli->real_escape_string($facebookID));
+        $result = $mysqli->query($newQuery);
+        
+        if($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $userInfo = array(
+                'userID' => $row['User_ID'],
+                'FacebookID' => $row['Facebook_ID'],
+                'Facebook_Name' => $row['Facebook_Name'],
+                'accessToken' => $row['Access_Token'],
+                'createdTime' => $row['Created_Time'],
+                'lastLogInTime' => $row['Last_Log_In_Time']);
+        }
+
+    } else{
+        $returnMessage = "user's facebook id is missing";
+        respondToClient(400,array('message' => $returnMessage));       
     }
 }
