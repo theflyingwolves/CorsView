@@ -60,12 +60,35 @@
 .touch .top-nav .links a:hover span{padding-top:0}
 .top-nav .logo{border:3px; color:#000;display:inline-block;font-size:25px;height:24px;left:50%;margin:10px 0 0 -12px;position:absolute;text-decoration:none;top:0;-webkit-transform:rotate(0);transform:rotate(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:border .3s,-webkit-transform .3s ease-out;transition:border .3s,transform .3s ease-out;width:22px;z-index:2}
 
-#search-bar {
-	position: relative;
-	width:30%; 
+
+#search-form {
+	position: absolute;
+	width:15%; 
 	left: 10px;
 	top:5px;
+	display: inline;
+	z-index:10;
+	-webkit-transition: width 0.3s; 
+    transition: width 0.3s;
 }
+
+
+#search-form:hover {
+	width: 24%
+}
+
+#search-form span {
+	color:grey;
+	position: absolute;
+	font-size: 20px;
+	top:4px;
+}
+
+#search-form input {
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: lighter;
+}
+
 
 #fb-icon {
 	top:13px;
