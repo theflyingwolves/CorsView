@@ -1,4 +1,5 @@
 <?php
+
 function respondToClient($response_code,$response_array){
     //http_response_code($response_code);
     sendHttpResponseCode($response_code);
@@ -11,11 +12,11 @@ function authentication($userID,$accessToken){
         return FALSE;
     }
     else {
-        require_once('database_setup.php');
-        $dbc = connect_database();
+        require_once('config.php');
+        $mysqli = connect_database();
         $newQuery = sprintf("SELECT Access_Token FROM ". USERS_TABLE ." u WHERE u.User_ID='%s'",mysql_real_escape_string($userID));
-        $result = mysql_query($newQuery,$dbc);
-        if($row = mysql_fetch_array($result)){
+        $result = $mysqli->query($newQuery);
+        if($row = $result->fetch_array(MYSQLI_ASSOC)){
             if(strcmp($row['Access_Token'],$accessToken) == 0){
                 return TRUE;
             }

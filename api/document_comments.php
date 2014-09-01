@@ -1,12 +1,11 @@
 <?php
+require_once('config.php');
 require_once('constants.php');
 require_once('common_functions.php');
 
 function postDocumentComment($commentDetails){
     if($commentDetails != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+         $mysqli = connect_database();
 
         if(!authentication($commentDetails['creatorID'],$commentDetails['accessToken'])){
             $returnMessage = "user is not authorized.";
@@ -16,14 +15,15 @@ function postDocumentComment($commentDetails){
 
         $newQuery = sprintf("INSERT INTO " . DOCUMENT_COMMENTS_TABLE . "(Document_ID,Creator_ID,
             Comment_Content,Created_Time) VALUES ('%s','%s','%s','%s')",
-         mysql_real_escape_string($commentDetails['documentID']),
-         mysql_real_escape_string($commentDetails['creatorID']),
-         mysql_real_escape_string($commentDetails['commentContent']),
-         mysql_real_escape_string(timeGenerator()));
-        if($result=mysql_query($newQuery,$dbc)){
-            $Comment_ID = mysql_insert_id();
+         $mysqli->real_escape_string($commentDetails['documentID']),
+         $mysqli->real_escape_string($commentDetails['creatorID']),
+         $mysqli->real_escape_string($commentDetails['commentContent']),
+         $mysqli->real_escape_string(timeGenerator()));
+        $mysqli->query($newQuery);
+        if($mysqli->affected_rows != 0){
+            $Comment_ID = $mysqli->insert_id;
             $returnMessage = "comment inserted successfully";
-            respondToClient(200,array('message' => $returnMessage,'commentID' => mysql_insert_id()));
+            respondToClient(200,array('message' => $returnMessage,'commentID' => $Comment_ID));
         }
         else{
             $returnMessage = "comment inserted unccessfully";
@@ -38,15 +38,13 @@ function postDocumentComment($commentDetails){
 
 function getComments($documentID){
     if($documentID != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+         $mysqli = connect_database();
 
         $newQuery  = sprintf("SELECT * FROM " . DOCUMENT_COMMENTS_TABLE . " WHERE Document_ID = '%s' AND deleted = 0",
-            mysql_real_escape_string($documentID) );
-        $result = mysql_query($newQuery,$dbc);
+            $mysqli->real_escape_string($documentID) );
+        $result = $mysqli->query($newQuery);
         $commentList = array();
-        while($row = mysql_fetch_array($result)){
+        while($row = $result->fetch_array(MYSQLI_ASSOC)){
             $comment = array(
                 'commentID' => $row['Comment_ID'],
                 'documentID' => $row['Document_ID'],
@@ -73,14 +71,12 @@ function getComments($documentID){
 
 function getSpecificDocumentComment($commentID){
         if($commentID != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+         $mysqli = connect_database();
 
         $newQuery  = sprintf("SELECT * FROM " . DOCUMENT_COMMENTS_TABLE . " WHERE Comment_ID = '%s' AND deleted = 0",
-            mysql_real_escape_string($commentID) );
-        $result = mysql_query($newQuery,$dbc);
-        if($row = mysql_fetch_array($result)){
+            $mysqli->real_escape_string($commentID) );
+        $result = $mysqli->query($newQuery);
+        if($row = $result->fetch_array(MYSQLI_ASSOC)){
             $comment = array(
                 'commentID' => $row['Comment_ID'],
                 'documentID' => $row['Document_ID'],
@@ -105,9 +101,7 @@ function getSpecificDocumentComment($commentID){
 
 function modifyReviewComment($commentID,$commentContent){
     if($commentID != null && $commentContent != null) {
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+         $mysqli = connect_database();
 
         if(!authentication($commentContent['creatorID'],$commentContent['accessToken'])){
             $returnMessage = "user is not authorized.";
@@ -115,10 +109,12 @@ function modifyReviewComment($commentID,$commentContent){
             return;
         }
 
-        $newQuery = sprintf("UPDATE ". DOCUMENT_COMMENTS_TABLE . " SET Comment_Content = '%s' WHERE Comment_ID = '%s'",
-            mysql_real_escape_string($commentContent['newComment']),
-            mysql_real_escape_string($commentID));
-         if($result = mysql_query($newQuery,$dbc)){
+        $newQuery = sprintf("UPDATE ". DOCUMENT_COMMENTS_TABLE . " SET Comment_Content = '%s' WHERE Comment_ID = '%s' AND Creator_ID = '%s'",
+            $mysqli->real_escape_string($commentContent['newComment']),
+            $mysqli->real_escape_string($commentID),
+            $mysqli->real_escape_string($commentContent['creatorID']));
+        $mysqli->query($newQuery);
+        if($mysqli->affected_rows != 0){
             $returnMessage = "comment updated successfully";
             respondToClient(200,array('message' => $returnMessage));
         }
@@ -136,9 +132,7 @@ function modifyReviewComment($commentID,$commentContent){
 
 function deleteDocumentComment($commentID,$creatorID,$accessToken){
     if($commentID != null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+         $mysqli = connect_database();
 
         if(!authentication($creatorID,$accessToken)){
             $returnMessage = "user is not authorized.";
@@ -146,9 +140,11 @@ function deleteDocumentComment($commentID,$creatorID,$accessToken){
             return;
         }
 
-        $newQuery = sprintf("UPDATE " . DOCUMENT_COMMENTS_TABLE . " SET deleted = 1 WHERE Comment_ID = '%s'",
-            mysql_real_escape_string($commentID));
-        if(mysql_query($newQuery,$dbc)){
+        $newQuery = sprintf("UPDATE " . DOCUMENT_COMMENTS_TABLE . " SET deleted = 1 WHERE Comment_ID = '%s' AND Creator_ID = '%s'",
+            $mysqli->real_escape_string($commentID),
+            $mysqli->real_escape_string($creatorID));
+            $mysqli->query($newQuery);
+        if($mysqli->affected_rows != 0){
             $returnMessage = "comment deleted successfully";
             respondToClient(200,array('message' => $returnMessage));
         } 
