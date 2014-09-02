@@ -103,8 +103,6 @@ function loadPrevPage(){
 	}
 
 	numOfElementsLoaded = i;
-
-	console.log("Index Ends At: "+historyIndex);
 }
 
 function initColumnContainers(numOfColumns){
@@ -130,18 +128,12 @@ function initHistory(){
 
 	while(counter < data.length){
 		var indices = initOneSlide(data,counter);
-		console.log("Starting History Init: "+data.length);
 		history[slideCount] = indices;
 		slideCount++;
 		counter = (indices[indices.length-1]+1);
 	}
 
-	console.log("Finishing History Init");
-
 	$("#test-div").remove();
-		console.log("Index length: "+history.length);
-	console.log("Index Ends At: "+historyIndex+" slideCount"+slideCount);
-	console.log(history);
 	return slideCount;
 }
 

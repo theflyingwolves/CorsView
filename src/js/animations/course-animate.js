@@ -12,7 +12,6 @@ $('.modulebook').click(function(){
 
 	var currentUrl = window.location.href;
 	window.location.href = (currentUrl.substring(0,currentUrl.indexOf("#"))) + ("#"+moduleCode);
-	// resetUrl();
 })
 
 function slideModuleOut(moduleBook) {

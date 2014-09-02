@@ -1,8 +1,6 @@
-/*********** body ********************/
-
 .scrolls {
     overflow-y: hidden;
-    white-space:nowrap
+    white-space:nowrap;
 }
 
 .modulebook{
@@ -69,6 +67,7 @@ body {
 #page-content-wrapper {
 	padding-top: 52px;
 } 
+
 
 
 /******************sliding panel*****************/
