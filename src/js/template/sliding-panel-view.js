@@ -19,4 +19,6 @@ var slidingPanelViewHtml = "<div id=\"review-container\" >"+
  	return html;
   }
 
-  var addButton = "<div class=\"circle\"><span class=\"glyphicon glyphicon-plus\"></span></circle>"
+  var addButton = "<div class=\"circle\"><span class=\"glyphicon glyphicon-plus\"></span></div>";
+
+  var crossButton = "<div class=\"circle empty\"><span class=\"glyphicon glyphicon-remove\"></span></div>";

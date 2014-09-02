@@ -69,6 +69,7 @@ body {
 } 
 
 
+
 /******************sliding panel*****************/
 
 
@@ -207,4 +208,19 @@ body {
 	top: 50%;
 	font-size: 20px;
 	color:#555;
+}
+
+.circle.empty {
+	border:2px solid;
+	top: 100px;
+	right: 100px;
+	background: transparent;
+	-webkit-transition: all 0.3s;
+    transition: all 0.3s;
+	box-shadow: none;
+
+}
+
+.circle.empty span{
+	color:white;
 }

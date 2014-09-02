@@ -1,4 +1,5 @@
 $('.modulebook').mouseenter(function(){
+	console.log("mouseenter"+$(this).find("h2").text());
 	$('.modulebook').not(this).animate({
 		opacity:'0.4'
 	},300);
@@ -15,9 +16,15 @@ $('.modulebook').click(function(){
 	// resetUrl();
 })
 
-$('.moduleshelf').mouseout(function(){
+$('.top-nav').mouseenter(function(){
+	console.log("mouse out shelf");
 	$('.modulebook').css("opacity","1.0");
 });
+
+// $('.moduleshelf').mouseout(function(){
+// 	console.log("mouse out shelf");
+// 	$('.modulebook').css("opacity","1.0");
+// });
 
 $('#fb-icon').mouseover(function(){
 	$(this).attr("src","../../res/img/fbicon-color-30.png");
@@ -25,6 +32,26 @@ $('#fb-icon').mouseover(function(){
 
 $('#fb-icon').mouseout(function(){
 	$(this).attr("src","../../res/img/fbicon-30.png");
+});
+
+jQuery.extend(jQuery.expr[':'], {
+  focus: "a == document.activeElement"
+});
+
+$("#search-form input").hover(function() {
+	$(this).parent().addClass("active");	
+}, function() {
+	if(!$(this).is(":focus")){
+		$(this).parent().removeClass("active");
+	}
+})
+
+$("#search-form input").focusin(function() {
+	$(this).parent().addClass("active");
+});
+
+$("#search-form input").focusout(function() {
+	$(this).parent().removeClass("active");
 });
 
 function slideModuleOut(moduleBook) {
@@ -53,6 +80,7 @@ function slideModuleOut(moduleBook) {
 		$("#page-content-wrapper").append(slidingPanelViewHtml);
 		$("#page-content-wrapper").css("height","100%");
 		$("#page-content-wrapper").append(addButton);
+		$("#page-content-wrapper").append(crossButton);
 		createSlidingPanel();
 		bindOverPanel(currentColor);
 	});
@@ -62,6 +90,10 @@ function slideModuleOut(moduleBook) {
 		right:-$(window).width()-offsetLeft
 	});
 };
+
+function slideModuleIn() {
+
+}
 
 function bindOverPanel(currentColor) {
 	$("#page-content-wrapper").on("mouseenter",".data-box", function() {

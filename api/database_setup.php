@@ -5,22 +5,29 @@ require_once("constants.php");
 database_setup();
 
 function database_setup(){
-    $con = connect_database();
-    mysql_query("CREATE DATABASE ". CORSVIEW_DB,$con);
-    mysql_select_db(CORSVIEW_DB,$con);
-    $new_database_query = "CREATE DATABASE IF NOT EXISTS 'CORSVIEW_DB' DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-    USE `CORSVIEW_DB`";
-    mysql_query($new_database_query,$con);
+    //$mysqli = new mysqli("localhost","root","");
+    $mysqli = new mysqli("localhost","root","12345");
+    $new_database_query = "CREATE DATABASE IF NOT EXISTS ". CORSVIEW_DB . " DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci";
+    if($mysqli->query($new_database_query)){
+        echo "works";
+    }
+    else{
+        echo "sucks";
+    }
+    $mysqli->select_db(CORSVIEW_DB);
 
     $new_table_query = "CREATE TABLE IF NOT EXISTS `" . USERS_TABLE . "`(
         `User_ID` int(11) NOT NULL AUTO_INCREMENT, 
         `Facebook_ID` int(11) NOT NULL UNIQUE,
+        `Facebook_Name` varchar(255) NOT NULL,
+        `Gender` tinyint(1) DEFAULT NULL,
         `Access_Token`  varchar(255) DEFAULT NULL,
         `Created_Time` datetime NOT NULL,
         `Last_Log_In_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY(`User_ID`)
         )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
+
 
     $new_table_query = "CREATE TABLE IF NOT EXISTS `" . MODULES_TABLE . "`(
         `Module_ID` int(11) NOT NULL AUTO_INCREMENT, 
@@ -42,7 +49,7 @@ function database_setup(){
         `Deleted` tinyint(1) DEFAULT '0',
         PRIMARY KEY(`Module_ID`)
         )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
     $new_table_query = "CREATE TABLE IF NOT EXISTS `" . MODULE_REVIEWS_TABLE . "`(
         `Review_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -60,7 +67,7 @@ function database_setup(){
         FOREIGN KEY(`Creator_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`Module_ID`) REFERENCES " . MODULES_TABLE . "(`Module_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
     $new_table_query = "CREATE TABLE IF NOT EXISTS `" . REVIEW_COMMENTS_TABLE . "`(
         `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -74,7 +81,7 @@ function database_setup(){
         FOREIGN KEY(`Review_ID`) REFERENCES " . MODULE_REVIEWS_TABLE . "(`Review_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`Creator_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
    $new_table_query = "CREATE TABLE IF NOT EXISTS `" . DOCUMENTS_TABLE . "`(
         `Document_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -94,7 +101,7 @@ function database_setup(){
         FOREIGN KEY(`Module_ID`) REFERENCES " . MODULES_TABLE . "(`Module_ID`) ON UPDATE CASCADE ON DELETE CASCADE
 
         )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT =1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
    $new_table_query = "CREATE TABLE IF NOT EXISTS `" . DOCUMENT_COMMENTS_TABLE . "`(
         `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -108,7 +115,7 @@ function database_setup(){
         FOREIGN KEY(`Document_ID`) REFERENCES " . DOCUMENTS_TABLE . "(`Document_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`Creator_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . ENROLLMENTS_TABLE . "`(
         `Enrollment_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -118,10 +125,11 @@ function database_setup(){
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         `Deleted` tinyint(1) DEFAULT '0',
         PRIMARY KEY(`Enrollment_ID`),
+        UNIQUE KEY `Module_ID_User_ID` (`Module_ID`,`User_ID`),
         FOREIGN KEY(`User_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`Module_ID`) REFERENCES " . MODULES_TABLE . "(`Module_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . BOOKMARKS_TABLE . "`(
         `Bookmark_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -131,10 +139,11 @@ function database_setup(){
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         `Deleted` tinyint(1) DEFAULT '0',
         PRIMARY KEY(`Bookmark_ID`),
+        UNIQUE KEY `Module_ID_User_ID` (`Module_ID`,`User_ID`),
         FOREIGN KEY(`User_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`Module_ID`) REFERENCES " . MODULES_TABLE . "(`Module_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . REVIEW_VOTES_TABLE . "`(
         `Vote_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -148,7 +157,7 @@ function database_setup(){
         FOREIGN KEY(`Review_ID`) REFERENCES " . MODULE_REVIEWS_TABLE . "(`Review_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`User_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . DOCUMENT_VOTES_TABLE . "`(
         `Vote_ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -162,6 +171,6 @@ function database_setup(){
         FOREIGN KEY(`Document_ID`) REFERENCES " . DOCUMENTS_TABLE . "(`Document_ID`) ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY(`User_ID`) REFERENCES " . USERS_TABLE . "(`User_ID`) ON UPDATE CASCADE ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT =1";
-    mysql_query($new_table_query,$con);
+    $mysqli->query($new_table_query);
 
 }
