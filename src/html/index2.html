@@ -12,6 +12,7 @@
 
  	<!-- Database -->
 	<script type="text/javascript" src = "../js/database/courseDB.js"></script>
+  <script type="text/javascript" src = "../js/database/moduleReviewDB.js"></script>
 
 	<!-- Files -->
   <script type="text/javascript" src = "../js/utility/httpUtility.js"></script>
@@ -22,6 +23,7 @@
   <script type="text/javascript" src = "../js/template/module-shelf-template.js"></script>
   <script type="text/javascript" src = "../js/template/sliding-panel-view.js"></script>
   <script type="text/javascript" src = "../js/template/side-bar-info-template.js"></script>
+  <script type="text/javascript" src = "../js/template/module-review-panel-template.js"></script>
 
   <!-- Backbone -->
   <script type="text/javascript" src = "../js/routers/indexRouter.js"></script>
@@ -54,12 +56,13 @@
       <div class = "col-sm-6 col-md-6" id="module-info-container">
       </div>
   </div>
-  <div id="sidebar-toggle-area"></div>
+  <div id="sidebar-toggle-area-container"></div>
  
   <div id="page-content-wrapper">
   </div >
 </div><!--end of wrapper-->
 
+<div id="color-memory" style="opacity:0; position:fixed"></div>
 <div class="moduleShelf">
 </div>
 </body>

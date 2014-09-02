@@ -6,7 +6,7 @@ $('.modulebook').mouseenter(function(){
 });
 
 $('.modulebook').click(function(){
-	slideModuleOut($(this));
+	// slideModuleOut($(this));
 	var moduleCode = $(this).find("h2").text().toUpperCase();
 
 	var currentUrl = window.location.href;

@@ -5,7 +5,7 @@ var generateModuleShelfHtml = function(moduleData){
 	var data;
 	for(var i = 0; i < moduleData.length;i++){
 		data = moduleData[i].attributes;
-		moduleShelfHtml += "<div class=\"modulebook\" style=\"background-color:"+colorThemeGenerator.generate()+";\">";
+		moduleShelfHtml += "<div class=\"modulebook\" id = \"module-book-"+data.moduleCode+"\" style=\"background-color:"+colorThemeGenerator.generate()+";\">";
 		moduleShelfHtml += ("<h2>"+data.moduleCode+"</h2>");
 		moduleShelfHtml += ("<h1>"+data.moduleTitle+"</h1>");
 		moduleShelfHtml += ("<p>"+data.moduleDescription+"</p>");
@@ -14,6 +14,6 @@ var generateModuleShelfHtml = function(moduleData){
 	}
 
 	moduleShelfHtml += "</div>";
-	
+
 	return moduleShelfHtml;
 };

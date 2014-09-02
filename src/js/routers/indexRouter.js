@@ -1,3 +1,5 @@
+var globalModuleReviewColor;
+
 var indexRouter = Backbone.Router.extend({
 	routes:{
 		'':'home',
@@ -10,21 +12,15 @@ var indexRouter = Backbone.Router.extend({
 	},
 
 	home:function(){
-		// cleanPage();
 		loadModuleShelf();
 		initEventListeners();
 	},
 
 	loadModulePage: function(moduleCode){
+		loadSidebarToggleArea();
 		loadModuleHomepage(moduleCode);
 	}
 });
-
-var cleanPage = function(){
-	$("#page-content-wrapper").html("");
-	$("#page-content-wrapper").css("height:0");
-	$("#module-info-container").html("");
-};
 
 var loadNavBar = function(){
 	console.log("loading nav bar");
@@ -33,13 +29,48 @@ var loadNavBar = function(){
 };
 
 var loadModuleShelf = function(){
-	console.log("loading module shelf");
+	cleanupPageForModuleShelfView();
 	this.moduleShelfView = new modulesShelfView({el:$(".moduleShelf"),collection:moduledb});
 	this.moduleShelfView.render();
 };
 
+var cleanupPageForModuleShelfView = function(){
+	$("#page-content-wrapper").html("");
+	$("#page-content-wrapper").css("height","0");
+	$(".moduleShelf").css("background-color","black");
+	$("#sidebar-toggle-area").remove();
+};
+
+var loadSidebarToggleArea = function(){
+	$("#sidebar-toggle-area-container").html("<div id=\"sidebar-toggle-area\"></div>");
+}
+
 var loadModuleHomepage = function(moduleCode){
 	loadModuleInfoSidebar(moduleCode);
+	var bookShelf = $("#module-book-"+moduleCode);
+	if(bookShelf.length > 0){
+		console.log("bookShelf defined");
+		slideModuleOut(bookShelf);
+	}else{
+		loadModuleReviewPanel(moduleCode);
+	}
+};
+
+var loadModuleReviewPanel = function(moduleCode){
+		console.log("bookshelf undefined");
+		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
+		this.moduleReviewPanelViews.render(moduleCode);
+		currentColor = "rgb(100,0,0)";
+		alphaColor1 = getAlphacolor(currentColor,0.4);
+		console.log(alphaColor1);
+		$(".module-shelf-inner").remove();
+		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+		$("#page-content-wrapper").css("background-color",alphaColor1);
+		verticalAlign($("#sidebar-module").find("h1"));
+		createSidebar();
+		$("#page-content-wrapper").css("height","100%");
+		createSlidingPanel();
+		bindOverPanel(currentColor);
 };
 
 var loadModuleInfoSidebar = function(moduleCode){
