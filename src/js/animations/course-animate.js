@@ -16,7 +16,7 @@ $('.modulebook').click(function(){
 	// resetUrl();
 })
 
-$('.top-nav').mouseout(function(){
+$('.top-nav').mouseenter(function(){
 	console.log("mouse out shelf");
 	$('.modulebook').css("opacity","1.0");
 });
@@ -70,8 +70,7 @@ function slideModuleOut(moduleBook) {
 		width:'20px',
 		left: -offsetLeft
 	},300,	function(){
-		$(".moduleshelf").display("none");
-		$(".modulebook").display("none");
+		$(".moduleshelf").remove();
 		$("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>")
 		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
 		$("#page-content-wrapper").css("background-color",alphaColor1);
