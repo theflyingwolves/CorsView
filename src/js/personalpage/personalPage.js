@@ -36,6 +36,9 @@ var addEventListener = function(){
 		$(this).css("padding-bottom","15px");
 
 	});
+	$("#share button").click( function() {
+		shareTakeModuleStory();
+	})
 }
 
 
