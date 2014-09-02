@@ -20,7 +20,7 @@
 }
 
 
-.modulebook p, h1, h2{
+.modulebook p, .modulebook h1, .modulebook h2{
 	white-space: pre-line;
 }
 
@@ -50,7 +50,7 @@ body {
 
 
 
-#wrapper.toggled #sidebar-wrapper div,hr {
+#wrapper.toggled #sidebar-wrapper div {
 	opacity: 0.0;
 }
 
@@ -70,7 +70,8 @@ body {
 
 
 
-/******************sliding panel*****************/
+
+/****************** sliding panel *****************/
 
 
 #review-container {

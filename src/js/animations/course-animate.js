@@ -26,12 +26,17 @@ $('.top-nav').mouseenter(function(){
 // 	$('.modulebook').css("opacity","1.0");
 // });
 
+
 $('#fb-icon').mouseover(function(){
 	$(this).attr("src","../../res/img/fbicon-color-30.png");
 });
 
 $('#fb-icon').mouseout(function(){
 	$(this).attr("src","../../res/img/fbicon-30.png");
+});
+
+$('#fb-icon').click(function(){
+	createPersonalPage();
 });
 
 jQuery.extend(jQuery.expr[':'], {
@@ -176,4 +181,3 @@ function verticalAlign(moduleBook) {
 	moduleBook.css("-ms-writing-mode","vertical-rl");
 	moduleBook.css("writing-mode","vertical-lr");
 }
-
