@@ -1,7 +1,7 @@
 var generateModuleShelfHtml = function(moduleData){
 	var colorThemeGenerator = new RandomColorGenerator();
 	colorThemeGenerator.init();
-	var moduleShelfHtml = "";
+	var moduleShelfHtml = "<div class=\"module-shelf-inner\">";
 	var data;
 	for(var i = 0; i < moduleData.length;i++){
 		data = moduleData[i].attributes;
@@ -13,5 +13,7 @@ var generateModuleShelfHtml = function(moduleData){
 		moduleShelfHtml += "</div>";
 	}
 
+	moduleShelfHtml += "</div>";
+	
 	return moduleShelfHtml;
 };

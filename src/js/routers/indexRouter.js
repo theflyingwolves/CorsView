@@ -10,6 +10,7 @@ var indexRouter = Backbone.Router.extend({
 	},
 
 	home:function(){
+		// cleanPage();
 		loadModuleShelf();
 		initEventListeners();
 	},
@@ -18,6 +19,12 @@ var indexRouter = Backbone.Router.extend({
 		loadModuleHomepage(moduleCode);
 	}
 });
+
+var cleanPage = function(){
+	$("#page-content-wrapper").html("");
+	$("#page-content-wrapper").css("height:0");
+	$("#module-info-container").html("");
+};
 
 var loadNavBar = function(){
 	console.log("loading nav bar");
