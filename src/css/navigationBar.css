@@ -56,8 +56,14 @@
 	transition:none;
 }
 
-.top-nav .links span:first-child{color:#444}
-.touch .top-nav .links a:hover span{padding-top:0}
+.top-nav .links span:first-child{
+	color:#444
+}
+
+.touch .top-nav .links a:hover span{
+	padding-top:0
+}
+
 .top-nav .logo{border:3px; color:#000;display:inline-block;font-size:25px;height:24px;left:50%;margin:10px 0 0 -12px;position:absolute;text-decoration:none;top:0;-webkit-transform:rotate(0);transform:rotate(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:border .3s,-webkit-transform .3s ease-out;transition:border .3s,transform .3s ease-out;width:22px;z-index:2}
 
 
@@ -72,11 +78,6 @@
     transition: width 0.3s;
 }
 
-
-#search-form:hover {
-	width: 24%
-}
-
 #search-form span {
 	color:grey;
 	position: absolute;
@@ -89,6 +90,9 @@
 	font-weight: lighter;
 }
 
+#search-form.active {
+	width:24%;
+}
 
 #fb-icon {
 	top:13px;
