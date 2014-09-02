@@ -1,16 +1,15 @@
 <?php
+require_once('config.php');
 require_once('constants.php');
 require_once('common_functions.php');
 function getModuleInfo($module_code){
     if($module_code !=null){
-        require_once('database_setup.php');
-        $dbc = connect_database();
-        $db = select_database($dbc);
+        $mysqli = connect_database();
 
         $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE ." WHERE Module_Code = '%s'",
-                mysql_real_escape_string($module_code));
-            $result = mysql_query($newQuery,$dbc);
-            if($row = mysql_fetch_array($result)){
+                $mysqli->real_escape_string($module_code));
+            $result = $mysqli->query($newQuery);
+            if($row = $result->fetch_array(MYSQLI_ASSOC)){
                 $returnMessage = "get module info successfully.";
                 respondToClient(200,array('message' => $returnMessage, 'Module_ID' => $row['Module_ID'],
                     'moduleCode' => $row['Module_Code'],'moduleTitle' => $row['Module_Title'],
@@ -21,7 +20,7 @@ function getModuleInfo($module_code){
                 $returnMessage = "module is not found.";
                 respondToClient(404,array('message' => $returnMessage));
             }
-        mysql_close($dbc);      
+        $mysqli->close();      
         }
         else{
             $returnMessage = "module code is missing";
@@ -30,13 +29,11 @@ function getModuleInfo($module_code){
 }
 
 function getModuleInfoForSearch(){
-    require_once('database_setup.php');
-    $dbc = connect_database();
-    $db = select_database($dbc);
+     $mysqli = connect_database();
      $newQuery = "SELECT * FROM " . MODULES_TABLE;
-     $result = mysql_query($newQuery,$dbc);
+     $result = $mysqli->query($newQuery);
      $moduleList = array();
-     while($row = mysql_fetch_array($result)){  
+     while($row = $result->fetch_array(MYSQLI_ASSOC)){  
         $module = array(
                     'moduleID' => $row['Module_ID'],
                     'moduleCode' => $row['Module_Code'],
