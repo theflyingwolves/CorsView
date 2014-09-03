@@ -1,13 +1,9 @@
 var slidingPanelViewHtml = "<div id=\"review-container\" >"+
-//"<div class=\"col-md-1\">"+
    "<a id=\"prev-btn\" class=\"left carousel-control disabled\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a>"+
- // "<button class=\"btn btn-default\" id=\"prev-btn\" >Prev</button>"+ 
   "<div  id=\"main-container\" class=\"col-md-9\">"+  
     "<div class=\"row\" id=\"box-container\">"+
     "</div></div>"+  
- // "<div class=\"col-md-1\">"+
     "<a id=\"next-btn\" class=\"right carousel-control\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a>"+
-//	"<button class=\"btn btn-default\" id=\"next-btn\">Next</button>"+
   "</div>";
 
  var carouselIndicators = function(slideCount){
@@ -24,3 +20,6 @@ var slidingPanelViewHtml = "<div id=\"review-container\" >"+
   }
 
   var addButton = "<div class=\"circle\"><span class=\"glyphicon glyphicon-plus\"></span></circle>"
+
+  var crossButton = "<div class=\"circle empty\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
+  

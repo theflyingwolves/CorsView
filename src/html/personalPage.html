@@ -1,0 +1,114 @@
+<html>
+<head>
+	<script type="text/javascript" src="../../libs/jQuery/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="../../libs/jQueryUI/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../../libs/Bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../libs/Bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src = "../js/navbar/navbar.js"></script>
+	<script type="text/javascript" src = "../js/personalpage/personalPage.js"></script>
+	<script type="text/javascript" src = "../js/template/personal-page-template.js"></script>
+	<script type="text/javascript" src = "../js/facebook/fbMethods.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/navigationBar.css">
+	<link rel="stylesheet" type="text/css" href="../../libs/Bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../libs/jQueryUI/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../libs/jQueryUI/jquery-ui.theme.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
+	<link rel="stylesheet" type="text/css" href="../css/personalPage.css">
+
+
+  <script type="text/javascript">
+  	$(document).ready( function(){
+  		addEventListener();
+  		initAutoCompleteData();
+  	});
+  </script>
+
+	<title>Personal Page</title>
+
+</head>
+<body  style="background-color:#2A2A2A">
+
+<header>
+  <nav class="top-nav">
+   <div id="search-container">
+  	<div id="search-form" class="form-group has-feedback">
+  	 <input id="reg-search-input" type="text" class="form-control" id="inputWarning2" placeholder="Search Module to Add" >
+     <span  class="glyphicon glyphicon-search form-control-feedback"></span>
+    </div>
+   </div>
+
+ 	 <a class="logo" href="#"><img src="../../res/img/icon.png"></img></a>
+  <div class="links">
+    <a href="#">SELF</a>
+  </div><div class="links">
+    <a href="#">PROFILE</a>
+  </div>
+   <a  id="fb-icon" href="personalPage.html"><img src="../../res/img/fbicon-30.png"></img></a>
+
+</nav>
+</header>
+<div class="canvas">
+	<div id="#add-feedback"></div>
+</div>
+
+<div id="container">
+  <aside class="col-md-2"></aside>
+  <div id="personal-page" class="col-md-8">
+  	<h2>Taken modules</h2>
+  	<hr>
+	<div class="module-table">
+		<ul>
+			<li>1000</li>
+			<li><p>CS1020</p></li>
+			<li><p>MA1101</p></li>
+			<li><p>CS1010</p></li>
+			<li><p>CS1101</p></li>
+		</ul>
+		<ul>
+			<li>2000</li>
+			<li><p>CS2101</p></li>
+			<li><p>CS2102</p></li>
+			<li><p>CS2102</p></li>
+			<li><p>CS2102</p></li>
+		</ul>
+		<ul>
+			<li>3000</li>
+			<li><p>CS3230</p></li>
+			<li><p>CS3230</p></li>
+			<li><p>CS3230</p></li>
+			<li><p>CS3230</p></li>
+		</ul>
+		<ul>
+			<li>4000</li>
+			<li><p>CS4223</p></li>
+			<li><p>CS4223</p></li>
+			<li><p>CS4223</p></li>
+		</ul>
+		<ul>
+			<li>5000</li>
+			<li><p>CS5222</p></li>
+			<li><p>CS5222</p></li>
+			<li><p>CS5222</p></li>
+		</ul>
+		<ul>
+			<li>6000</li>
+			<li><p>CS5222</p></li>
+			<li><p>CS5222</p></li>
+			<li><p>CS5222</p></li>
+		</ul>
+
+			<br>
+	<br>
+	<br>
+	<div id="share">
+	<label>Share your modules:</label>
+	<button class="btn btn-primary btn-lg">Share</button>
+	</div>
+	</div><!--end of module table-->
+
+  </section><!--end of main container-->
+
+  <aside class="col-md-2"><aside>
+
+</body>
+</html>

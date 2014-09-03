@@ -13,6 +13,10 @@ $('.modulebook').click(function(){
 	window.location.href = (currentUrl.substring(0,currentUrl.indexOf("#"))) + ("#"+moduleCode);
 })
 
+$('.moduleshelf').mouseout(function(){
+	$('.modulebook').css("opacity","1.0");
+});
+
 function bindOverPanel(currentColor) {
 	$("#page-content-wrapper").on("mouseenter",".data-box", function() {
 		$(this).find(".over").css("width",$(this).css("width"));
@@ -87,6 +91,8 @@ var slideModuleOut = function(moduleBook) {
 		$("#page-content-wrapper").append(slidingPanelViewHtml);
 		$("#page-content-wrapper").css("height","100%");
 		$("#page-content-wrapper").append(addButton);
+		$("#page-content-wrapper").append(crossButton);
+		
 		createSlidingPanel();
 		bindOverPanel(currentColor);
 	});
@@ -129,14 +135,4 @@ function verticalAlign(moduleBook) {
 	moduleBook.css("writing-mode","vertical-lr");
 }
 
-$('.moduleshelf').mouseout(function(){
-	$('.modulebook').css("opacity","1.0");
-});
 
-$('#fb-icon').mouseover(function(){
-	$(this).attr("src","../../res/img/fbicon-color-30.png");
-});
-
-$('#fb-icon').mouseout(function(){
-	$(this).attr("src","../../res/img/fbicon-30.png");
-});

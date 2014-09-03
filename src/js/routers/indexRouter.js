@@ -26,6 +26,7 @@ var loadNavBar = function(){
 	console.log("loading nav bar");
 	this.navBarView = new navBarView({el:$(".top-nav")});
 	this.navBarView.render();
+	addNavBarListener();
 };
 
 var loadModuleShelf = function(){
