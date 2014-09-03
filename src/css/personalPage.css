@@ -74,13 +74,7 @@
 	background-color:#FFF;
 }
 .module-table li:hover { 
-	-webkit-transform: scale(1.1);
-  	-moz-transform: scale(1.1);
-  	-o-transform: scale(1.1);
-  	-moz-box-shadow:3px 5px 7px rgba(0,0,0,.7);
-  	-webkit-box-shadow: 3px 5px 7px rgba(0,0,0,.7);
-  	box-shadow:3px 5px 7px rgba(0,0,0,.7);
-	cursor:pointer;
+
 }
 .module-table ul li {  
 	border-bottom:1px dashed #cfd2d2;
@@ -92,6 +86,15 @@
 	font-weight:bold;
 	background:#2e818f;
     box-shadow: 0px 3px 10px rgb(100,100,100);
+}
+.module-table ul li:not(:first-child):hover { 
+	-webkit-transform: scale(1.1);
+  	-moz-transform: scale(1.1);
+  	-o-transform: scale(1.1);
+  	-moz-box-shadow:3px 5px 7px rgba(0,0,0,.7);
+  	-webkit-box-shadow: 3px 5px 7px rgba(0,0,0,.7);
+  	box-shadow:3px 5px 7px rgba(0,0,0,.7);
+	cursor:pointer;
 }
 
 .module-table span {
