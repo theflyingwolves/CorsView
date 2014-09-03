@@ -1,5 +1,4 @@
 $('.modulebook').mouseenter(function(){
-	console.log("mouseenter"+$(this).find("h2").text());
 	$('.modulebook').not(this).animate({
 		opacity:'0.4'
 	},300);
@@ -7,59 +6,66 @@ $('.modulebook').mouseenter(function(){
 });
 
 $('.modulebook').click(function(){
-	slideModuleOut($(this));
+	// slideModuleOut($(this));
 	var moduleCode = $(this).find("h2").text().toUpperCase();
-	console.log("The module code clicked is" + moduleCode);
 
 	var currentUrl = window.location.href;
 	window.location.href = (currentUrl.substring(0,currentUrl.indexOf("#"))) + ("#"+moduleCode);
-	// resetUrl();
 })
 
-$('.top-nav').mouseenter(function(){
-	console.log("mouse out shelf");
+$('.moduleshelf').mouseout(function(){
 	$('.modulebook').css("opacity","1.0");
 });
 
-// $('.moduleshelf').mouseout(function(){
-// 	console.log("mouse out shelf");
-// 	$('.modulebook').css("opacity","1.0");
-// });
+function bindOverPanel(currentColor) {
+	$("#page-content-wrapper").on("mouseenter",".data-box", function() {
+		$(this).find(".over").css("width",$(this).css("width"));
+		$(this).find(".over").css("height", $(this).css("height"));
+		var alphaColor2 = getAlphacolor(currentColor,0.9);
+		$(this).find(".over").css("background-color",alphaColor2);
+		$(this).find(".over").animate({
+			opacity:1
+		}, 100);
+		}
+	);
 
+	$("#page-content-wrapper").on("mouseleave",".data-box", function() {
+			$(this).find(".over").animate({
+				opacity:0
+			}, 100);
+		}
+	);
+}
 
-$('#fb-icon').mouseover(function(){
-	$(this).attr("src","../../res/img/fbicon-color-30.png");
-});
+var createSlidingPanel = function() {
+		var slideCount = slidingPanelInit(database,"box-container","prev-btn","next-btn", 3);
+		$("#main-container").append(carouselIndicators(slideCount));
+		$(".carousel-control.right").click(function(){
+			var activeIndicator = $(".carousel-indicators .active:first");
+			if(activeIndicator.next().length>0) {
+				activeIndicator.removeClass("active");
+				activeIndicator.next().addClass("active");
+			} 
+			if((activeIndicator.next().index()+1) == $(".carousel-indicators li").length) {
+				$(".carousel-control.right").addClass("disabled");
+			} 
+			$(".carousel-control.left").removeClass("disabled");
+		});
+		
+		$(".carousel-control.left").click(function(){
+			var activeIndicator = $(".carousel-indicators .active:first");
+			if(activeIndicator.prev().length>0) {
+				activeIndicator.removeClass("active");
+				activeIndicator.prev().addClass("active");
+			}
+			if(activeIndicator.prev().index()==0) {
+				$(".carousel-control.left").addClass("disabled");
+			} 
+			$(".carousel-control.right").removeClass("disabled");
+		});
+};
 
-$('#fb-icon').mouseout(function(){
-	$(this).attr("src","../../res/img/fbicon-30.png");
-});
-
-$('#fb-icon').click(function(){
-	createPersonalPage();
-});
-
-jQuery.extend(jQuery.expr[':'], {
-  focus: "a == document.activeElement"
-});
-
-$("#search-form input").hover(function() {
-	$(this).parent().addClass("active");	
-}, function() {
-	if(!$(this).is(":focus")){
-		$(this).parent().removeClass("active");
-	}
-})
-
-$("#search-form input").focusin(function() {
-	$(this).parent().addClass("active");
-});
-
-$("#search-form input").focusout(function() {
-	$(this).parent().removeClass("active");
-});
-
-function slideModuleOut(moduleBook) {
+var slideModuleOut = function(moduleBook) {
 	var offsetLeft = moduleBook.offset().left;
 	var currentColor = moduleBook.css("background-color");
 	var alphaColor1 = getAlphacolor(currentColor,0.3);
@@ -75,7 +81,7 @@ function slideModuleOut(moduleBook) {
 		width:'20px',
 		left: -offsetLeft
 	},300,	function(){
-		$(".moduleshelf").remove();
+		$(".module-shelf-inner").remove();
 		$("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>")
 		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
 		$("#page-content-wrapper").css("background-color",alphaColor1);
@@ -86,68 +92,15 @@ function slideModuleOut(moduleBook) {
 		$("#page-content-wrapper").css("height","100%");
 		$("#page-content-wrapper").append(addButton);
 		$("#page-content-wrapper").append(crossButton);
+		
 		createSlidingPanel();
 		bindOverPanel(currentColor);
 	});
-			console.log("bind");
 
 	moduleBook.nextAll().animate({
 		right:-$(window).width()-offsetLeft
 	});
 };
-
-function slideModuleIn() {
-
-}
-
-function bindOverPanel(currentColor) {
-	$("#page-content-wrapper").on("mouseenter",".data-box", function() {
-		$(this).find(".over").css("width",$(this).css("width"));
-		$(this).find(".over").css("height", $(this).css("height"));
-		var alphaColor2 = getAlphacolor(currentColor,0.9);
-		$(this).find(".over").css("background-color",alphaColor2);
-		$(this).find(".over").animate({
-			opacity:1
-		}, 100);
-		}
-	);
-	$("#page-content-wrapper").on("mouseleave",".data-box", function() {
-			$(this).find(".over").animate({
-				opacity:0
-			}, 100);
-		}
-	);	
-}
-
-
-function createSlidingPanel() {
-		var slideCount = slidingPanelInit(database,"box-container","prev-btn","next-btn", 3);
-		$("#main-container").append(carouselIndicators(slideCount));
-		$(".carousel-control.right").click(function(){
-			var activeIndicator = $(".carousel-indicators .active:first");
-			if(activeIndicator.next().length>0) {
-				activeIndicator.removeClass("active");
-				activeIndicator.next().addClass("active");
-			} 
-			if((activeIndicator.next().index()+1) == $(".carousel-indicators li").length) {
-				$(".carousel-control.right").addClass("disabled");
-			} 
-			$(".carousel-control.left").removeClass("disabled");
-
-		});
-		$(".carousel-control.left").click(function(){
-			var activeIndicator = $(".carousel-indicators .active:first");
-			if(activeIndicator.prev().length>0) {
-				activeIndicator.removeClass("active");
-				activeIndicator.prev().addClass("active");
-			}
-			if(activeIndicator.prev().index()==0) {
-				$(".carousel-control.left").addClass("disabled");
-			} 
-			$(".carousel-control.right").removeClass("disabled");
-		});
-	}
-
 
 function createSidebar(){
 	var showSidebar = function(e){
@@ -168,8 +121,8 @@ function createSidebar(){
 function getAlphacolor(currentColor, alpha){
 
 	//color the background with the module book color and make the color deeper
-    var lastComma = currentColor.lastIndexOf(')');
-    var newColor = "rgba"+currentColor.slice(3, lastComma) + ","+alpha+" )";
+  var lastComma = currentColor.lastIndexOf(')');
+  var newColor = "rgba"+currentColor.slice(3, lastComma) + ","+alpha+" )";
 	$(".moduleshelf").css("background-color", newColor);
 	return newColor;
 }
@@ -181,3 +134,5 @@ function verticalAlign(moduleBook) {
 	moduleBook.css("-ms-writing-mode","vertical-rl");
 	moduleBook.css("writing-mode","vertical-lr");
 }
+
+

@@ -2,35 +2,9 @@ var modulesAdded = [];
 var numOfModulesAdded = 0;
 
 var addEventListener = function(){
-	$('#fb-icon').mouseover(function(){
-	$(this).attr("src","../../res/img/fbicon-color-30.png");
-	});
-	
-	$('#fb-icon').mouseout(function(){
-		$(this).attr("src","../../res/img/fbicon-30.png");
-	});
-	
-	jQuery.extend(jQuery.expr[':'], {
-	  focus: "a == document.activeElement"
-	});
-	
-	$("#search-form input").hover(function() {
-		$(this).parent().addClass("active");	
-	}, function() {
-		if(!$(this).is(":focus")){
-			$(this).parent().removeClass("active");
-		}
-	})
-	
-	$("#search-form input").focusin(function() {
-		$(this).parent().addClass("active");
-	});
-	
-	$("#search-form input").focusout(function() {
-		$(this).parent().removeClass("active");
-	});
+	addNavBarListener();
 
-	$(".module-table li").hover(function() {
+	$(".module-table li:not(:first-child)").hover(function() {
 		if($(this).find("span").length==0){
 			$(this).append(removeButtonHtml);
 			$(this).css("padding-bottom","5px");
@@ -39,7 +13,6 @@ var addEventListener = function(){
 
 		$(this).find("span").remove();
 		$(this).css("padding-bottom","15px");
-
 	});
 
 	$(".module-table li").on("click","span",function(){
@@ -53,7 +26,6 @@ var addEventListener = function(){
 	$("#share button").click( function() {
 		shareTakeModuleStory();
 	})
-
 
 
 	$(document).keypress(function(e){

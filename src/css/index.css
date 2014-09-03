@@ -50,7 +50,7 @@ body {
 
 
 
-#wrapper.toggled #sidebar-wrapper div {
+#wrapper.toggled #sidebar-wrapper div,hr {
 	opacity: 0.0;
 }
 
@@ -70,8 +70,7 @@ body {
 
 
 
-
-/****************** sliding panel *****************/
+/******************sliding panel*****************/
 
 
 #review-container {

@@ -1,9 +1,9 @@
 var slidingPanelViewHtml = "<div id=\"review-container\" >"+
-   "<a id=\"prev-btn\" class=\"left carousel-control disabled\" href=\"#myCarousel\" data-slide=\"prev\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a>"+
+   "<a id=\"prev-btn\" class=\"left carousel-control disabled\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a>"+
   "<div  id=\"main-container\" class=\"col-md-9\">"+  
     "<div class=\"row\" id=\"box-container\">"+
     "</div></div>"+  
-    "<a id=\"next-btn\" class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a>"+
+    "<a id=\"next-btn\" class=\"right carousel-control\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a>"+
   "</div>";
 
  var carouselIndicators = function(slideCount){
@@ -19,6 +19,7 @@ var slidingPanelViewHtml = "<div id=\"review-container\" >"+
  	return html;
   }
 
-  var addButton = "<div class=\"circle\"><span class=\"glyphicon glyphicon-plus\"></span></div>";
+  var addButton = "<div class=\"circle\"><span class=\"glyphicon glyphicon-plus\"></span></circle>"
 
   var crossButton = "<div class=\"circle empty\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
+  
