@@ -1,7 +1,7 @@
 var modulesAdded = [];
 var numOfModulesAdded = 0;
 
-var addEventListener = function(){
+var addPersonalPageEventListener = function(){
 	addNavBarListener();
 
 	$(".module-table li:not(:first-child)").hover(function() {
