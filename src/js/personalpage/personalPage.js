@@ -1,7 +1,7 @@
 var modulesAdded = [];
 var numOfModulesAdded = 0;
 
-var addEventListener = function(){
+var addPersonalPageListener = function(){
 	addNavBarListener();
 
 	$(".module-table li:not(:first-child)").hover(function() {
@@ -21,11 +21,11 @@ var addEventListener = function(){
 		var row = ul.find("li").index(li);
 		var col = $(".module-table ul").index(ul);
 		deleteModule(col,row);
-	})
+	});
 
-	$("#share button").click( function() {
+	$("#sharebutton").click( function() {
 		shareTakeModuleStory();
-	})
+	});
 
 
 	$(document).keypress(function(e){
