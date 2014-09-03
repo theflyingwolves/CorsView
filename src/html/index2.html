@@ -1,0 +1,76 @@
+<html>
+<head>
+	<!-- Libs -->
+	<script type="text/javascript" src = "../../libs/jQuery/jquery-2.1.1.js"></script>
+  <script type="text/javascript" src = "../../libs/Underscore/underscore.js"></script>
+  <script type="text/javascript" src = "../../libs/Backbone/backbone.js"></script>
+  <script type="text/javascript" src = "../../libs/Bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Library -->
+  <script type="text/javascript" src = "../js/slidingPanel/slidingPanel.js"></script>
+  <script type="text/javascript" src = "../js/slidingPanel/database.js"></script>
+
+ 	<!-- Database -->
+	<script type="text/javascript" src = "../js/database/courseDB.js"></script>
+  <script type="text/javascript" src = "../js/database/moduleReviewDB.js"></script>
+
+	<!-- Files -->
+  <script type="text/javascript" src = "../js/utility/httpUtility.js"></script>
+  <script type="text/javascript" src = "../js/utility/colorThemeGenerator.js"></script>
+
+  <!-- Templates  -->
+  <script type="text/javascript" src = "../js/template/nav-bar-template.js"></script>
+  <script type="text/javascript" src = "../js/template/module-shelf-template.js"></script>
+  <script type="text/javascript" src = "../js/template/sliding-panel-view.js"></script>
+  <script type="text/javascript" src = "../js/template/side-bar-info-template.js"></script>
+  <script type="text/javascript" src = "../js/template/module-review-panel-template.js"></script>
+
+  <!-- Backbone -->
+  <script type="text/javascript" src = "../js/routers/indexRouter.js"></script>
+  <script type="text/javascript" src = "../js/views/indexViews.js"></script>
+  <script type="text/javascript" src = "../js/navbar/navbar.js"></script>
+
+  <!-- facebook -->
+  <script type="text/javascript" src = "../js/facebook/fbLogin.js"></script>
+  <script type="text/javascript" src = "../js/facebook/fbMethods.js"></script>
+
+  <script type="text/javascript">
+	  var app;
+	  $(document).ready(function(){
+	    app = new indexRouter;
+	    Backbone.history.start();
+	  });
+  </script>
+
+  <link href="../../libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../css/navigationBar.css">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="../css/slidingPanel.css">
+  <link rel="stylesheet" type="text/css" href="../../libs/Animatecss/animate.css"></script>
+	<title>Cors View</title>
+</head>
+<body>
+<header>
+	<nav class="top-nav">
+	</nav>
+</header>
+
+<div id="wrapper" class="toggled">
+  <div id="sidebar-wrapper">
+      <div class = "col-sm-6 col-md-6" id="module-info-container">
+      </div>
+  </div>
+  <div id="sidebar-toggle-area-container"></div>
+ 
+  <div id="page-content-wrapper">
+  </div >
+</div><!--end of wrapper-->
+
+<div id="color-memory" style="opacity:0; position:fixed"></div>
+<div class="moduleShelf">
+</div>
+</body>
+<script type="text/javascript" src = "../js/animations/course-animate.js"></script>
+
+</html>
