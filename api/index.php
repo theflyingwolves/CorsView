@@ -278,6 +278,24 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
+
+                                                case 'enrollmentList':
+                                                      switch($command[$addr_offset+3]){
+                                                            case '':
+                                                                  switch($_SERVER['REQUEST_METHOD']){
+                                                                        case 'POST':
+                                                                              require_once('users_modules.php');
+                                                                              $enrollmentsDetailList = json_decode(file_get_contents('php://input'), true);
+                                                                              addEnrollmentList($enrollmentsDetailList);
+                                                                              break;
+                                                                        default:
+                                                                              break;    
+                                                                  }
+                                                                  break; 
+                                                            default: 
+                                                                  break;
+                                                      }
+                                                      break;
             
                                                 case 'bookmarks':
                                                       switch($command[$addr_offset+3]){

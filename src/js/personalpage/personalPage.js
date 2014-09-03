@@ -1,7 +1,11 @@
 var modulesAdded = [];
 var numOfModulesAdded = 0;
 
+<<<<<<< HEAD
 var addPersonalPageListener = function(){
+=======
+var addPersonalPageEventListener = function(){
+>>>>>>> a52063e331ee029e7ee336d46dfb98e9e869820e
 	addNavBarListener();
 
 	$(".module-table li:not(:first-child)").hover(function() {
