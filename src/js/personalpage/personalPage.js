@@ -39,6 +39,8 @@ var addPersonalPageListener = function(){
 
 }
 
+
+
 var addModuleToTable = function(moduleToAdd){
 	if(moduleToAdd.length > 6){
 		var moduleCode = moduleToAdd.substring(0,moduleToAdd.indexOf(" "));
