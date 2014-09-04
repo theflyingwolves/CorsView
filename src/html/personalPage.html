@@ -25,6 +25,73 @@
   	});
   </script>
 
+<script type="text/javascript">
+                 function statusChangeCallback(response) {
+                    console.log('statusChangeCallback');
+                    console.log(response);
+                    if (response.status === 'connected') {
+                        getReviews();
+                    } else if (response.status === 'not_authorized') {
+                    } else {
+                    }
+            }
+
+                  function checkLoginState() {
+                    FB.getLoginStatus(function(response) {
+                      statusChangeCallback(response);
+                    });
+                  }
+                  
+                  window.fbAsyncInit = function() {
+                  FB.init({
+                    //appId      : '1457089634562844',
+                    appId : '490249021111231',
+                    cookie     : true,  // enable cookies to allow the server to access 
+                                        // the session
+                    xfbml      : true,  // parse social plugins on this page
+                    version    : 'v2.1' // use version 2.1
+                  });
+
+                  FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                  });
+                  };
+                 // Load the SDK asynchronously
+                      (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js";
+                        fjs.parentNode.insertBefore(js, fjs);
+                      }(document, 'script', 'facebook-jssdk'));
+                
+            function getReviews(){
+            FB.api('/me', function(fbResponse) {
+                    console.log("enter ajax");
+                    facebookID = fbResponse.id;
+                   $.ajax({
+                    url: '../../api/users/'+facebookID+'/reviews',
+                      type : 'GET',
+                      dataType: "json",
+                      contentType: "application/json; charset=utf-8",
+                      //data: JSON.stringify(content),
+                      success : function(response) {
+                            alert(response['message']);
+                            $.each(response['reviewList'],function(index,value){
+                                $(".reviews-table").append("<ul><li>"+value['reviewContent']+"</li></ul>");
+                            });
+                        console.log(response['message']);
+
+                       },
+                            error : function(err, req) {
+                                   console.log(err);
+                                   console.log(req);
+                      }
+                    });
+           });
+        }
+</script>
+ 
 	<title>Personal Page</title>
 
 </head>
@@ -104,10 +171,15 @@
 	<br>
 	<div id="share">
 	<label>Share your modules:</label>
-	<button id="sharebutton" class="btn btn-primary btn-lg">Share</button>
-
+	<button id="sharebutton" class="btn btn-primary btn-lg">Share</button>    
 	</div>
 	</div><!--end of module table-->
+
+            <div> <!-- start of personal reviews-->
+            <div class="reviews-table">
+
+            </div>
+            </div> <!-- end of personal reviews -->
 
   </section><!--end of main container-->
 
