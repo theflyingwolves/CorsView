@@ -34,8 +34,7 @@ var FBUserName = "";
 
   window.fbAsyncInit = function() {
   FB.init({
-    //appId      : '1457089634562844',
-    appId : '490249021111231',
+    appId      : '1457089634562844',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -73,74 +72,14 @@ var FBUserName = "";
   // successful.  See statusChangeCallback() for when this call is made.
   function fblogin() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(fbResponse) {
-      FBUserName = fbResponse.name;
-      FBUserID =fbResponse.id;
-
-      console.log('Successful login for: ' + fbResponse.name);
+    FB.api('/me', function(response) {
+      FBUserName = response.name;
+      console.log('Successful login for: ' + response.name);
       // document.getElementById('status').innerHTML =
         // 'Thanks for logging in, ' + response.name + '!';
       $("#fb-user-link").html("<a href=\"#\">"+FBUserName+"</a>");
       // $("#fb-logout-navbar").show();
       $("#user-profile-dropdown").show();
-    
-      //register or login our own server
-      $.ajax({
-            url: '../../api/users/'+FBUserID,
-              type : 'GET',
-              dataType: "json",
-              contentType: "application/json; charset=utf-8",
-              //data: JSON.stringify(content),
-              success : function(response) {
-                if((response['message']) == "user's not registered"){
-                       userInfo = {
-                            facebookID: FBUserID,
-                            facebookName: fbResponse.name,
-                            gender: fbResponse.gender,
-                            accessToken: FB.getAuthResponse()['accessToken']
-                          };
-                          $.ajax({
-                            url: '../../api/users',
-                            type: 'POST',
-                            dataType: "json",
-                            data: JSON.stringify(userInfo),
-                            contentType: "application/json; charset=utf-8",
-                            success: function(){
-                                 //console.log("user registered successfully");
-                            },
-                            error : function(err, req) {
-                                 console.log(err);
-                                 console.log(req);
-                            }
-                          }); //user registration ends
-                      
-                  } else{
-                          //user login
-                          userInfo = {
-                            facebookID: FBUserID,
-                            accessToken: FB.getAuthResponse()['accessToken']
-                          };
-                          $.ajax({
-                            url: '../../api/users',
-                            type: 'PUT',
-                            dataType: "json",
-                            data: JSON.stringify(userInfo),
-                            contentType: "application/json; charset=utf-8",
-                            success: function(){
-                                console.log("user logins successfully");
-                            },
-                            error : function(err, req) {
-                                 console.log(err);
-                                 console.log(req);
-                            }
-                          }); //user login ends
-                  }
-               },
-                    error : function(err, req) {
-                           console.log(err);
-                           console.log(req);
-              }
-            });
     });
   }
 

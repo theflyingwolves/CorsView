@@ -43,6 +43,24 @@ var moduleData = [
 	modulePrerequisite:"(MA1101 or MA1101R or MA1311 or MA1508) and (ST2131 or MA2216)",
 	modulePreclusion:"MA3238. All ISE students.",
 	moduleCredit:"4MC"
+},
+{
+	moduleID:"1",
+	moduleCode:"AY1111",
+	moduleTitle:"Stochastic Process I",
+	moduleDescription:"This module introduces the concept of modelling dependence and focuses on discrete-time Markov chains. Topics include discrete-time Markov chains, examples of discrete-time Markov chains, classification of states, irreducibility, periodicity, first passage times, recurrence and transience, convergence theorems and stationary distributions. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+	modulePrerequisite:"(MA1101 or MA1101R or MA1311 or MA1508) and (ST2131 or MA2216)",
+	modulePreclusion:"MA3238. All ISE students.",
+	moduleCredit:"4MC"
+},
+{
+	moduleID:"1",
+	moduleCode:"AY1111",
+	moduleTitle:"Stochastic Process I",
+	moduleDescription:"This module introduces the concept of modelling dependence and focuses on discrete-time Markov chains. Topics include discrete-time Markov chains, examples of discrete-time Markov chains, classification of states, irreducibility, periodicity, first passage times, recurrence and transience, convergence theorems and stationary distributions. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+	modulePrerequisite:"(MA1101 or MA1101R or MA1311 or MA1508) and (ST2131 or MA2216)",
+	modulePreclusion:"MA3238. All ISE students.",
+	moduleCredit:"4MC"
 }
 ];
 

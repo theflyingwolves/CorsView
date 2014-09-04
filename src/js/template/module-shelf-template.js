@@ -8,8 +8,12 @@ var generateModuleShelfHtml = function(moduleData){
 		moduleShelfHtml += "<div class=\"modulebook\" id = \"module-book-"+data.moduleCode+"\" style=\"background-color:"+colorThemeGenerator.generate()+";\">";
 		moduleShelfHtml += ("<h2>"+data.moduleCode+"</h2>");
 		moduleShelfHtml += ("<h1>"+data.moduleTitle+"</h1>");
-		moduleShelfHtml += ("<p>"+data.moduleDescription+"</p>");
-		moduleShelfHtml += "<div><span class=\"glyphicon glyphicon-eye-open\"></span>ENTER MODULE</div>";
+		var description = data.moduleDescription;
+		if(description.length > 400){
+		 	description = description.substring(0,400)+" &hellip;";
+		}
+		moduleShelfHtml += ("<p>"+description+"</p>");
+		moduleShelfHtml += "<footer><span class=\"glyphicon glyphicon-eye-open\"></span>ENTER MODULE</footer>";
 		moduleShelfHtml += "</div>";
 	}
 

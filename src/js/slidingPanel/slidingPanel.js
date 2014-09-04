@@ -147,8 +147,6 @@ function initOneSlide(data, startCount){
 
 	while(totalHeight <= windowHeight){
 		temp = temp + generateBoxHtml(data[counter]);
-		console.log(data[counter]);
-
 		$("#test-box").html(temp);
 		totalHeight = $("#test-box").height();
 		if(totalHeight <= windowHeight){
