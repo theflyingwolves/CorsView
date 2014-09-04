@@ -7,7 +7,6 @@ function shareReview(){
 
 function shareTakeModuleStory(){
       console.log("share taken module story");
-
 	FB.api(
       'me/corsview:take',
       'post', 

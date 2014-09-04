@@ -1,7 +1,7 @@
 var modulesAdded = [];
 var numOfModulesAdded = 0;
 
-var addPersonalPageListener = function(){
+var addPersonalPageEventListener = function(){
 	addNavBarListener();
 
 	$(".module-table li:not(:first-child)").hover(function() {
@@ -36,6 +36,8 @@ var addPersonalPageListener = function(){
 		}
 	});
 }
+
+
 
 
 
