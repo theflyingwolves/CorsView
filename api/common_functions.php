@@ -14,7 +14,7 @@ function authentication($userID,$accessToken){
     else {
         require_once('config.php');
         $mysqli = connect_database();
-        $newQuery = sprintf("SELECT Access_Token FROM ". USERS_TABLE ." u WHERE u.User_ID='%s'",mysql_real_escape_string($userID));
+        $newQuery = sprintf("SELECT Access_Token FROM ". USERS_TABLE ." u WHERE u.User_ID='%s'",$mysqli->real_escape_string($userID));
         $result = $mysqli->query($newQuery);
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
             if(strcmp($row['Access_Token'],$accessToken) == 0){

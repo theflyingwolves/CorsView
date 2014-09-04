@@ -48,7 +48,9 @@ body {
 	background-color: black;
 }
 
-
+#review-modal {
+	color:black;
+}
 
 #wrapper.toggled #sidebar-wrapper div,hr {
 	opacity: 0.0;
@@ -197,6 +199,7 @@ body {
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
 	box-shadow: 0px 4px 3px #888888;
+	cursor: pointer;
 }
 
 .circle span{

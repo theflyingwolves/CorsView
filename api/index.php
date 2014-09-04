@@ -3,7 +3,7 @@ $requestURI = explode('/', $_SERVER['REQUEST_URI']);
 //$requestURI = explode('/', $_REQUEST['url']);
 //current api call starts with "localhost/corsview/api/..."
 
-$addr_offset = 2;
+$addr_offset = 3;
 $command = array_values($requestURI);
 
 //initialize the rest of $command to empty strings 

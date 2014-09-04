@@ -58,21 +58,45 @@ var loadModuleHomepage = function(moduleCode){
 };
 
 var loadModuleReviewPanel = function(moduleCode){
-		console.log("bookshelf undefined");
-		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
-		this.moduleReviewPanelViews.render(moduleCode);
-		currentColor = "rgb(100,0,0)";
-		alphaColor1 = getAlphacolor(currentColor,0.4);
-		console.log(alphaColor1);
-		$(".module-shelf-inner").remove();
-		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
-		$("#page-content-wrapper").css("background-color",alphaColor1);
-		verticalAlign($("#sidebar-module").find("h1"));
-		createSidebar();
-		$("#page-content-wrapper").css("height","100%");
-		createSlidingPanel();
-		bindOverPanel(currentColor);
+	var reviewArrayFromDB = [];
+	console.log("retrieve "+moduleCode);
+	  $.ajax({
+	  //url: "../../api/modules/"+moduleCode+"/documents",
+	    url: "../../api/modules/"+moduleCode+"/reviews",
+	    type : 'GET',
+	    dataType: "json",
+	    //contentType: "appliction/json; charset=utf-8",
+	    success : function(data) {
+	      $.each(data['reviewList'],function(index,value){
+	      	reviewArrayFromDB.push(data['reviewList'][index]['reviewContent']);
+	        console.log(data['reviewList'][index]['reviewContent']);
+	        console.log(reviewArrayFromDB);
+	        renderReviewPanel(moduleCode);
+			createSlidingPanel(moduleCode);
+			bindOverPanel(currentColor);
+	      });
+	     },
+	          error : function(err, req) {
+	                 console.log("message "+err);
+	                 console.log(req);
+	    }
+	  });
 };
+
+var renderReviewPanel = function(moduleCode){
+    console.log("bookshelf undefined; moduleCode"+moduleCode);
+	this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
+	this.moduleReviewPanelViews.render(moduleCode);
+	currentColor = "rgb(100,0,0)";
+	alphaColor1 = getAlphacolor(currentColor,0.4);
+	console.log(alphaColor1);
+	$(".module-shelf-inner").remove();
+	$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+	$("#page-content-wrapper").css("background-color",alphaColor1);
+	verticalAlign($("#sidebar-module").find("h1"));
+	createSidebar();
+	$("#page-content-wrapper").css("height","100%");
+}
 
 var loadModuleInfoSidebar = function(moduleCode){
 	console.log("Loading module info sidebar");

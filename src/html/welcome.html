@@ -1,4 +1,4 @@
-<html>
+<html >
 <head>
 	<script type="text/javascript" src="../../libs/jQuery/jquery-2.1.1.js"></script>
 	<script type="text/javascript" src="../../libs/Textillate/jquery.lettering.js"></script>
@@ -18,11 +18,13 @@
     <a href="#">ABOUT</a>
   </div><div class="links">
     <a href="#">CONTACT</a>
-    <img id="fb-icon" src="../../res/img/fbicon-30.png"></img></a>
   </div>
+
+    <a id="fb-icon"><img  src="../../res/img/fbicon-30.png"></img></a>
+
 </nav>
 </header>
-
+  <fb:login-button scope="public_profile,email" id="fb-login-button" size="xlarge" onlogin="checkLoginState();" style="position:fixed; left:10px;"></fb:login-button>
 <h1 class="tlt title" data-in-effect="flipInY">Cors View - NUS</h1>
 <h5 class="tlt subtitle" data-in-effect="flipInY">Please log in with your Facebook account.</h5>
 <div class="fb-login">
@@ -32,12 +34,13 @@
 	<div class="quotes"></div>
 	<div class="author"></div>
 </div>
-</body>
+<div id="fb-root"></div>
+	<script type="text/javascript" src="../js/facebook/fbLogin.js"></script>
 
 <script type="text/javascript">
 	$(function(){
 		$(".title").textillate({
-			initialDelay:1000,
+			initialDelay:500,
 			// in:{
 			// 	delayScale:2.0
 			// }
@@ -50,7 +53,7 @@
 			// }
 		});
 		$(".subtitle").textillate({
-			initialDelay:1500,
+			initialDelay:500,
 			in: {
 				callback:loadFBButton
 			}
@@ -58,11 +61,16 @@
 	});
 
 	function loadFBButton(){
+		// var enterButtonsHtml = "<fb:login-button scope=\"public_profile,email\" id=\"fb-login-button\" size=\"large\" onlogin=\"checkLoginState();\"></fb:login-button>";
+		var enterButtonsHtml = "<a><img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" onClick=\"fb_login();\" width=\"200\" /></a><br><br>";
+		enterButtonsHtml += "<a href=\"index.html\">Just show me the module reviews</a>";
 		$(".fb-login").hide()
-		.html("<img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" width=\"200\" />")
+		.html(enterButtonsHtml)
 		.fadeIn("slow",function(){
 			loadQuote();
 		});
+		$(".fb-login-btn").click(checkLoginState);
+
 	}
 
 	function loadQuote(){
@@ -102,18 +110,12 @@
 	function initWelcomeEventListeners(){
 		$(".fb-login-btn").hover(
 			function(){
-				console.log("Mouse Enter");
 				$(".fb-login-btn").attr("src","../../res/img/welcome-page-fblogin.png");
 			},
 			function(){
-				console.log("Mouse Out");
 				$(".fb-login-btn").attr("src","../../res/img/welcome-page-fblogin-dim.png");
 			}
 		);
-
-		$(".fb-login-btn").click(function(){
-			alert("Thanks for your interest! That's All!");
-		});
 	}
 
 	function loadQuoteData(){
@@ -127,4 +129,6 @@
 		$(".author").html(author);
 	}
 </script>
+</body>
+
 </html>

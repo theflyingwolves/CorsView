@@ -12,6 +12,7 @@ function getReviews($moduleCode){
 
         //$result = mysql_query($newQuery,$dbc);
         $result = $mysqli->query($newQuery);
+
         $reviewList = array();
             while($row = $result->fetch_array(MYSQLI_ASSOC)){
                 $review = array(
@@ -19,7 +20,7 @@ function getReviews($moduleCode){
                     'moduleCode' => $row['Module_Code'],
                     'moduleTitle' => $row['Module_Title'],
                     'creatorID' => $row['Creator_ID'],
-                    'moduleReview' => $row['Module_Title'],
+                    'reviewContent' => $row['Review_Content'],
                     'createdTime' => $row['Created_Time'],
                     'modifiedTime' => $row['Modified_Time'],
                     'voteUp' => $row['Vote_Up'],
@@ -32,7 +33,7 @@ function getReviews($moduleCode){
             }
             else{
             $returnMessage = "get reviews info successfully.";
-            respondToClient(200,array('message' => $returnMessage, 'review_list' => $reviewList));
+            respondToClient(200,array('message' => $returnMessage, 'reviewList' => $reviewList));
             }
             $mysqli->close();      
         }

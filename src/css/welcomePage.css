@@ -20,6 +20,11 @@ h5 {
 	font-size: 25px;
 }
 
+a {
+	color:white;
+	font-size: 15px;
+}
+
 .content {
 	color: white;
 	border:1px solid;
@@ -42,6 +47,6 @@ h5 {
 
 .fb-login {
 	position: fixed;
-	top: 50%;
+	top: 45%;
 	left: 43%;
 }
