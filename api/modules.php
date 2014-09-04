@@ -30,7 +30,9 @@ function getModuleInfo($module_code){
 
 function getModuleInfoForSearch($keyWord){
      $mysqli = connect_database();
-     $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE . " WHERE (Module_Code RLIKE '%s') OR (Module_Title RLIKE '%s')",
+     $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE . " WHERE (Module_Code RLIKE '%s') OR (Module_Title REGEXP '^%s.') LIMIT 10",
+
+     // $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE . " WHERE (Module_Code RLIKE '%s') OR (Module_Title RLIKE '%s')",
         $mysqli->real_escape_string($keyWord['keyWord']),
         $mysqli->real_escape_string($keyWord['keyWord']));
      $result = $mysqli->query($newQuery);
@@ -44,6 +46,6 @@ function getModuleInfoForSearch($keyWord){
                     'moduleDescription' => $row['Module_Description']);
                 array_push($moduleList,$module);
      }
-    respondToClient(400,array('moduleInfoList' => $moduleList));
+    respondToClient(400,array('moduleInfoList' => $moduleList, "message"=>"Successfully retrieved modules"));
 
 }

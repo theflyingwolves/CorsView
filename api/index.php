@@ -254,11 +254,6 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
-
-                                                case 'reviews':
-                                                      require_once('users.php');
-                                                      getReviewsByUserId($command[$addr_offset+1]);
-                                                      break;
                                                 case 'enrollments':
                                                       switch($command[$addr_offset+3]){
                                                             case '':
@@ -286,7 +281,7 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
-/*
+
                                                 case 'enrollmentList':
                                                       switch($command[$addr_offset+3]){
                                                             case '':
@@ -304,7 +299,7 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
-   */         
+            
                                                 case 'bookmarks':
                                                       switch($command[$addr_offset+3]){
                                                             case '':
