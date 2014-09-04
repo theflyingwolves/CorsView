@@ -13,7 +13,6 @@ var indexRouter = Backbone.Router.extend({
 
 	home:function(){
 		loadModuleShelf();
-		initEventListeners();
 	},
 
 	loadModulePage: function(moduleCode){
@@ -30,10 +29,29 @@ var loadNavBar = function(){
 };
 
 var loadModuleShelf = function(){
-	cleanupPageForModuleShelfView();
-	this.moduleShelfView = new modulesShelfView({el:$(".moduleShelf"),collection:moduledb});
-	this.moduleShelfView.render();
+
+	var query = getSearch();
+	console.log(query)
+	if(query == undefined || query == null || query == ""){
+		moduleDataInit("");
+	} else {
+		moduleDataInit(query);
+	}
 };
+
+var loadModuleData = function(){
+	if(moduledb.length == 0){
+		console.log("empty module");
+		// $(".moduleShelf").append("<div class=\"backboard\"><p>No such course</p></div>");
+	} else {
+		console.log("load module data");
+		cleanupPageForModuleShelfView();
+		this.moduleShelfView = new modulesShelfView({el:$(".moduleShelf"),collection:moduledb});
+		this.moduleShelfView.render();
+		initIndexEventListeners();
+
+	}
+}
 
 var cleanupPageForModuleShelfView = function(){
 	$("#page-content-wrapper").html("");
@@ -71,6 +89,13 @@ var getIndex = function(){
 	return query.index;
 }
 
+var getSearch = function() {
+	var currentUrl = window.location.href;
+	var urlSearch = currentUrl.substring(currentUrl.indexOf("?"));
+	var query = getQueryParams(urlSearch);
+	return query.search;	
+}
+
 var loadModuleReviewPanel = function(moduleCode){
 
 		console.log("bookshelf undefined; theme"+getURLParameter("theme"));
@@ -95,9 +120,7 @@ var loadModuleInfoSidebar = function(moduleCode){
 	this.moduleSideBarView = new moduleInfoSideBarView({el:$("#module-info-container"),collection:moduledb});
 	this.moduleSideBarView.render(moduleCode);
 };
-var getURLParameter = function(name) {
-  	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-}
+
 function getQueryParams(qs) {
     qs = qs.split("+").join(" ");
 
@@ -113,7 +136,11 @@ function getQueryParams(qs) {
 }
 
 
-var initEventListeners = function(){
+var initIndexEventListeners = function(){
+	// $(".modulebook").unbind();
+	// $(".moduleShelf").unbind();
+	// $("#fb-icon").unbind();
+	$("#reg-search-input").unbind();
 	$('.modulebook').mouseenter(function(){
 		$('.modulebook').not(this).animate({
 			opacity:'0.4'
@@ -128,23 +155,22 @@ var initEventListeners = function(){
 		var themeColor = $(this).css("background-color");
 
 		var index = $(".moduleShelf .modulebook").index($(this));
-		window.location.href = (currentUrl.substring(0,currentUrl.indexOf("#"))) + ("#"+moduleCode)+"?theme="+themeColor+"&index="+index;
+		var index1 = currentUrl.indexOf("#");
+		var index2 = currentUrl.indexOf("?");
+		console.log("index1 "+index1+" 2 "+index2);
+		if(index1 > -1){
+			index2 = Math.min(index1, index2);
+		}
+		console.log(currentUrl.substring(0,index2));
+		window.location.href = (currentUrl.substring(0,index2)) + ("#"+moduleCode)+"?theme="+themeColor+"&index="+index;
 	});
 
 	$('.moduleshelf').mouseout(function(){
 		$('.modulebook').css("opacity","1.0");
 	});
 
-	$('#fb-icon').mouseover(function(){
-		$(this).attr("src","../../res/img/fbicon-color-30.png");
-	});
-
-	$('#fb-icon').mouseout(function(){
-		$(this).attr("src","../../res/img/fbicon-30.png");
-	});
-
 
 	$("#reg-search-input").on("keyup change",function(){
-		loadModuleShelf();
+		moduleDataInit($(this).val());
 	});
 };

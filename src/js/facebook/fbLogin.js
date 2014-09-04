@@ -128,6 +128,10 @@ var FBUserName = "";
                             contentType: "application/json; charset=utf-8",
                             success: function(){
                                 console.log("user logins successfully");
+                                FB.api("/me/picture?width=30&height=30",  function(fbPictureResponse) {
+                                  console.log(fbPictureResponse.data.url);
+                                  $("#fb-icon img").attr("src",fbPictureResponse.data.url);
+                                });  
                             },
                             error : function(err, req) {
                                  console.log(err);

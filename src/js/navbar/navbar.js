@@ -11,7 +11,7 @@ function addNavBarListener(){
 	$('#fb-icon').mouseout(function(){
 		$(this).find("img").attr("src","../../res/img/fbicon-30.png");
 	});
-	
+
 	jQuery.extend(jQuery.expr[':'], {
 	  focus: "a == document.activeElement"
 	});
