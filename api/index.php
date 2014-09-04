@@ -19,7 +19,8 @@ switch($command[$addr_offset + 0]){
                                                 break;
                                     case 'search':
                                           require_once('modules.php');
-                                          getModuleInfoForSearch();
+                                          $keyWord = json_decode(file_get_contents('php://input'), true);
+                                          getModuleInfoForSearch($keyWord);
                                                 break;
                                     default:    //module code exists
                                                 switch($command[$addr_offset + 2]){
@@ -232,7 +233,7 @@ switch($command[$addr_offset + 0]){
                                                 require_once('users.php');
                                                 $user = json_decode(file_get_contents('php://input'),true);
                                                 userLogin($user);
-                                                break;                                 
+                                                break;
                                           default:
                                                 break;
                                     }
@@ -243,7 +244,9 @@ switch($command[$addr_offset + 0]){
                                                 case '':
                                                       switch($_SERVER['REQUEST_METHOD']){
                                                             case 'GET':
-                                                                  //get user's frofile
+                                                                  require_once('users.php');   
+
+                                                                  getUserInfo($command[$addr_offset+1]);
                                                                   break;
                                                             case 'DELETE':
                                                                   require_once('users.php');

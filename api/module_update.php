@@ -60,7 +60,7 @@ function module_update(){
 
        
             $mysqli->query($new_insert_query);
-            if($mysqli->cubrid_affected_rows !=0){
+            if($mysqli->affected_rows !=0){
                 echo "work";
             }
         }

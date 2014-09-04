@@ -7,14 +7,14 @@ function respondToClient($response_code,$response_array){
     echo $responsedJSON;
 }
 
-function authentication($userID,$accessToken){
+function authentication($facebookID,$accessToken){
     if($accessToken ==''){
         return FALSE;
     }
     else {
         require_once('config.php');
         $mysqli = connect_database();
-        $newQuery = sprintf("SELECT Access_Token FROM ". USERS_TABLE ." u WHERE u.User_ID='%s'",$mysqli->real_escape_string($userID));
+        $newQuery = sprintf("SELECT Access_Token FROM ". USERS_TABLE ." u WHERE u.Facebook_ID='%s'",$mysqli->real_escape_string($facebookID));
         $result = $mysqli->query($newQuery);
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
             if(strcmp($row['Access_Token'],$accessToken) == 0){

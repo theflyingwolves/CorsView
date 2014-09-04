@@ -28,16 +28,20 @@ function getModuleInfo($module_code){
         }
 }
 
-function getModuleInfoForSearch(){
+function getModuleInfoForSearch($keyWord){
      $mysqli = connect_database();
-     $newQuery = "SELECT * FROM " . MODULES_TABLE;
+     $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE . " WHERE (Module_Code RLIKE '%s') OR (Module_Title RLIKE '%s')",
+        $mysqli->real_escape_string($keyWord['keyWord']),
+        $mysqli->real_escape_string($keyWord['keyWord']));
      $result = $mysqli->query($newQuery);
+     //var_dump($result);
      $moduleList = array();
      while($row = $result->fetch_array(MYSQLI_ASSOC)){  
         $module = array(
                     'moduleID' => $row['Module_ID'],
                     'moduleCode' => $row['Module_Code'],
-                    'moduleTitle' => $row['Module_Title']);
+                    'moduleTitle' => $row['Module_Title'],
+                    'moduleDescription' => $row['Module_Description']);
                 array_push($moduleList,$module);
      }
     respondToClient(400,array('moduleInfoList' => $moduleList));

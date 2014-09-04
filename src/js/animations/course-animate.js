@@ -61,6 +61,7 @@ var slideModuleOut = function(moduleBook) {
 
 var createSlidingPanel = function(moduleCode) {
 
+
 	console.log("retrieve "+moduleCode);
 	  $.ajax({
 	  //url: "../../api/modules/"+moduleCode+"/documents",
@@ -114,7 +115,25 @@ var renderSlidingPanel = function(reviewArrayFromDB) {
 		} 
 		$(".carousel-control.right").removeClass("disabled");
 	});
+          //  share button
+          $(".data-box").on("click",".glyphicon.glyphicon-share-alt",function(){
+            //$(this).find(p).share();
+           share();
+        });
 };
+
+function share(){
+    alert(document.URL);
+    var pathname = window.location.pathname;
+      FB.ui({
+        method: 'share',
+        //href: 'http://www.douban.com',
+        //href: 'http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com//src/html/test.html',
+        href: 'http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com/src/html/index2.html#CS2102',
+        //href: 'http://news.163.com/14/0904/09/A59QD57O00014SEH.html',
+        //href:document.URL,
+      }, function(response){});
+}
 
 function bindOverPanel(currentColor) {
 	$("#page-content-wrapper").on("mouseenter",".data-box", function() {
@@ -138,6 +157,7 @@ function bindOverPanel(currentColor) {
 
 
 	$("#review-submit-btn").click(function() {
+                    console.log(FB.getAuthResponse()['accessToken']);
 		var moduleCode = $("#module-info-container").find("h2").text();
 		var moduleID, moduleTitle;
 
@@ -158,7 +178,9 @@ function bindOverPanel(currentColor) {
   			    		moduleTitle: moduleTitle,
   			    		creatorID: creatorID,
   			    		accessToken: accessToken,
-  			    		reviewContent: review,
+  			    		//creatorID: 1,
+                                                        //accessToken: 123,
+                                                        reviewContent: review,
   					};
   					console.log(content);
 

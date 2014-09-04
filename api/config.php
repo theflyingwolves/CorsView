@@ -7,7 +7,7 @@ function connect_database(){
 	$db_username = "root";
 
 	$db_password = "12345";
-//	$db_password = "";
+	$db_password = "";
 	$db_database = "CORSVIEW_DB";
 	$con = new mysqli($db_hostname, $db_username, $db_password,$db_database);
 

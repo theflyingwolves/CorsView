@@ -76,7 +76,6 @@ function getUserInfo($facebookID){
         $newQuery  = sprintf("SELECT * FROM " . USERS_TABLE . " WHERE Facebook_ID = '%s'",
             $mysqli->real_escape_string($facebookID));
         $result = $mysqli->query($newQuery);
-        
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
             $userInfo = array(
                 'userID' => $row['User_ID'],
@@ -85,6 +84,12 @@ function getUserInfo($facebookID){
                 'accessToken' => $row['Access_Token'],
                 'createdTime' => $row['Created_Time'],
                 'lastLogInTime' => $row['Last_Log_In_Time']);
+         $returnMessage = "user's profile is found";
+        respondToClient(400,array('message' => $returnMessage,'userInfo' => $userInfo));         
+        }
+        else{
+            $returnMessage = "user's not registered";
+        respondToClient(400,array('message' => $returnMessage));
         }
 
     } else{
@@ -92,3 +97,4 @@ function getUserInfo($facebookID){
         respondToClient(400,array('message' => $returnMessage));       
     }
 }
+
