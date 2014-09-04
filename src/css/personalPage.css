@@ -48,7 +48,7 @@
 	font-weight: lighter;
 }
 
-.module-table {
+.module-table,.reviews-table {
 	position: relative;
 /*	border:5px dotted #c4cbcc;
 	border-radius:10px;*/
@@ -63,7 +63,7 @@
 	color: #333333;
 
 }
-.module-table ul { 
+.module-table ul,.reviews-table ul { 
 	border-bottom:0 none;
 	list-style:none; 
 	display:inline-block;
@@ -73,10 +73,10 @@
 	text-align:center;
 	background-color:#FFF;
 }
-.module-table li:hover { 
+.module-table li:hover，.reviews-table li:hover { 
 
 }
-.module-table ul li {  
+.module-table ul li,.reviews-table ul li {  
 	border-bottom:1px dashed #cfd2d2;
 	padding:15px 20px;
 }
