@@ -219,8 +219,10 @@ function bindOverPanel(currentColor) {
 			var data = moduledb.where({
 				moduleCode:moduleCode
 			})[0];
-			moduleID = data.moduleID;
-			moduleTitle = data.moduleTitle;
+			var str = JSON.stringify(data);
+			var json = JSON.parse(str);
+			moduleID = json.moduleID;
+			moduleTitle = json.moduleTitle;
 			console.log("module id "+moduleID);
 					FB.api('/me', function(response) {
 					   	creatorID = response.email.hashCode();
