@@ -15,8 +15,8 @@ Our app is live at [__http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws
 
 ### Members & Contributions ###
 + **Wang Kunzhen -A0105514U**
-    +front end Builder
-    +front Routers
+    + front end Builder
+    + front Routers
     + Animation
     + HTML,JS,CSS
 + **Wu Lifu -A0105661M**
