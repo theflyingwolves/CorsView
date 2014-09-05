@@ -44,7 +44,7 @@
 
  </div>
 
-<!-- <fb:login-button id="login-button" scope="public_profile,email" id="fb-login-button" size="xlarge" onlogin="checkLoginState();" style="z-index:100;position:fixed;top:43%;left:50%;"></fb:login-button> -->
+<fb:login-button id="login-button" scope="public_profile,email" id="fb-login-button" size="xlarge" onlogin="redirect();" style="z-index:100;position:fixed;top:43%;left:50%;"></fb:login-button>
 </header>
 <h1 class="tlt title" data-in-effect="flipInY">Cors View - NUS</h1>
 <h5 class="tlt subtitle" data-in-effect="flipInY">Please log in with your Facebook account.</h5>
@@ -86,19 +86,19 @@
 	});
 
 	function loadFBButton(){
-		var enterButtonsHtml = "<a><img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" onClick=\"redirect()\" width=\"200\" /></a><br><br>";
+		var enterButtonsHtml = "<a><img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" style=\"display:none\" width=\"200\" /></a><br><br>";
 		enterButtonsHtml += "<a href=\"index.html\">Just show me the module reviews</a>";
 		$(".fb-login").hide()
 		.html(enterButtonsHtml)
 		.fadeIn("slow",function(){
 			loadQuote();
 		});
-		$(".fb-login-btn").click(checkLoginState);
+		// $(".fb-login-btn").click(checkLoginState);
 
 	}
 
 	function redirect(){
-		fblogin();
+		checkLoginState();
 		window.location.href = "index.html";
 	}
 

@@ -57,7 +57,6 @@ var addModuleToTable = function(moduleToAdd){
 };
 
 var addToColumn = function(col, moduleCode){
-	console.log(col);
 	$(".module-table ul:eq("+col+")").append("<li><p>"+moduleCode+"</p></li>");
 }
 

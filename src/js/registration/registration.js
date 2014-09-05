@@ -61,8 +61,6 @@ var addModuleToTable = function(moduleToAdd){
 
 var addToColumn = function(rowNum,moduleToAdd){
 	var moduleDiv = regGenerateModuleTableDiv(moduleToAdd,rowNum);
-	console.log("#cell-"+rowNum+"-"+rowFrontierIndices[rowNum]);
-	$("#cell-"+rowNum+"-"+rowFrontierIndices[rowNum]).html(moduleDiv);
 	rowFrontierIndices[rowNum] ++;
 	if(rowFrontierIndices[rowNum] >= 8){
 		$(".reg-display-table-inner").css({"overflow-x":"scroll"});
