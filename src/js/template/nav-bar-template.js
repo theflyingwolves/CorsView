@@ -19,7 +19,7 @@ var generateNavBarHtml = function(){
   // "<div id=\"search-form\" role=\"form\" class=\"form-inline\">"+
   //     "<input type=\"text\" class=\"form-control\"/>"+
   //   "</div>"+  	
-    "<a class=\"logo\" href=\"#\"><img src=\"../../res/img/icon.png\"></img></a>"+    
+    "<a class=\"logo\" href=\"../html/index.html\"><img src=\"../../res/img/icon.png\"></img></a>"+    
     "<div class=\"links\">"+
       "<a href=\"#\">ABOUT</a>"+
     "</div>"+
