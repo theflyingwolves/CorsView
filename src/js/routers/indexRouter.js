@@ -12,28 +12,17 @@ var indexRouter = Backbone.Router.extend({
 	},
 
 	home:function(){
-		console.log("loading home");
 		loadModuleShelf();
 		fadeinSearchForm();
 	},
 
 	loadModulePage: function(moduleCode){
-		console.log("loading module: "+moduleCode);
 		moduleDataInit(moduleCode, "module-page");
-		loadSidebarToggleArea();
 		fadeoutSearchForm();
 	}
-	// },
-	// loadModuleWithQuery: function(moduleCode,queryString){
-	// 	console.log("loading module: "+moduleCode+" with query string");
-	// 	loadModulePage(moduleCode);
-	// 	loadModuleHomepage(moduleCode);
-	// 	fadeoutSearchForm();
-	// }
 });
 
 var loadNavBar = function(){
-	console.log("loading nav bar");
 	this.navBarView = new navBarView({el:$(".top-nav")});
 	this.navBarView.render();
 	addNavBarListener();
@@ -53,7 +42,6 @@ var loadModuleShelf = function(){
 var loadModuleData = function(){
 	if(moduledb.length == 0){
 		console.log("empty module");
-		// $(".moduleShelf").append("<div class=\"backboard\"><p>No such course</p></div>");
 	}else{
 		cleanupPageForModuleShelfView();
 		this.moduleShelfView = new modulesShelfView({el:$(".moduleShelf"),collection:moduledb});
@@ -77,10 +65,8 @@ var loadModuleHomepage = function(moduleCode){
 	loadModuleInfoSidebar(moduleCode);
 	var bookShelf = $("#module-book-"+moduleCode);
 	if(bookShelf.length > 0){
-		console.log("Loading with module shelf");
 		slideModuleOut(bookShelf);
 	}else{
-		console.log("loading without module shelf");
 		loadModuleReviewPanel(moduleCode,undefined);
 	}
 };
@@ -92,7 +78,6 @@ var fadeinSearchForm = function(){
 }
 
 var fadeoutSearchForm = function(){
-	console.log("fade out search form");
 	$(".top-nav .links:eq(0)").find("a").text("MODULE");
 	$(".top-nav .links:eq(1)").find("a").text("REVIEW");
 	$("#search-form").addClass("inActive");
@@ -128,6 +113,7 @@ var loadModuleReviewPanel = function(moduleCode,color){
 };
 
 var loadModuleReviewPanelData = function(moduleCode,status){
+			loadSidebarToggleArea();
 		moduleReviewDB.moduleTitle = moduleData[0].moduleTitle;
 		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
 		this.moduleReviewPanelViews.render(moduleCode);
@@ -185,9 +171,6 @@ function getQueryParams(qs) {
 
 
 var initIndexEventListeners = function(){
-	// $(".modulebook").unbind();
-	// $(".moduleShelf").unbind();
-	// $("#fb-icon").unbind();
 	$("#reg-search-input").unbind();
 	$('.modulebook').mouseenter(function(){
 		$('.modulebook').not(this).animate({
@@ -205,11 +188,9 @@ var initIndexEventListeners = function(){
 		var index = $(".moduleShelf .modulebook").index($(this));
 		var index1 = currentUrl.indexOf("#");
 		var index2 = currentUrl.indexOf("?");
-		console.log("index1 "+index1+" 2 "+index2);
 		if(index1 > -1){
 			index2 = Math.min(index1, index2);
 		}
-		console.log(currentUrl.substring(0,index2));
 		window.location.href = (currentUrl.substring(0,index2)) + ("#"+moduleCode)+"?theme="+themeColor+"&index="+index;
 	});
 

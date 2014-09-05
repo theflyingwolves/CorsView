@@ -1,4 +1,9 @@
 var sideBarInfoTemplate = ""+
-	"<h2><%= moduleCode %></h2>"+
+	"<h3><%= moduleCode %></h3>"+
+	"<h1><%= moduleTitle %></h1>"+
 	"<hr>"+
-	"<p> <%= moduleDescription %> </p>";
+	"<p> <%= moduleDescription %> </p>"+
+	"<hr>"+
+	"<p>Prerequisite: <%= prerequisite %></p>"+
+	"<hr>"+
+	"<p>Preclusion: <%= preclusion %></p>";

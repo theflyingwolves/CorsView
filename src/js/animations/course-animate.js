@@ -1,3 +1,4 @@
+/*
 String.prototype.hashCode = function(){
     var hash = 0;
     if (this.length == 0) return hash;
@@ -8,7 +9,7 @@ String.prototype.hashCode = function(){
     }
     return hash;0
 }
-
+*/
 
 var slideModuleOut = function(moduleBook) {
 	var offsetLeft = moduleBook.offset().left;
@@ -48,7 +49,6 @@ var slideModuleIn = function(index){
 		modulebook.prevAll().css("left",-offsetLeft);
 		modulebook.css("left",-offsetLeft);
 		modulebook.nextAll().css("right",-$(window).width()-offsetLeft);
-		console.log("redirect");
 		currentUrl = window.location.href;
 		directingUrl = currentUrl.substring(0,currentUrl.indexOf("#"));
 		if($("#reg-search-input").val() !== ""){
@@ -113,25 +113,31 @@ var createSlidingPanel = function(moduleReviews) {
 };
 
 var loadFriendsPictures = function(){
-	$("#sidebar-friends").append("<div><table></table></div>");
-    FB.api('/me/friends', function(response) {
-        var friendDataList = response.data;
-        var frienndsNum = friendDataList.length;
-        console.log("get friends num "+frienndsNum);
-        var listNum = Math.min(frienndsNum,10);
-        for(var i = 0; i < listNum; i++){
-        	var friendData = friendDataList[i];
-        	var friendId = friendData.id;
-        	if(i%2 == 0){
-        		$("#sidebar-friends table").append("<tr><td><img id=\""+friendId+"\"></img></td>");
-        	} else {
-        		$("#sidebar-friends table").append("<td></td><img id=\""+friendId+"\"></img></tr>");
-        	}
-        	FB.api("/"+friendId+"/picture?width=50&height=50",function(fbPictureResponse){
-        		$("#"+friendId).attr("src",fbPictureResponse.data.url);
-        	});
-        };
-    });
+	if(typeof(FB) !== 'undefined'){
+	  	FB.getLoginStatus(function(response) {
+	       	if (response.session) {
+				$("#sidebar-friends").append("<div><table></table></div>");
+			    FB.api('/me/friends', function(response) {
+			        var friendDataList = response.data;
+			        var frienndsNum = friendDataList.length;
+			        console.log("get friends num "+frienndsNum);
+			        var listNum = Math.min(frienndsNum,10);
+			        for(var i = 0; i < listNum; i++){
+			        	var friendData = friendDataList[i];
+			        	var friendId = friendData.id;
+			        	if(i%2 == 0){
+			        		$("#sidebar-friends table").append("<tr><td><img id=\""+friendId+"\"></img></td>");
+			        	} else {
+			        		$("#sidebar-friends table").append("<td></td><img id=\""+friendId+"\"></img></tr>");
+			        	}
+			        	FB.api("/"+friendId+"/picture?width=50&height=50",function(fbPictureResponse){
+			        		$("#"+friendId).attr("src",fbPictureResponse.data.url);
+			        	});
+			        };
+				});
+			};
+		});
+	}
 }
 
 var renderSlidingPanel = function(reviewArrayFromDB) {
@@ -228,21 +234,24 @@ function bindOverPanel(currentColor) {
 
 	//review submit button handler
 	$("#review-submit-btn").click(function() {
-                    console.log(FB.getAuthResponse()['accessToken']);
 		var moduleCode = $("#module-info-container").find("h2").text();
 		var moduleID, moduleTitle;
 
 			var data = moduledb.where({
 				moduleCode:moduleCode
 			})[0];
+			console.log(moduleData[0]);
 			var str = JSON.stringify(data);
-			var json = JSON.parse(str);
-			moduleID = json.moduleID;
-			moduleTitle = json.moduleTitle;
-			console.log("module id "+moduleID);
-					FB.api('/me', function(response) {
-					   	creatorID = response.email.hashCode();
-					   	accessToken =   FB.getAuthResponse()['accessToken'];
+			console.log(str);
+			
+			moduleID = moduleData[0].moduleID;
+			moduleTitle = moduleData[0].moduleTitle;
+			moduleCode = moduleData[0].moduleCode;
+			console.log(moduleID);
+			console.log(moduleTitle);	
+				FB.api('/me', function(response) {
+					 creatorID = response.id;
+					 accessToken =   FB.getAuthResponse()['accessToken'];
 
 				var review = $("#review-area").val();
 				content = {
@@ -251,10 +260,9 @@ function bindOverPanel(currentColor) {
 			    		moduleTitle: moduleTitle,
 			    		creatorID: creatorID,
 			    		accessToken: accessToken,
-	                                                    reviewContent: review,
+	                                reviewContent: review,
 					};
 					console.log(content);
-
 					$.ajax({
 					url: '../../api/modules/'+moduleCode+'/reviews',
 					  type : 'POST',
@@ -275,7 +283,6 @@ function bindOverPanel(currentColor) {
 
 	//resource submit button handler
 	$("#resource-submit-btn").click(function() {
-	    console.log(FB.getAuthResponse()['accessToken']);
 		var moduleCode = $("#module-info-container").find("h2").text();
 		var moduleID, moduleTitle;
 
@@ -300,7 +307,6 @@ function bindOverPanel(currentColor) {
 			            documentTitle: resourceTitle,
 			            documentLink:resourceLink
 			        };
-			        console.log(content);
 
 			        $.ajax({
 			        url: '../../api/modules/'+moduleCode+'/documents',
@@ -332,21 +338,21 @@ function bindOverPanel(currentColor) {
 	});
 };
 
-
-
 function createSidebar(){
 	var showSidebar = function(e){
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    };
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  };
 
-    $("#sidebar-wrapper").hover(function(e) {
-      showSidebar(e);
-    });
+  $("#sidebar-wrapper").hover(function(e) {
+  	console.log("sidebar toggled - wrapper");
+    showSidebar(e);
+  });
 
-    $("#sidebar-toggle-area").hover(function(e){
-      showSidebar(e);
-    });
+  $("#sidebar-toggle-area").hover(function(e){
+  	console.log("sidebar toggled - area");
+    showSidebar(e);
+  });
 }
 
 function getAlphacolor(currentColor, alpha){

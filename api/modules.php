@@ -43,7 +43,9 @@ function getModuleInfoForSearch($keyWord){
                     'moduleID' => $row['Module_ID'],
                     'moduleCode' => $row['Module_Code'],
                     'moduleTitle' => $row['Module_Title'],
-                    'moduleDescription' => $row['Module_Description']);
+                    'moduleDescription' => $row['Module_Description'],
+                    'prerequisite' => $row['Pre_requisite'],
+                    'preclusion' => $row['Preclusion']);
                 array_push($moduleList,$module);
      }
     respondToClient(400,array('moduleInfoList' => $moduleList, "message"=>"Successfully retrieved modules"));
