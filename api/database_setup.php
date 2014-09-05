@@ -6,7 +6,7 @@ database_setup();
 
 function database_setup(){
     //$mysqli = new mysqli("localhost","root","");
-    $mysqli = new mysqli("localhost","root","");
+    $mysqli = new mysqli("localhost","root","12345");
     $new_database_query = "CREATE DATABASE IF NOT EXISTS ". CORSVIEW_DB . " DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci";
     if($mysqli->query($new_database_query)){
         echo "works";
@@ -18,9 +18,9 @@ function database_setup(){
 
     $new_table_query = "CREATE TABLE IF NOT EXISTS `" . USERS_TABLE . "`(
         `User_ID` int(11) NOT NULL AUTO_INCREMENT, 
-        `Facebook_ID` bigint(16) NOT NULL UNIQUE,
+        `Facebook_ID` varchar(255) NOT NULL UNIQUE,
         `Facebook_Name` varchar(255) NOT NULL,
-        `Gender` tinyint(1) DEFAULT NULL,
+        `Gender` varchar(16) DEFAULT NULL,
         `Access_Token`  varchar(255) DEFAULT NULL,
         `Created_Time` datetime NOT NULL,
         `Last_Log_In_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -56,7 +56,7 @@ function database_setup(){
         `Module_ID` int(11) NOT NULL,
         `Module_Code` varchar(16) NOT NULL,
         `Module_Title` varchar(128) NOT NULL, 
-        `Creator_ID` bigint(16) NOT NULL,
+        `Creator_ID` varchar(255) NOT NULL,
         `Review_Content` text,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -72,7 +72,7 @@ function database_setup(){
     $new_table_query = "CREATE TABLE IF NOT EXISTS `" . REVIEW_COMMENTS_TABLE . "`(
         `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,
         `Review_ID` int(11) NOT NULL,
-        `Creator_ID` bigint(16) NOT NULL,
+        `Creator_ID` varchar(255) NOT NULL,
         `Comment_Content` text,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -88,7 +88,7 @@ function database_setup(){
         `Module_ID` int(11) NOT NULL,
         `Module_Code` varchar(16) NOT NULL,
         `Module_Title` varchar(128) NOT NULL, 
-        `Creator_ID` bigint(16) NOT NULL,
+        `Creator_ID` varchar(255) NOT NULL,
         `Document_Title` varchar(255),
         `Document_Link` varchar(255),
         `Created_Time` datetime NOT NULL,
@@ -106,7 +106,7 @@ function database_setup(){
    $new_table_query = "CREATE TABLE IF NOT EXISTS `" . DOCUMENT_COMMENTS_TABLE . "`(
         `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,
         `Document_ID` int(11) NOT NULL,
-        `Creator_ID` bigint(16) NOT NULL,
+        `Creator_ID` varchar(255) NOT NULL,
         `Comment_Content` text,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -120,7 +120,7 @@ function database_setup(){
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . ENROLLMENTS_TABLE . "`(
         `Enrollment_ID` int(11) NOT NULL AUTO_INCREMENT,
         `Module_ID` int(11) NOT NULL, 
-        `User_ID` bigint(16) NOT NULL,
+        `User_ID` varchar(255) NOT NULL,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         `Deleted` tinyint(1) DEFAULT '0',
@@ -134,7 +134,7 @@ function database_setup(){
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . BOOKMARKS_TABLE . "`(
         `Bookmark_ID` int(11) NOT NULL AUTO_INCREMENT,
         `Module_ID` int(11) NOT NULL,
-        `User_ID` bigint(16) NOT NULL,
+        `User_ID` varchar(255) NOT NULL,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         `Deleted` tinyint(1) DEFAULT '0',
@@ -148,7 +148,7 @@ function database_setup(){
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . REVIEW_VOTES_TABLE . "`(
         `Vote_ID` int(11) NOT NULL AUTO_INCREMENT,
         `Review_ID` int(11) NOT NULL,
-        `User_ID` bigint(16) NOT NULL,
+        `User_ID` varchar(255) NOT NULL,
         `Vote` tinyint(1) NOT NULL,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -162,7 +162,7 @@ function database_setup(){
     $new_table_query="CREATE TABLE IF NOT EXISTS `" . DOCUMENT_VOTES_TABLE . "`(
         `Vote_ID` int(11) NOT NULL AUTO_INCREMENT,
         `Document_ID` int(11) NOT NULL,
-        `User_ID` bigint(16) NOT NULL,
+        `User_ID` varchar(255) NOT NULL,
         `Vote` tinyint(1) NOT NULL,
         `Created_Time` datetime NOT NULL,
         `Modified_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

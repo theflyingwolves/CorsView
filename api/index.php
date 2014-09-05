@@ -3,7 +3,7 @@ $requestURI = explode('/', $_SERVER['REQUEST_URI']);
 //$requestURI = explode('/', $_REQUEST['url']);
 //current api call starts with "localhost/corsview/api/..."
 
-$addr_offset = 3;
+$addr_offset = 2;
 $command = array_values($requestURI);
 
 //initialize the rest of $command to empty strings 
@@ -254,6 +254,11 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
+
+                                                case 'reviews':
+                                                      require_once('users.php');
+                                                      getReviewsByUserId($command[$addr_offset+1]);
+                                                      break;
                                                 case 'enrollments':
                                                       switch($command[$addr_offset+3]){
                                                             case '':
@@ -281,7 +286,7 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
-
+/*
                                                 case 'enrollmentList':
                                                       switch($command[$addr_offset+3]){
                                                             case '':
@@ -299,7 +304,7 @@ switch($command[$addr_offset + 0]){
                                                                   break;
                                                       }
                                                       break;
-            
+   */         
                                                 case 'bookmarks':
                                                       switch($command[$addr_offset+3]){
                                                             case '':

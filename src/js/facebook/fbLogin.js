@@ -1,3 +1,15 @@
+String.prototype.hashCode = function(){
+    var hash = 0;
+    if (this.length == 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        char = this.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+
 var FBUserName = "";
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
@@ -34,8 +46,8 @@ var FBUserName = "";
 
   window.fbAsyncInit = function() {
   FB.init({
-    //appId      : '1457089634562844',
-    appId : '490249021111231',
+    appId      : '1457089634562844',
+    //appId : '490249021111231',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -75,8 +87,8 @@ var FBUserName = "";
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(fbResponse) {
       FBUserName = fbResponse.name;
-      FBUserID =fbResponse.id;
-
+      FBUserID = fbResponse.email.hashCode();
+	console.log(FBUserID);
       console.log('Successful login for: ' + fbResponse.name);
       // document.getElementById('status').innerHTML =
         // 'Thanks for logging in, ' + response.name + '!';
@@ -85,6 +97,7 @@ var FBUserName = "";
       $("#user-profile-dropdown").show();
     
       //register or login our own server
+      console.log('../../api/users/'+FBUserID);
       $.ajax({
             url: '../../api/users/'+FBUserID,
               type : 'GET',
@@ -92,6 +105,7 @@ var FBUserName = "";
               contentType: "application/json; charset=utf-8",
               //data: JSON.stringify(content),
               success : function(response) {
+		console.log(response['message']);
                 if((response['message']) == "user's not registered"){
                        userInfo = {
                             facebookID: FBUserID,

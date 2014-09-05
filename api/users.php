@@ -98,3 +98,42 @@ function getUserInfo($facebookID){
     }
 }
 
+function getReviewsByUserId($facebookID){
+    if($facebookID !=null){
+         $mysqli = connect_database();
+         $newQuery = sprintf("SELECT * FROM " . MODULE_REVIEWS_TABLE ." WHERE Creator_ID = '%s' AND Deleted = 0",
+                $mysqli->real_escape_string($facebookID));
+     //   $new_query = "SELECT * FROM " . MODULE_REVIEWS_TABLE ." WHERE Review_ID = 2";
+
+        //$result = mysql_query($newQuery,$dbc);
+        $result = $mysqli->query($newQuery);
+
+        $reviewList = array();
+            while($row = $result->fetch_array(MYSQLI_ASSOC)){
+                $review = array(
+                    'reviewID' => $row['Review_ID'],
+                    'moduleCode' => $row['Module_Code'],
+                    'moduleTitle' => $row['Module_Title'],
+                    'creatorID' => $row['Creator_ID'],
+                    'reviewContent' => $row['Review_Content'],
+                    'createdTime' => $row['Created_Time'],
+                    'modifiedTime' => $row['Modified_Time'],
+                    'voteUp' => $row['Vote_Up'],
+                    'voteDown' => $row['Vote_Down']);
+                array_push($reviewList,$review);
+            }
+            if(sizeof($reviewList) == 0){
+                    $returnMessage = "user's reviews are not found.";
+                    respondToClient(404,array('message' => $returnMessage));
+            }
+            else{
+            $returnMessage = "get user's reviews successfully.";
+            respondToClient(200,array('message' => $returnMessage, 'reviewList' => $reviewList));
+            }
+            $mysqli->close();      
+        }
+        else{
+            $returnMessage = "module code is missing";
+            respondToClient(400,array('message' => $returnMessage));
+        }
+}
