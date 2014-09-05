@@ -14,6 +14,7 @@
     -webkit-transition: all 0.3s; /* For Safari 3.1 to 6.0*/
     transition: all 0.3s;
   	z-index: 10;
+  	word-wrap:break-word;
 }
 
 .modulebook:hover {
@@ -62,7 +63,7 @@ body {
 	color:black;
 }
 
-#wrapper.toggled #sidebar-wrapper div,hr {
+#wrapper.toggled #sidebar-wrapper div, #wrapper.toggled #sidebar-wrapper hr {
 	opacity: 0.0;
 }
 
@@ -75,6 +76,7 @@ body {
 	left: 0px;
 	z-index: 20;
 }
+
 
 #page-content-wrapper {
 	padding-top: 52px;
@@ -158,6 +160,7 @@ body {
 	text-shadow: 2px 2px 2px grey;
 }
 
+
 .carousel-control {
 	vertical-align: center;
 	position: absolute;
@@ -175,10 +178,16 @@ body {
 	left: 20px;
 }
 
+.carousel-control.right{
+	right:20px;
+}
+
 .carousel-control.disabled {
 	opacity: 0.2;
 	cursor: default;
 }
+
+
 
 #box-container {
 	height:80%;
@@ -237,3 +246,4 @@ body {
 .circle.empty span{
 	color:white;
 }
+

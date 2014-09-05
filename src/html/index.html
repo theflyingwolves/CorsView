@@ -1,5 +1,13 @@
-<html>
+<html prefix="og: http://ogp.me/ns#">
 <head>
+  <!-- facebook og tag -->
+  <meta property="og:title" content="CorsView"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com/src/html/index.html"/>
+  <meta property="og:site_name" content="CorsView"/>
+  <meta property="og:description" content="CorsView provides a platform for student to share review and course materials for modules"/>
+  <meta property="og:image" content="http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com/res/img/iconBig.jpg" />
+  
 	<!-- Libs -->
 	<script type="text/javascript" src = "../../libs/jQuery/jquery-2.1.1.js"></script>
   <script type="text/javascript" src = "../../libs/Underscore/underscore.js"></script>
@@ -49,7 +57,6 @@
   <link rel="stylesheet" type="text/css" href="../css/navigationBar.css">
 	<link rel="stylesheet" type="text/css" href="../css/index.css">
   <link rel="stylesheet" type="text/css" href="../css/sidebar.css">
-  <link rel="stylesheet" type="text/css" href="../css/slidingPanel.css">
   <link rel="stylesheet" type="text/css" href="../../libs/Animatecss/animate.css"></script>
 	<title>Cors View</title>
 </head>
@@ -57,7 +64,10 @@
 <header>
 	<nav class="top-nav">
 	</nav>
-  <a id="profile" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" rel="tooltip" title="" content="<button>Profile</button>"><img></img></a>
+  <div id="profile-container">
+    <div class="fb-like" data-href="http://54.179.139.143/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="float:left"></div>
+    <a id="profile" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" rel="tooltip" title="" content="<button>Profile</button>"><img></img></a>
+  </div>
 </header>
 
 <div id="wrapper" class="toggled">
@@ -74,7 +84,7 @@
       </div>
       <div class="tab-content">
       <div class="modal-body tab-pane active" id="reviews">
-          <textarea id="review-area"  class="form-control" rows="5" placeholder="write something to your friends"></textarea>
+          <textarea id="review-area"  class="form-control" rows="5" placeholder="Share your thoughts about the module"></textarea>
            <div class="modal-footer">
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
           <button id="review-submit-btn" type="button" class="btn btn-primary" data-dismiss="modal">Publish review</button>
@@ -96,7 +106,7 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
   <div id="sidebar-wrapper">
-      <div class = "col-sm-6 col-md-6" id="module-info-container">
+      <div class = "col-sm-12 col-md-12" id="module-info-container">
       </div>
   </div>
   <div id="sidebar-toggle-area-container"></div>

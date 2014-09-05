@@ -6,7 +6,7 @@ database_setup();
 
 function database_setup(){
     //$mysqli = new mysqli("localhost","root","");
-    $mysqli = new mysqli("localhost","root","12345");
+    $mysqli = new mysqli("localhost","root","");
     $new_database_query = "CREATE DATABASE IF NOT EXISTS ". CORSVIEW_DB . " DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci";
     if($mysqli->query($new_database_query)){
         echo "works";

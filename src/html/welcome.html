@@ -33,17 +33,19 @@
   <nav class="top-nav">
  	 <a class="logo" href="index.html"><img src="../../res/img/icon.png"></img></a>
   <div class="links">
-    <a href="#">ABOUT</a>
+    <a href="#">Welcome To</a>
   </div><div class="links">
-    <a href="#">CONTACT</a>
+    <a href="#">CorsView</a>
   </div>
 
   <div></div>
 </nav>
- <a id="profile" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" rel="tooltip" title="" content="<button>Profile</button>"><img></img></a>
+<div id="profile-container">
 
+ </div>
+
+<fb:login-button id="login-button" scope="public_profile,email" id="fb-login-button" size="xlarge" onlogin="redirect();" style="z-index:100;position:fixed;top:43%;left:50%;"></fb:login-button>
 </header>
-  <fb:login-button scope="public_profile,email" id="fb-login-button" size="xlarge" onlogin="checkLoginState();" style="z-index:4000"></fb:login-button>
 <h1 class="tlt title" data-in-effect="flipInY">Cors View - NUS</h1>
 <h5 class="tlt subtitle" data-in-effect="flipInY">Please log in with your Facebook account.</h5>
 <div class="fb-login">
@@ -54,7 +56,7 @@
 	<div class="author"></div>
 </div>
 <div id="fb-root"></div>
-	<script type="text/javascript" src="../js/facebook/fbLogin.js"></script>
+
 
 <script type="text/javascript">
 	$(function(){
@@ -84,16 +86,20 @@
 	});
 
 	function loadFBButton(){
-		// var enterButtonsHtml = "<fb:login-button scope=\"public_profile,email\" id=\"fb-login-button\" size=\"large\" onlogin=\"checkLoginState();\"></fb:login-button>";
-		var enterButtonsHtml = "<a><img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" onClick=\"fb_login();\" width=\"200\" /></a><br><br>";
+		var enterButtonsHtml = "<a><img class=\"fb-login-btn\" src=\"../../res/img/welcome-page-fblogin-dim.png\" style=\"display:none\" width=\"200\" /></a><br><br>";
 		enterButtonsHtml += "<a href=\"index.html\">Just show me the module reviews</a>";
 		$(".fb-login").hide()
 		.html(enterButtonsHtml)
 		.fadeIn("slow",function(){
 			loadQuote();
 		});
-		$(".fb-login-btn").click(checkLoginState);
+		// $(".fb-login-btn").click(checkLoginState);
 
+	}
+
+	function redirect(){
+		checkLoginState();
+		window.location.href = "index.html";
 	}
 
 	function loadQuote(){
@@ -152,7 +158,9 @@
 		var author = "<p class=\"author-data\" data-in-effect=\"fadeInLeft\" data-out-effect=\"hinge\"> --- "+data.author+"</p>";
 		$(".author").html(author);
 	}
-</script>
+</script>	
+<script type="text/javascript" src="../js/facebook/fbLogin.js"></script>
+	<script type="text/javascript" src="../js/facebook/fbMethods.js"></script>
 </body>
 
 </html>

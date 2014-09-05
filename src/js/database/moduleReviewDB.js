@@ -44,7 +44,6 @@ var reformatData = function(data){
 };
 
 var moduleReviewDataInit = function(moduleCode){
-	console.log("Retrieving review data for "+moduleCode);
 	$.ajax({
 	  //url: "../../api/modules/"+moduleCode+"/documents",
 	    url: "../../api/modules/"+moduleCode+"/reviews",
@@ -61,8 +60,9 @@ var moduleReviewDataInit = function(moduleCode){
 	    //   	renderSlidingPanel(reviewArrayFromDB);
 	    		var newData = reformatData(data);
 	    		moduleReviewDB.reset(newData);
-	    		loadModuleReviewPanelData(moduleCode);
+	    		loadModuleReviewPanelData(moduleCode,"success");
 	      }else{
+	      	loadModuleReviewPanelData(moduleCode,"fail");
 	      	console.log("no module review data received");
 	      }
 	    },

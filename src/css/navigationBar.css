@@ -112,16 +112,39 @@
 	width:24%;
 }
 
-#profile{
+#profile-container {
 	position: fixed;
 	right:20px;
 	z-index:50;
 	float:right;
 }
 
+#profile{
+	border:1px;
+	padding:1px;
+}
+
 .popover-content button, .popover-content input{
 	width: 100%;
 	padding-bottom:3px; 
+}
+
+
+#fb-icon {
+	top:13px;
+	right:10px;
+	position: absolute;
+	z-index: 40;
+}
+
+#fb-icon:hover{
+	cursor: pointer;
+}
+
+.fb-like{
+	position: relative;
+	top:20px;
+	z-index: 50;
 }
 
 /*************** others ******************/

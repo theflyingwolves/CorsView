@@ -30,8 +30,19 @@ var moduleReviewPanelView = Backbone.View.extend({
 		var data = this.collection.where({
 			moduleCode:moduleCode
 		})[0];
-		
-		var template = _.template(moduleReviewPanelViewTemplate,data.attributes);
+
+		var template;
+
+		if(data == undefined){
+			var param = {};
+			param.moduleTitle = this.collection.moduleTitle;
+			template = _.template(moduleReviewPanelViewTemplate,param);
+		}else{
+			data.attributes.moduleTitle = this.collection.moduleTitle;
+			template = _.template(moduleReviewPanelViewTemplate,data.attributes);
+		}
+
 		this.$el.html(template);
+
 	}
 });
