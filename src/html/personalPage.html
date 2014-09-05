@@ -9,7 +9,6 @@
 	<script type="text/javascript" src = "../js/template/personal-page-template.js"></script>
 	<script type="text/javascript" src = "../js/facebook/fbLogin.js"></script>
 	<script type="text/javascript" src = "../js/facebook/fbMethods.js"></script>
-	<script type="text/javascript" src = "../js/facebook/fbLogin.js"></script>
   <script type="text/javascript" src = "../js/googleAnalytics/googleTracking.js"></script>
   <script type="text/javascript" src = "https://rawgit.com/Zhuochun/nus-ivle-api/master/dist/nus-ivle-api.min.js"></script>
   <script type="text/javascript" src = "../js/ivle/ivleMethods.js"></script>
@@ -188,6 +187,7 @@
 	<div id="share">
 	<label>Share your modules:</label>
 	<button id="sharebutton" class="btn btn-primary btn-lg">Share</button>    
+  <button id="importModuleButton" onclick="loginIVLE();">import</button>    
 	</div>
 	</div><!--end of module table-->
 
@@ -204,57 +204,59 @@
 
 <script type="text/javascript">
 function storeModulesToServer(modules){
-  // FB.api('/me', function(response) {
-  //     userID = response.id;
-  //     accessToken =   FB.getAuthResponse()['accessToken'];
+  console.log("storing into server");
+  
+  FB.api('/me', function(response) {
+      userID = response.id;
+      accessToken =   FB.getAuthResponse()['accessToken'];
 
-  //     content = {  
-  //         userID: userID,
-  //         accessToken: accessToken,
-  //         list: modules
-  //     };
-  //     console.log(content);
+      content = {  
+          userID: userID,
+          accessToken: accessToken,
+          list: modules
+      };
+      console.log(content);
 
-  //     $.ajax({
-  //     url: '../../api/users/'+userID+'/enrollmentList',
-  //       type : 'POST',
-  //       dataType: "json",
-  //       contentType: "application/json; charset=utf-8",
-  //       data: JSON.stringify(content),
-  //       success : function(response) {
-  //         console.log(response['message']); 
-  //        },
-  //       error : function(err, req) {
-  //              console.log(err);
-  //              console.log(req);
-  //       }
-  //     });
-  // });
-
-  userID = "1";
-  accessToken = "123";
-
-  content = {  
-      userID: userID,
-      accessToken: accessToken,
-      list: modules
-  };
-  console.log(content);
-
-  $.ajax({
-  url: '../../api/users/'+userID+'/enrollmentList',
-    type : 'POST',
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    data: JSON.stringify(content),
-    success : function(response) {
-      console.log(response['message']); 
-     },
-    error : function(err, req) {
-           console.log(err);
-           console.log(req);
-    }
+      $.ajax({
+      url: '../../api/users/'+userID+'/enrollmentList',
+        type : 'POST',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(content),
+        success : function(response) {
+          console.log(response['message']); 
+         },
+        error : function(err, req) {
+               console.log(err);
+               console.log(req);
+        }
+      });
   });
+
+  // userID = "1";
+  // accessToken = "123";
+
+  // content = {  
+  //     userID: userID,
+  //     accessToken: accessToken,
+  //     list: modules
+  // };
+  // console.log(content);
+
+  // $.ajax({
+  // url: '../../api/users/'+userID+'/enrollmentList',
+  //   type : 'POST',
+  //   dataType: "json",
+  //   contentType: "application/json; charset=utf-8",
+  //   data: JSON.stringify(content),
+  //   success : function(response) {
+  //     console.log(response['message']); 
+  //    },
+  //   error : function(err, req) {
+  //          console.log(err);
+  //          console.log(req);
+  //   }
+  // });
 }
 
 function importModules(){
@@ -264,9 +266,9 @@ function importModules(){
         user.init().done(
           function() {
             user.modulesTaken(function(mods) {
-              // console.log(mods);
-              storeModulesToServer(modules);
-              displayModules(modules);
+              console.log(mods);
+              storeModulesToServer(mods);
+              // displayModules(mods);
             })
       })
       return true;
@@ -276,43 +278,45 @@ function importModules(){
 }
 
 function loadModuleFromServer(){
-  // FB.api('/me', function(response) {
-  //     userID = response.id;
-
-  //     $.ajax({
-  //     url: '../../api/users/'+userID+'/enrollments',
-  //       type : 'GET',
-  //       dataType: "json",
-  //       contentType: "application/json; charset=utf-8",
-  //       success : function(response) {
-  //         console.log(response);
-  //         displayModules(response['moduleTakenList']);
-  //        },
-  //       error : function(err, req) {
-  //              console.log(err);
-  //              console.log(req);
-  //       }
-  //     });
-  // });
-
   console.log("loading from server...");
+  
+  FB.api('/me', function(response) {
+      userID = response.id;
 
-  userID = "1";
-
-  $.ajax({
-      url: '../../api/users/1/enrollments',
-      type : 'GET',
-      // dataType: "json",
-      success : function(response) {
-        console.log("mod returned from server: ");
-        console.log(response);
-        displayModules(response['moduleTakenList']);
-       },
-      error : function(err, req) {
-         console.log(err);
-         console.log(req);
-      }
+      $.ajax({
+        url: '../../api/users/'+userID+'/enrollments',
+        type : 'GET',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success : function(response) {
+          console.log(response);
+          displayModules(response['moduleTakenList']);
+         },
+        error : function(err, req) {
+               console.log(err);
+               console.log(req);
+        }
+      });
   });
+
+  
+
+  // userID = "1";
+
+  // $.ajax({
+  //     url: '../../api/users/1/enrollments',
+  //     type : 'GET',
+  //     // dataType: "json",
+  //     success : function(response) {
+  //       console.log("mod returned from server: ");
+  //       console.log(response);
+  //       displayModules(response['moduleTakenList']);
+  //      },
+  //     error : function(err, req) {
+  //        console.log(err);
+  //        console.log(req);
+  //     }
+  // });
 }
 
 function displayModules(modules){

@@ -15,9 +15,9 @@ function getModulesTaken($userID){
             $moduleList = array();
             while($row = $result->fetch_array(MYSQLI_ASSOC)){
                 $module = array(
-                        'moduleID' => $row['Module_ID'],
-                        'moduleCode' => $row['Module_Code'],
-                        'moduleTitle' => $row['Module_Title']);
+                        'ModuleID' => $row['Module_ID'],
+                        'ModuleCode' => $row['Module_Code'],
+                        'ModuleTitle' => $row['Module_Title']);
                     array_push($moduleList,$module);
             }
             respondToClient(200,array('moduleTakenList' => $moduleList));
@@ -32,62 +32,62 @@ function getModulesTaken($userID){
     }
 }
 
-// function addEnrollmentList($enrollmentsDetailList){
-//     if ($enrollmentsDetailList != null) {
-//          $mysqli = connect_database();
+function addEnrollmentList($enrollmentsDetailList){
+    if ($enrollmentsDetailList != null) {
+         $mysqli = connect_database();
         
-//         if(!authentication($enrollmentsDetailList['userID'],$enrollmentsDetailList['accessToken'])){
-//             $returnMessage = "user is not authorized.";
-//             respondToClient(403,array('message' => $returnMessage));
-//             return;
-//         }
+        // if(!authentication($enrollmentsDetailList['userID'],$enrollmentsDetailList['accessToken'])){
+        //     $returnMessage = "user is not authorized.";
+        //     respondToClient(403,array('message' => $returnMessage));
+        //     return;
+        // }
 
-//         $count = 0;
+        $count = 0;
 
-//         foreach ($enrollmentsDetailList['list'] as $enrollmentsDetails){
+        foreach ($enrollmentsDetailList['list'] as $enrollmentsDetails){
 
-//             // check whether the module code exist in the db
-//             $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE ." WHERE Module_Code = '%s' AND Deleted = 0",
-//                 $mysqli->real_escape_string($enrollmentsDetails['moduleCode']));
-//             $result=$mysqli->query($newQuery);
-//             // create enrollment only when the module code exist in the db
-//             // deal with this issue later
-//             if($row = $result->fetch_array(MYSQLI_ASSOC)){
-//                 $moduleID = $row['Module_ID'];
+            // check whether the module code exist in the db
+            $newQuery = sprintf("SELECT * FROM " . MODULES_TABLE ." WHERE Module_Code = '%s' AND Deleted = 0",
+                $mysqli->real_escape_string($enrollmentsDetails['ModuleCode']));
+            $result=$mysqli->query($newQuery);
+            // create enrollment only when the module code exist in the db
+            // deal with this issue later
+            if($row = $result->fetch_array(MYSQLI_ASSOC)){
+                $moduleID = $row['Module_ID'];
 
-//                 $newQuery = sprintf("SELECT * FROM " . ENROLLMENTS_TABLE ." WHERE Module_ID = '%s' AND User_ID = '%s' AND Deleted = 0",
-//                     $mysqli->real_escape_string($moduleID),
-//                     $mysqli->real_escape_string($enrollmentsDetails['userID']));
-//                 $mysqli->query($newQuery);
-//                 if($mysqli->affected_rows != 0){
-//                     break;
-//                 } else{
-//                     $newQuery = sprintf("INSERT INTO ". ENROLLMENTS_TABLE ." (Module_ID,User_ID,Created_Time) VALUES ('%s','%s','%s')",
-//                             $mysqli->real_escape_string($moduleID),
-//                             $mysqli->real_escape_string($enrollmentsDetails['userID']),
-//                             $mysqli->real_escape_string(timeGenerator()));
-//                     // note: remember to handle exception here, e.g. inserting the same enrollment
-//                 $mysqli->query($newQuery);
-//                 if($mysqli->affected_rows != 0){
-//                         $count += 1;
-//                     }
-//                 }
+                $newQuery = sprintf("SELECT * FROM " . ENROLLMENTS_TABLE ." WHERE Module_ID = '%s' AND User_ID = '%s' AND Deleted = 0",
+                    $mysqli->real_escape_string($moduleID),
+                    $mysqli->real_escape_string($enrollmentsDetailList['userID']));
+                $mysqli->query($newQuery);
+                if($mysqli->affected_rows != 0){
+                    break;
+                } else{
+                    $newQuery = sprintf("INSERT INTO ". ENROLLMENTS_TABLE ." (Module_ID,User_ID,Created_Time) VALUES ('%s','%s','%s')",
+                            $mysqli->real_escape_string($moduleID),
+                            $mysqli->real_escape_string($enrollmentsDetailList['userID']),
+                            $mysqli->real_escape_string(timeGenerator()));
+                    // note: remember to handle exception here, e.g. inserting the same enrollment
+                $mysqli->query($newQuery);
+                if($mysqli->affected_rows != 0){
+                        $count += 1;
+                    }
+                }
 
-//             } 
+            } 
 
             
-//         }
+        }
 
-//         $mysqli->close();
+        $mysqli->close();
 
-//         $returnMessage = strval($count) . " modules enrolled successfully";
-//         respondToClient(200,array('message' => $returnMessage));        
+        $returnMessage = strval($count) . " modules enrolled successfully";
+        respondToClient(200,array('message' => $returnMessage));        
 
-//     } else{
-//             $returnMessage = "enrollments detail is missing";
-//             respondToClient(400,array('message' => $returnMessage));
-//     }
-// }
+    } else{
+            $returnMessage = "enrollments detail is missing";
+            respondToClient(400,array('message' => $returnMessage));
+    }
+}
 
 function addEnrollment($enrollmentsDetails){
     if ($enrollmentsDetails != null) {
