@@ -291,7 +291,7 @@ function loadModuleFromServer(){
   $.ajax({
       url: '../../api/users/1/enrollments',
       type : 'GET',
-      dataType: "json",
+      // dataType: "json",
       success : function(response) {
         console.log("mod returned from server: ");
         console.log(response);
