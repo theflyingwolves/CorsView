@@ -10,6 +10,7 @@ var moduleDataReceiver = function(keyword, callback){
   		contentType: "application/json; charset=utf-8",
   		data: JSON.stringify(keyWord),
   	  success : function(response) {
+        moduleData = response['moduleInfoList'];
   		  callback(response, keyword);
   	  },
   	  error : function(err, req) {
