@@ -1,10 +1,11 @@
-var globalModuleReviewColor;
+var globalModuleReviewColor = undefined;
 
 var indexRouter = Backbone.Router.extend({
 	routes:{
 		'':'home',
 		':moduleCode':'loadModulePage',
-		':moduleCode/info':'loadModulePage'
+		':moduleCode/info':'loadModulePage',
+		':moduleCode?queryString':'loadModuleWithQuery'
 	},
 
 	initialize:function(){
@@ -12,12 +13,20 @@ var indexRouter = Backbone.Router.extend({
 	},
 
 	home:function(){
+		console.log("loading home");
 		loadModuleShelf();
 		fadeinSearchForm();
 	},
 
 	loadModulePage: function(moduleCode){
+		console.log("loading module: "+moduleCode);
+		moduleDataInit(moduleCode, "module-page");
 		loadSidebarToggleArea();
+	},
+
+	loadModuleWithQuery: function(moduleCode,queryString){
+		console.log("loading module: "+moduleCode+" with query string");
+		loadModulePage(moduleCode);
 		loadModuleHomepage(moduleCode);
 		fadeoutSearchForm();
 	}
@@ -33,13 +42,12 @@ var loadNavBar = function(){
 };
 
 var loadModuleShelf = function(){
-
 	var query = getSearch();
-	console.log(query)
+
 	if(query == undefined || query == null || query == ""){
-		moduleDataInit("");
+		moduleDataInit("","home");
 	} else {
-		moduleDataInit(query);
+		moduleDataInit(query,"home");
 	}
 };
 
@@ -47,15 +55,13 @@ var loadModuleData = function(){
 	if(moduledb.length == 0){
 		console.log("empty module");
 		// $(".moduleShelf").append("<div class=\"backboard\"><p>No such course</p></div>");
-	} else {
-		console.log("load module data");
+	}else{
 		cleanupPageForModuleShelfView();
 		this.moduleShelfView = new modulesShelfView({el:$(".moduleShelf"),collection:moduledb});
 		this.moduleShelfView.render();
 		initIndexEventListeners();
-
 	}
-}
+};
 
 var cleanupPageForModuleShelfView = function(){
 	$("#page-content-wrapper").html("");
@@ -66,16 +72,17 @@ var cleanupPageForModuleShelfView = function(){
 
 var loadSidebarToggleArea = function(){
 	$("#sidebar-toggle-area-container").html("<div id=\"sidebar-toggle-area\"></div>");
-}
+};
 
 var loadModuleHomepage = function(moduleCode){
 	loadModuleInfoSidebar(moduleCode);
 	var bookShelf = $("#module-book-"+moduleCode);
 	if(bookShelf.length > 0){
-		console.log("bookshelf defined");
+		console.log("Loading with module shelf");
 		slideModuleOut(bookShelf);
 	}else{
-		loadModuleReviewPanel(moduleCode);
+		console.log("loading without module shelf");
+		loadModuleReviewPanel(moduleCode,undefined);
 	}
 };
 
@@ -112,12 +119,21 @@ var getSearch = function() {
 	return query.search;	
 }
 
-var loadModuleReviewPanel = function(moduleCode){
+var loadModuleReviewPanel = function(moduleCode,color){
+	if(color != undefined){
+		globalModuleReviewColor = color;	
+	}
 
-		console.log("bookshelf undefined; theme"+getURLParameter("theme"));
+	moduleReviewDataInit(moduleCode);
+};
+
+var loadModuleReviewPanelData = function(moduleCode){
 		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
 		this.moduleReviewPanelViews.render(moduleCode);
-		currentColor = "rgb(100,0,0)";
+		if(globalModuleReviewColor == undefined){
+			globalModuleReviewColor = getTheme();
+		}
+		currentColor = globalModuleReviewColor;
 		alphaColor1 = getAlphacolor(currentColor,0.4);
 		console.log(alphaColor1);
 		$(".module-shelf-inner").remove();
@@ -126,13 +142,16 @@ var loadModuleReviewPanel = function(moduleCode){
 		verticalAlign($("#sidebar-module").find("h1"));
 		createSidebar();
 		$("#page-content-wrapper").css("height","100%");
-		createSlidingPanel(moduleCode);
+		createSlidingPanel(moduleReviewData.moduleReview);
 		bindOverPanel(currentColor);
+};
+
+var getReviewColorFromUrl = function(){
+	var url = window.location.href;
 
 };
 
 var loadModuleInfoSidebar = function(moduleCode){
-	console.log("Loading module info sidebar");
 	this.moduleSideBarView = new moduleInfoSideBarView({el:$("#module-info-container"),collection:moduledb});
 	this.moduleSideBarView.render(moduleCode);
 };
@@ -187,6 +206,6 @@ var initIndexEventListeners = function(){
 
 
 	$("#reg-search-input").on("keyup change",function(){
-		moduleDataInit($(this).val());
+		moduleDataInit($(this).val(),"home");
 	});
 };

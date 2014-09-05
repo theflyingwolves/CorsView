@@ -1,3 +1,14 @@
+String.prototype.hashCode = function(){
+    var hash = 0;
+    if (this.length == 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        char = this.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;0
+}
+
 var creatorID = "";
 var accessToken = "";
 
@@ -10,12 +21,9 @@ $('.modulebook').mouseenter(function(){
 
 $('.modulebook').click(function(){
 	// slideModuleOut($(this));
-
 	var moduleCode = $(this).find("h2").text().toUpperCase();
-
 	var currentUrl = window.location.href;
 	window.location.href = (currentUrl.substring(0,currentUrl.indexOf("#"))) + ("#"+moduleCode);
-
 })
 
 // $('.moduleshelf').mouseout(function(){
@@ -38,19 +46,22 @@ var slideModuleOut = function(moduleBook) {
 		width:'20px',
 		left: -offsetLeft
 	},300,	function(){
-		$(".module-shelf-inner").remove();
-		$("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>");
-		$("#page-content-wrapper").css("background-color",alphaColor1);
-		$("#page-content-wrapper").append(slidingPanelViewHtml);
-		$("#page-content-wrapper").css("height","100%");
-		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
-		$("#sidebar-module").append("<span class=\"glyphicon glyphicon-chevron-right\"></span>"+"<h1>"+title+"</h1>");
-		verticalAlign($("#sidebar-module").find("h1"));
+		// $(".module-shelf-inner").remove();
+		// $("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>");
+		// $("#page-content-wrapper").css("background-color",alphaColor1);
+		// $("#page-content-wrapper").append(slidingPanelViewHtml);
+		// $("#page-content-wrapper").css("height","100%");
+		// $("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+		// $("#sidebar-module").append("<span class=\"glyphicon glyphicon-chevron-right\"></span>"+"<h1>"+title+"</h1>");
+		// verticalAlign($("#sidebar-module").find("h1"));
 		
-		createSidebar();
+		// createSidebar();
+		// var moduleCode = moduleBook.find("h2").text();
+		// createSlidingPanelUsingModuleCode(moduleCode);
+		// bindOverPanel(currentColor);
+
 		var moduleCode = moduleBook.find("h2").text();
-		createSlidingPanel(moduleCode);
-		bindOverPanel(currentColor);
+		loadModuleReviewPanel(moduleCode,currentColor);
 	});
 
 	moduleBook.nextAll().animate({
@@ -95,47 +106,65 @@ var slideModuleIn = function(index){
 };
 
 
-var createSlidingPanel = function(moduleCode) {
+var createSlidingPanelUsingModuleCode = function(moduleCode){
+
+};
+
+var createSlidingPanel = function(moduleReviews) {
 	//console.log("retrieve "+moduleCode);
-	  $.ajax({
-	  //url: "../../api/modules/"+moduleCode+"/documents",
-	    url: "../../api/modules/"+moduleCode+"/reviews",
-	    type : 'GET',
-	    dataType: "json",
-	    //contentType: "appliction/json; charset=utf-8",
-	    success : function(data) {
-			var reviewArrayFromDB = [];
-	      $.each(data['reviewList'],function(index,value){
-	      	reviewArrayFromDB.push(data['reviewList'][index]['reviewContent']);
-	        // console.log(data['reviewList'][index]['reviewContent']);
-	     	});
-	        renderSlidingPanel(reviewArrayFromDB);
+	// console.log("Creating module review using "+JSON.stringify(moduleReview));
+	// var moduleReviewArray = [];
+	// if(moduleReview != undefined){
+	// 	$.each(data['reviewList'],function(index,value){
+	// 		moduleReviewArray.push(data['reviewList'][index]['reviewContent']);
+	// 	});
+	// }
+	console.log("Creating sliding panel using module reviews: "+moduleReviews);
+	renderSlidingPanel(moduleReviews);
 
-	    },
-	    error : function(err, req) {
-	                 console.log(err);
-	                 console.log(req);
-	    }
-	  });
+	  // $.ajax({
+	  // //url: "../../api/modules/"+moduleCode+"/documents",
+	  //   url: "../../api/modules/"+moduleCode+"/reviews",
+	  //   type : 'GET',
+	  //   dataType: "json",
+	  //   //contentType: "appliction/json; charset=utf-8",
+	  //   success : function(data) {
+	  //   	console.log("Review Data: "+JSON.stringify(data));
+	  //   	if(data.message != "reviews are not found."){
+			// 		var reviewArrayFromDB = [];
+	  // 	    $.each(data['reviewList'],function(index,value){
+	  //   	  	reviewArrayFromDB.push(data['reviewList'][index]['reviewContent']);
+	  //     	  // console.log(data['reviewList'][index]['reviewContent']);
+	  //    		});
+	  //     	renderSlidingPanel(reviewArrayFromDB);
+	  //     }
+	  //   },
+	  //   error : function(err, req) {
+	  //                console.log(err);
+	  //                console.log(req);
+	  //   }
+	  // });
               
-              $.ajax({
-                url: "../../api/modules/"+moduleCode+"/documents",
-                type : 'GET',
-                dataType: "json",
-                //contentType: "appliction/json; charset=utf-8",
-                success : function(data) {
-                    var documentArrayFromDB = [];
-                  $.each(data['documentList'],function(index,value){
-                    documentArrayFromDB.push('<strong>'+data['documentList'][index]['documentTitle']+"</strong>"+"<br>"+data['documentList'][index]['documentLink']);
-                    });
-                    renderSlidingPanel(documentArrayFromDB);
-
-                },
-                error : function(err, req) {
-                             console.log(err);
-                             console.log(req);
-                }
-              });
+    // $.ajax({
+    //   url: "../../api/modules/"+moduleCode+"/documents",
+    //   type : 'GET',
+    //   dataType: "json",
+    //   //contentType: "appliction/json; charset=utf-8",
+    //   success : function(data) {
+    //     var documentArrayFromDB = [];
+    //     console.log("Document Data: "+JSON.stringify(data));
+    //     if(data.message != "documents are not found."){
+	   //      $.each(data['documentList'],function(index,value){
+	   //        documentArrayFromDB.push('<strong>'+data['documentList'][index]['documentTitle']+"</strong>"+"<br>"+data['documentList'][index]['documentLink']);
+	   //      });
+	   //      renderSlidingPanel(documentArrayFromDB);
+	   //    }
+    //   },
+    //   error : function(err, req) {
+    //    console.log(err);
+    //    console.log(req);
+    //   }
+    // });
 };
 
 var renderSlidingPanel = function(reviewArrayFromDB) {
@@ -173,7 +202,6 @@ var renderSlidingPanel = function(reviewArrayFromDB) {
 };
 
 function share(){
-    alert(document.URL);
     var pathname = window.location.pathname;
       FB.ui({
         method: 'share',
@@ -212,47 +240,43 @@ function bindOverPanel(currentColor) {
 		var moduleCode = $("#module-info-container").find("h2").text();
 		var moduleID, moduleTitle;
 
-		for(var i = 0; i < moduleData.length; i++){
-			var data = moduleData[i];
-			if(data.moduleCode ==  moduleCode){
-				moduleID = data.moduleID;
-				moduleTitle = data.moduleTitle;
+			var data = moduledb.where({
+				moduleCode:moduleCode
+			})[0];
+			moduleID = data.moduleID;
+			moduleTitle = data.moduleTitle;
 
-   				FB.api('/me', function(response) {
-   				   	creatorID = response.id;
-   				   	accessToken =   FB.getAuthResponse()['accessToken'];
+					FB.api('/me', function(response) {
+					   	creatorID = response.email.hashCode();
+					   	accessToken =   FB.getAuthResponse()['accessToken'];
 
-					var review = $("#review-area").val();
-					content = {  
-  			    		moduleID: moduleID,
-  			    		moduleCode: moduleCode,
-  			    		moduleTitle: moduleTitle,
-  			    		creatorID: creatorID,
-  			    		accessToken: accessToken,
-                                                        reviewContent: review,
-  					};
-  					console.log(content);
+				var review = $("#review-area").val();
+				content = {  
+			    		moduleID: moduleID,
+			    		moduleCode: moduleCode,
+			    		moduleTitle: moduleTitle,
+			    		creatorID: creatorID,
+			    		accessToken: accessToken,
+	                                                    reviewContent: review,
+					};
+					console.log(content);
 
-  					$.ajax({
-  					url: '../../api/modules/'+moduleCode+'/reviews',
-  					  type : 'POST',
-  					  dataType: "json",
-  					  contentType: "application/json; charset=utf-8",
-  					  data: JSON.stringify(content),
-  					  success : function(response) {
-  					  	console.log(response['message']);
-  					      alert(response['message']);
-  					   },
-  					        error : function(err, req) {
-  					               console.log(err);
-  					               console.log(req);
-  					  }
-  					});
+					$.ajax({
+					url: '../../api/modules/'+moduleCode+'/reviews',
+					  type : 'POST',
+					  dataType: "json",
+					  contentType: "application/json; charset=utf-8",
+					  data: JSON.stringify(content),
+					  success : function(response) {
+					  	console.log(response['message']);
+					   },
+					        error : function(err, req) {
+					               console.log(err);
+					               console.log(req);
+					  }
+					});
 
-   				 });
-                                            break;
-			}
-		}
+					 });
 	});
             $("#resource-submit-btn").click(function() {
                             console.log(FB.getAuthResponse()['accessToken']);
@@ -266,7 +290,7 @@ function bindOverPanel(currentColor) {
                         moduleTitle = data.moduleTitle;
 
                         FB.api('/me', function(response) {
-                            creatorID = response.id;
+                            creatorID = response.email.hashCode();
                             accessToken =   FB.getAuthResponse()['accessToken'];
 
                             var resourceTitle = $("#resourceTitle-area").val();
@@ -289,8 +313,7 @@ function bindOverPanel(currentColor) {
                               contentType: "application/json; charset=utf-8",
                               data: JSON.stringify(content),
                               success : function(response) {
-                                console.log(response['message']);
-                                  alert(response['message']);
+                                console.log(response['message']); 
                                },
                                     error : function(err, req) {
                                            console.log(err);
