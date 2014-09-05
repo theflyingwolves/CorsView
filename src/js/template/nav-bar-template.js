@@ -1,4 +1,11 @@
 var generateNavBarHtml = function(){
+  // if(！leftTitle || leftTitle == undefined) {
+  //   leftTitle = "ABOUT";
+  // }
+  // if(！leftTitle || leftTitle == undefined) {
+  //   rightTitle = "CONTACT";
+  // }
+
 	var navBarHtml = 
    "<div id=\"search-container\">"+
     "<div id=\"search-form\" class=\"form-group has-feedback\">"+
@@ -21,8 +28,7 @@ var generateNavBarHtml = function(){
       // "<img id=\"fb-icon\" src=\"../../res/img/fbicon-30.png\"></img>"+
 
     "</div>"
-      +"<a  id=\"fb-icon\" href=\"personalPage.html\"><img src=\"../../res/img/fbicon-30.png\"></img></a>"
-    ;
+      +"<a  id=\"fb-icon\" href=\"personalPage.html\"><img src=\"../../res/img/fbicon-30.png\"></img></a>";
 
   return navBarHtml;
 };

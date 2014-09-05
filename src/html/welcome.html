@@ -4,10 +4,15 @@
 	<script type="text/javascript" src="../../libs/Textillate/jquery.lettering.js"></script>
 	<script type="text/javascript" src="../../libs/Textillate/jquery.textillate.js"></script>
 	<script type="text/javascript" src="../js/database/welcomePageData.js"></script>
+	<script type="text/javascript" src="../js/navbar/navbar.js"></script>
+  <script type="text/javascript" src = "../../libs/Bootstrap/js/bootstrap.min.js"></script>
+
+  <link href="../../libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="../../libs/Animatecss/animate.css" />
 	<link rel="stylesheet" type="text/css" href="../css/navigationBar.css">
 	<link rel="stylesheet" type="text/css" href="../css/welcomePage.css">
+
 
   <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -32,9 +37,10 @@
     <a href="#">CONTACT</a>
   </div>
 
-    <a id="fb-icon"><img  src="../../res/img/fbicon-30.png"></img></a>
-
+  <div></div>
 </nav>
+ <a id="profile" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" rel="tooltip" title="" content="<button>Profile</button>"><img></img></a>
+
 </header>
   <fb:login-button scope="public_profile,email" id="fb-login-button" size="xlarge" onlogin="checkLoginState();" style="z-index:4000"></fb:login-button>
 <h1 class="tlt title" data-in-effect="flipInY">Cors View - NUS</h1>
@@ -70,6 +76,10 @@
 				callback:loadFBButton
 			}
 		});
+		addProfileListener();
+		// $("#profile").focusout(function(){
+		// 	$(this).popover("hide");
+		// });
 	});
 
 	function loadFBButton(){
@@ -128,6 +138,7 @@
 				$(".fb-login-btn").attr("src","../../res/img/welcome-page-fblogin-dim.png");
 			}
 		);
+
 	}
 
 	function loadQuoteData(){
