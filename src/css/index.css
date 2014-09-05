@@ -14,6 +14,7 @@
     -webkit-transition: all 0.3s; /* For Safari 3.1 to 6.0*/
     transition: all 0.3s;
   	z-index: 10;
+  	word-wrap:break-word;
 }
 
 .modulebook:hover {
@@ -62,7 +63,7 @@ body {
 	color:black;
 }
 
-#wrapper.toggled #sidebar-wrapper div,hr {
+#wrapper.toggled #sidebar-wrapper div, #wrapper.toggled #sidebar-wrapper hr {
 	opacity: 0.0;
 }
 
@@ -74,6 +75,47 @@ body {
 	top:0px;
 	left: 0px;
 	z-index: 20;
+}
+
+#sidebar-friends{
+	white-space: normal;
+	padding-top: 40px;
+	position:fixed;
+	z-index:10;
+	right:0;
+	top:52px;
+	width: 40px;
+	height: 100%;
+}
+
+#sidebar-friends h1{
+	display: inline;
+}
+
+#sidebar-friends h2{
+	font-size: 20px;
+}
+
+#sidebar-friends:hover{
+	width: 170px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#sidebar-friends img{
+	border-radius:50%; 
+}
+
+#sidebar-friends div, #sidebar-friends h2{
+	opacity: 0;
+}
+
+#sidebar-friends:hover div, #sidebar-friends:hover h2{
+	opacity: 1;
+}
+
+#sidebar-friends:hover h1{
+	display: none;
 }
 
 #page-content-wrapper {
@@ -158,6 +200,7 @@ body {
 	text-shadow: 2px 2px 2px grey;
 }
 
+
 .carousel-control {
 	vertical-align: center;
 	position: absolute;
@@ -175,10 +218,16 @@ body {
 	left: 20px;
 }
 
+.carousel-control.right{
+	right:20px;
+}
+
 .carousel-control.disabled {
 	opacity: 0.2;
 	cursor: default;
 }
+
+
 
 #box-container {
 	height:80%;

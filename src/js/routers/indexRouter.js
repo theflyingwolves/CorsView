@@ -21,7 +21,16 @@ var indexRouter = Backbone.Router.extend({
 		console.log("loading module: "+moduleCode);
 		moduleDataInit(moduleCode, "module-page");
 		loadSidebarToggleArea();
+		fadeoutSearchForm();
 	}
+	// },
+
+	// loadModuleWithQuery: function(moduleCode,queryString){
+	// 	console.log("loading module: "+moduleCode+" with query string");
+	// 	loadModulePage(moduleCode);
+	// 	loadModuleHomepage(moduleCode);
+	// 	fadeoutSearchForm();
+	// }
 });
 
 var loadNavBar = function(){
@@ -84,6 +93,7 @@ var fadeinSearchForm = function(){
 }
 
 var fadeoutSearchForm = function(){
+	console.log("fade out search form");
 	$(".top-nav .links:eq(0)").find("a").text("MODULE");
 	$(".top-nav .links:eq(1)").find("a").text("REVIEW");
 	$("#search-form").addClass("inActive");
@@ -127,10 +137,16 @@ var loadModuleReviewPanelData = function(moduleCode,status){
 		}
 		currentColor = globalModuleReviewColor;
 		alphaColor1 = getAlphacolor(currentColor,0.4);
+
+		var sidebarFriends = "<div id =\"sidebar-friends\"><h1>Friends</h1><h2>Friends taken this module</h2></div>";
 		$(".module-shelf-inner").remove();
-		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+		$("#page-content-wrapper").append(sidebarFriends);
 		$("#page-content-wrapper").css("background-color",alphaColor1);
+		$("#page-content-wrapper").css("height","100%");
+		$("#sidebar-module, #sidebar-wrapper, #sidebar-friends").css("background-color",currentColor);
+		$("#sidebar-friends").prepend("<span class=\"glyphicon glyphicon-chevron-left\"></span>");
 		verticalAlign($("#sidebar-module").find("h1"));
+		verticalAlign($("#sidebar-friends").find("h1"));
 		createSidebar();
 		$("#page-content-wrapper").css("height","100%");
 		if(moduleReviewData == undefined){
@@ -139,6 +155,7 @@ var loadModuleReviewPanelData = function(moduleCode,status){
 			createSlidingPanel(moduleReviewData.moduleReview);	
 		}
 		
+		loadFriendsPictures();
 		bindOverPanel(currentColor);
 };
 

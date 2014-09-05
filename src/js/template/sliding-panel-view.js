@@ -1,6 +1,6 @@
 var addButton = "<div id=\"addButton\" class=\"circle\" data-toggle=\"modal\" data-target=\"#review-modal\"><span class=\"glyphicon glyphicon-plus\"></span></div>";
 
-var crossButton = "<div id=\"removeButton\" class=\"circle empty\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
+var crossButton = "<div id=\"removeButton\" class=\"circle empty\" onclick=\"slideModuleIn();\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
 
 var slidingPanelViewHtml = "<div id=\"review-container\" >"+
    "<a id=\"prev-btn\" class=\"left carousel-control disabled\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a>"+
