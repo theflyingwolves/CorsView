@@ -42,7 +42,6 @@ var homepageHandler = function(response,moduleCode){
     var moduleInfoToBeUsed = moduleInfoList.slice(0,9);
     moduledb.reset(moduleInfoToBeUsed);
   	loadModuleData();
-  	console.log("size "+moduledb.length);
 };
 
 var modulePageHandler = function(response,moduleCode){

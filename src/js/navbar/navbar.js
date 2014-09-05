@@ -49,17 +49,17 @@ function addProfileListener(){
   	  	FB.getLoginStatus(function(response) {
        		 if (response.session) {
        		   console.log('I am logged in');
-	  			$("#profile").show();
+	  			$("#profile-container").show();
 	  			$("#fb-icon").hide();
        		 } else {
        		   console.log('I am logged out');
-	  			$("#profile").hide();
+	  			$("#profile-container").hide();
 	  			$("#fb-icon").show();
        		}
     	});
   	} else {
   		console.log('I am logged out');
-	  	$("#profile").hide();
+	  	$("#profile-container").hide();
 	  	$("#fb-icon").show();
   	}
 }

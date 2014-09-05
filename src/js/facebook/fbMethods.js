@@ -21,9 +21,8 @@ function shareTakeModuleStory(){
 
 function getUserPicture(){
   FB.api("/me/picture?width=40&height=40",  function(fbPictureResponse) {
-    console.log(fbPictureResponse.data.url);
     $("#profile img").attr("src",fbPictureResponse.data.url);
-    $("#profile").show();
+    $("#profile-container").show();
     $("#fb-icon").hide();
   });  
 }

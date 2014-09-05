@@ -1,3 +1,4 @@
+/*
 String.prototype.hashCode = function(){
     var hash = 0;
     if (this.length == 0) return hash;
@@ -8,7 +9,7 @@ String.prototype.hashCode = function(){
     }
     return hash;
 }
-
+*/
 
 var FBUserName = "";
   // This is called with the results from from FB.getLoginStatus().
@@ -87,7 +88,7 @@ var FBUserName = "";
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(fbResponse) {
       FBUserName = fbResponse.name;
-      FBUserID = fbResponse.email.hashCode();
+      FBUserID = fbResponse.id;
 	console.log(FBUserID);
       console.log('Successful login for: ' + fbResponse.name);
       // document.getElementById('status').innerHTML =
@@ -168,7 +169,7 @@ var FBUserName = "";
       $("#user-profile-dropdown").hide();
       FBUserName = "";
       $("#profile").popover("hide");
-      $("#profile").hide();
+      $("#profile-container").hide();
       $("#fb-icon").show();
   };
 

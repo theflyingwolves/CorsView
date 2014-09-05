@@ -44,7 +44,6 @@ var reformatData = function(data){
 };
 
 var moduleReviewDataInit = function(moduleCode){
-	console.log("Retrieving review data for "+moduleCode);
 	$.ajax({
 	  //url: "../../api/modules/"+moduleCode+"/documents",
 	    url: "../../api/modules/"+moduleCode+"/reviews",

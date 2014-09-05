@@ -38,7 +38,6 @@ var moduleReviewPanelView = Backbone.View.extend({
 			template = _.template(moduleReviewPanelViewTemplate,data.attributes);
 		}
 
-		console.log("Panel View: "+JSON.stringify(template));
 		this.$el.html(template);
 
 	}
