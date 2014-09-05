@@ -4,8 +4,7 @@ var indexRouter = Backbone.Router.extend({
 	routes:{
 		'':'home',
 		':moduleCode':'loadModulePage',
-		':moduleCode/info':'loadModulePage',
-		':moduleCode?queryString':'loadModuleWithQuery'
+		':moduleCode/info':'loadModulePage'
 	},
 
 	initialize:function(){
@@ -22,14 +21,16 @@ var indexRouter = Backbone.Router.extend({
 		console.log("loading module: "+moduleCode);
 		moduleDataInit(moduleCode, "module-page");
 		loadSidebarToggleArea();
-	},
-
-	loadModuleWithQuery: function(moduleCode,queryString){
-		console.log("loading module: "+moduleCode+" with query string");
-		loadModulePage(moduleCode);
-		loadModuleHomepage(moduleCode);
 		fadeoutSearchForm();
 	}
+	// },
+
+	// loadModuleWithQuery: function(moduleCode,queryString){
+	// 	console.log("loading module: "+moduleCode+" with query string");
+	// 	loadModulePage(moduleCode);
+	// 	loadModuleHomepage(moduleCode);
+	// 	fadeoutSearchForm();
+	// }
 });
 
 var loadNavBar = function(){
@@ -38,7 +39,6 @@ var loadNavBar = function(){
 	this.navBarView.render();
 	addNavBarListener();
 	addProfileListener();
-
 };
 
 var loadModuleShelf = function(){
@@ -93,6 +93,7 @@ var fadeinSearchForm = function(){
 }
 
 var fadeoutSearchForm = function(){
+	console.log("fade out search form");
 	$(".top-nav .links:eq(0)").find("a").text("MODULE");
 	$(".top-nav .links:eq(1)").find("a").text("REVIEW");
 	$("#search-form").addClass("inActive");
@@ -127,22 +128,34 @@ var loadModuleReviewPanel = function(moduleCode,color){
 	moduleReviewDataInit(moduleCode);
 };
 
-var loadModuleReviewPanelData = function(moduleCode){
+var loadModuleReviewPanelData = function(moduleCode,status){
 		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
 		this.moduleReviewPanelViews.render(moduleCode);
+
 		if(globalModuleReviewColor == undefined){
 			globalModuleReviewColor = getTheme();
 		}
 		currentColor = globalModuleReviewColor;
 		alphaColor1 = getAlphacolor(currentColor,0.4);
-		console.log(alphaColor1);
+
+		var sidebarFriends = "<div id =\"sidebar-friends\"><h1>Friends</h1><h2>Friends taken this module</h2></div>";
 		$(".module-shelf-inner").remove();
-		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+		$("#page-content-wrapper").append(sidebarFriends);
 		$("#page-content-wrapper").css("background-color",alphaColor1);
+		$("#page-content-wrapper").css("height","100%");
+		$("#sidebar-module, #sidebar-wrapper, #sidebar-friends").css("background-color",currentColor);
+		$("#sidebar-friends").prepend("<span class=\"glyphicon glyphicon-chevron-left\"></span>");
 		verticalAlign($("#sidebar-module").find("h1"));
+		verticalAlign($("#sidebar-friends").find("h1"));
 		createSidebar();
 		$("#page-content-wrapper").css("height","100%");
-		createSlidingPanel(moduleReviewData.moduleReview);
+		if(moduleReviewData == undefined){
+			createSlidingPanel([]);
+		}else{
+			createSlidingPanel(moduleReviewData.moduleReview);	
+		}
+		
+		loadFriendsPictures();
 		bindOverPanel(currentColor);
 };
 

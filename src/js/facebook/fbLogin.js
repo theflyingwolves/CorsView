@@ -142,11 +142,7 @@ var FBUserName = "";
                             contentType: "application/json; charset=utf-8",
                             success: function(){
                                 console.log("user logins successfully");
-                                FB.api("/me/picture?width=30&height=30",  function(fbPictureResponse) {
-                                  console.log(fbPictureResponse.data.url);
-                                  $("#profile img").attr("src",fbPictureResponse.data.url);
-                                  $("#profile").show();
-                                });  
+                                getUserPicture();
                             },
                             error : function(err, req) {
                                  console.log(err);

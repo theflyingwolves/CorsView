@@ -10,10 +10,7 @@ var moduleDataReceiver = function(keyword, callback){
   		contentType: "application/json; charset=utf-8",
   		data: JSON.stringify(keyWord),
   	  success : function(response) {
-  		  var moduleInfoList = response['moduleInfoList'];
-        var moduleInfoToBeUsed = moduleInfoList.slice(0,9);
-        moduledb.reset(moduleInfoToBeUsed);
-  		  callback(keyword);
+  		  callback(response, keyword);
   	  },
   	  error : function(err, req) {
   	    console.log(err);
@@ -39,10 +36,18 @@ var moduleDataInit = function(keyword,info) {
   }
 };
 
-var homepageHandler = function(moduleCode){
-  loadModuleData();
+
+var homepageHandler = function(response,moduleCode){
+	var moduleInfoList = response['moduleInfoList'];
+    var moduleInfoToBeUsed = moduleInfoList.slice(0,9);
+    moduledb.reset(moduleInfoToBeUsed);
+  	loadModuleData();
+  	console.log("size "+moduledb.length);
 };
 
-var modulePageHandler = function(moduleCode){
-  loadModuleHomepage(moduleCode);
+var modulePageHandler = function(response,moduleCode){
+	var moduleInfoList = response['moduleInfoList'];
+  	var moduleInfoToBeUsed = moduleInfoList.slice(0,9);
+   	moduledb.reset(moduleInfoToBeUsed);
+  	loadModuleHomepage(moduleCode);
 };
