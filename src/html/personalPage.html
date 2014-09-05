@@ -143,46 +143,26 @@
 	<div class="module-table">
 		<ul>
 			<li>1000</li>
-			<li><p>CS1020</p></li>
-			<li><p>MA1101</p></li>
-			<li><p>CS1010</p></li>
-			<li><p>CS1101</p></li>
 		</ul>
 		<ul>
 			<li>2000</li>
-			<li><p>CS2101</p></li>
-			<li><p>CS2102</p></li>
-			<li><p>CS2102</p></li>
-			<li><p>CS2102</p></li>
 		</ul>
 		<ul>
 			<li>3000</li>
-			<li><p>CS3230</p></li>
-			<li><p>CS3230</p></li>
-			<li><p>CS3230</p></li>
-			<li><p>CS3230</p></li>
 		</ul>
 		<ul>
 			<li>4000</li>
-			<li><p>CS4223</p></li>
-			<li><p>CS4223</p></li>
-			<li><p>CS4223</p></li>
 		</ul>
 		<ul>
 			<li>5000</li>
-			<li><p>CS5222</p></li>
-			<li><p>CS5222</p></li>
-			<li><p>CS5222</p></li>
 		</ul>
-		<ul>
+		<!-- <ul>
 			<li>6000</li>
-			<li><p>CS5222</p></li>
-			<li><p>CS5222</p></li>
-			<li><p>CS5222</p></li>
-		</ul>
+		</ul> -->
 
 			<br>
 	<br>
+
 	<br>
 	<div id="share">
 	<label>Share your modules:</label>
@@ -232,43 +212,19 @@ function storeModulesToServer(modules){
         }
       });
   });
-
-  // userID = "1";
-  // accessToken = "123";
-
-  // content = {  
-  //     userID: userID,
-  //     accessToken: accessToken,
-  //     list: modules
-  // };
-  // console.log(content);
-
-  // $.ajax({
-  // url: '../../api/users/'+userID+'/enrollmentList',
-  //   type : 'POST',
-  //   dataType: "json",
-  //   contentType: "application/json; charset=utf-8",
-  //   data: JSON.stringify(content),
-  //   success : function(response) {
-  //     console.log(response['message']); 
-  //    },
-  //   error : function(err, req) {
-  //          console.log(err);
-  //          console.log(req);
-  //   }
-  // });
 }
 
 function importModules(){
   var token = ivle.getToken(window.location.href);
   if(token != null){
+      $(".module-table").html("importing modules from IVLE, please wait...");
       var user = ivle.User("RLhd3fF75U1wzkSi71Ua4", token);
         user.init().done(
           function() {
             user.modulesTaken(function(mods) {
-              console.log(mods);
+              // console.log(mods);
               storeModulesToServer(mods);
-              // displayModules(mods);
+              displayModules(mods);
             })
       })
       return true;
@@ -278,7 +234,7 @@ function importModules(){
 }
 
 function loadModuleFromServer(){
-  console.log("loading from server...");
+  $(".module-table").html("Loading modules, please wait...");
   
   FB.api('/me', function(response) {
       userID = response.id;
@@ -289,6 +245,7 @@ function loadModuleFromServer(){
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success : function(response) {
+          console.log("successfully retrieve from server");
           console.log(response);
           displayModules(response['moduleTakenList']);
          },
@@ -298,29 +255,41 @@ function loadModuleFromServer(){
         }
       });
   });
-
-  
-
-  // userID = "1";
-
-  // $.ajax({
-  //     url: '../../api/users/1/enrollments',
-  //     type : 'GET',
-  //     // dataType: "json",
-  //     success : function(response) {
-  //       console.log("mod returned from server: ");
-  //       console.log(response);
-  //       displayModules(response['moduleTakenList']);
-  //      },
-  //     error : function(err, req) {
-  //        console.log(err);
-  //        console.log(req);
-  //     }
-  // });
 }
 
 function displayModules(modules){
-  console.log(modules);
+  var content = "";
+
+  var modulesDivided = divideModules(modules);
+
+  // console.log(modulesDivided);
+
+  for(i=1; i<6; i++){
+    content += ("<ul><li>"+i+"000</li>");
+    for (j=0; j<modulesDivided[i].length; j++){
+      content += ("<li><p>"+modulesDivided[i][j]['ModuleCode']+"</p></li>");
+    }
+    content += "</ul>"
+  }
+  // console.log(content);
+  $(".module-table").html(content);
+}
+
+function divideModules(modules){
+  var dividedModules = [[], [], [], [], [], [], []];
+  for (i=0; i<modules.length; i++){
+    console.log(modules[i]);
+    var code = modules[i]['ModuleCode'];
+    for(j=0; j<code.length; j++){
+      var curChar = code[j];
+      if (/^\d+$/.test(curChar)) {
+        var level = parseInt(curChar);
+        dividedModules[level].push(modules[i]);
+        break;
+      }
+    }
+  }
+  return dividedModules;
 }
 
 var wantToImport = importModules();
