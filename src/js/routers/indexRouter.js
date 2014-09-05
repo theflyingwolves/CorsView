@@ -1,4 +1,4 @@
-var globalModuleReviewColor;
+var globalModuleReviewColor = undefined;
 
 var indexRouter = Backbone.Router.extend({
 	routes:{
@@ -78,7 +78,7 @@ var loadModuleHomepage = function(moduleCode){
 		slideModuleOut(bookShelf);
 	}else{
 		console.log("loading without module shelf");
-		loadModuleReviewPanel(moduleCode);
+		loadModuleReviewPanel(moduleCode,undefined);
 	}
 };
 
@@ -103,15 +103,21 @@ var getSearch = function() {
 	return query.search;	
 }
 
-var loadModuleReviewPanel = function(moduleCode){
-		console.log("Loading module review panel for module: "+moduleCode);
-		moduleReviewDataInit(moduleCode);
+var loadModuleReviewPanel = function(moduleCode,color){
+	if(color != undefined){
+		globalModuleReviewColor = color;	
+	}
+
+	moduleReviewDataInit(moduleCode);
 };
 
 var loadModuleReviewPanelData = function(moduleCode){
 		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
 		this.moduleReviewPanelViews.render(moduleCode);
-		currentColor = "rgb(100,0,0)";
+		if(globalModuleReviewColor == undefined){
+			globalModuleReviewColor = getTheme();
+		}
+		currentColor = globalModuleReviewColor;
 		alphaColor1 = getAlphacolor(currentColor,0.4);
 		console.log(alphaColor1);
 		$(".module-shelf-inner").remove();
@@ -122,6 +128,11 @@ var loadModuleReviewPanelData = function(moduleCode){
 		$("#page-content-wrapper").css("height","100%");
 		createSlidingPanel(moduleReviewData.moduleReview);
 		bindOverPanel(currentColor);
+};
+
+var getReviewColorFromUrl = function(){
+	var url = window.location.href;
+
 };
 
 var loadModuleInfoSidebar = function(moduleCode){

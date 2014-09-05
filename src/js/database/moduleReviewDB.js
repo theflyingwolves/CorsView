@@ -41,9 +41,10 @@ var reformatData = function(data){
 	updatedData.moduleReview = reviews;
 	moduleReviewData = updatedData;
 	return updatedData;
-}
+};
 
 var moduleReviewDataInit = function(moduleCode){
+	console.log("Retrieving review data for "+moduleCode);
 	$.ajax({
 	  //url: "../../api/modules/"+moduleCode+"/documents",
 	    url: "../../api/modules/"+moduleCode+"/reviews",

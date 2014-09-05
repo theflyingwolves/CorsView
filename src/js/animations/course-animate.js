@@ -46,19 +46,22 @@ var slideModuleOut = function(moduleBook) {
 		width:'20px',
 		left: -offsetLeft
 	},300,	function(){
-		$(".module-shelf-inner").remove();
-		$("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>");
-		$("#page-content-wrapper").css("background-color",alphaColor1);
-		$("#page-content-wrapper").append(slidingPanelViewHtml);
-		$("#page-content-wrapper").css("height","100%");
-		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
-		$("#sidebar-module").append("<span class=\"glyphicon glyphicon-chevron-right\"></span>"+"<h1>"+title+"</h1>");
-		verticalAlign($("#sidebar-module").find("h1"));
+		// $(".module-shelf-inner").remove();
+		// $("#page-content-wrapper").append("<div id=\"sidebar-module\" class=\"col-md-1\"></div>");
+		// $("#page-content-wrapper").css("background-color",alphaColor1);
+		// $("#page-content-wrapper").append(slidingPanelViewHtml);
+		// $("#page-content-wrapper").css("height","100%");
+		// $("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
+		// $("#sidebar-module").append("<span class=\"glyphicon glyphicon-chevron-right\"></span>"+"<h1>"+title+"</h1>");
+		// verticalAlign($("#sidebar-module").find("h1"));
 		
-		createSidebar();
+		// createSidebar();
+		// var moduleCode = moduleBook.find("h2").text();
+		// createSlidingPanelUsingModuleCode(moduleCode);
+		// bindOverPanel(currentColor);
+
 		var moduleCode = moduleBook.find("h2").text();
-		createSlidingPanelUsingModuleCode(moduleCode);
-		bindOverPanel(currentColor);
+		loadModuleReviewPanel(moduleCode,currentColor);
 	});
 
 	moduleBook.nextAll().animate({
