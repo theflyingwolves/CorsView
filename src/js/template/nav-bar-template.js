@@ -27,8 +27,8 @@ var generateNavBarHtml = function(){
       "<a href=\"#\">CONTACT</a>"+
       // "<img id=\"fb-icon\" src=\"../../res/img/fbicon-30.png\"></img>"+
 
-    "</div>"
-      +"<a  id=\"fb-icon\" href=\"personalPage.html\"><img src=\"../../res/img/fbicon-30.png\"></img></a>";
+    "</div>"+
+      "<fb:login-button id=\"fb-icon\" scope=\"public_profile,email\"  onlogin=\"checkLoginState();;\"></fb:login-button>";
 
   return navBarHtml;
 };

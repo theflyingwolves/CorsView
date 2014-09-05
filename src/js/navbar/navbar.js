@@ -4,13 +4,13 @@ function addNavBarListener(){
 	$('.modulebook').css("opacity","1.0");
 	});
 	
-	$('#fb-icon').mouseover(function(){
-		$(this).find("img").attr("src","../../res/img/fbicon-color-30.png");
-	});
+	// $('#fb-icon').mouseover(function(){
+	// 	$(this).find("img").attr("src","../../res/img/fbicon-color-30.png");
+	// });
 	
-	$('#fb-icon').mouseout(function(){
-		$(this).find("img").attr("src","../../res/img/fbicon-30.png");
-	});
+	// $('#fb-icon').mouseout(function(){
+	// 	$(this).find("img").attr("src","../../res/img/fbicon-30.png");
+	// });
 
 	jQuery.extend(jQuery.expr[':'], {
 	  focus: "a == document.activeElement"
@@ -49,14 +49,17 @@ function addProfileListener(){
   	  	FB.getLoginStatus(function(response) {
        		 if (response.session) {
        		   console.log('I am logged in');
+	  			$("#profile").show();
+	  			$("#fb-icon").hide();
        		 } else {
        		   console.log('I am logged out');
 	  			$("#profile").hide();
+	  			$("#fb-icon").show();
        		}
     	});
   	} else {
   		console.log('I am logged out');
 	  	$("#profile").hide();
+	  	$("#fb-icon").show();
   	}
-
 }

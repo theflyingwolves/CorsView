@@ -169,6 +169,7 @@ var FBUserName = "";
       FBUserName = "";
       $("#profile").popover("hide");
       $("#profile").hide();
+      $("#fb-icon").show();
   };
 
 //   window.fbAsyncInit = function() {
@@ -184,7 +185,7 @@ var FBUserName = "";
 
 //   };
 
-// function fb_login(){
+// function fblogin(){
 //     FB.login(function(response) {
 
 //         if (response.authResponse) {

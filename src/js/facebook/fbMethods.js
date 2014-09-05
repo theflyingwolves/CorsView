@@ -24,6 +24,7 @@ function getUserPicture(){
     console.log(fbPictureResponse.data.url);
     $("#profile img").attr("src",fbPictureResponse.data.url);
     $("#profile").show();
+    $("#fb-icon").hide();
   });  
 }
 
