@@ -177,15 +177,31 @@ var renderSlidingPanel = function(reviewArrayFromDB) {
 
 function share(){
     var pathname = window.location.pathname;
+      // FB.ui({
+      //   method: 'share',
+      //   //href: 'http://www.douban.com',
+      //   //href: 'http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com//src/html/test.html',
+      //   href: 'http://54.179.139.143/',
+      //   // href: 'http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com/src/html/index2.html#CS2102',
+      //   //href: 'http://news.163.com/14/0904/09/A59QD57O00014SEH.html',
+      //   //href:document.URL,
+      // }, function(response){});
+	var url = document.URL;
       FB.ui({
-        method: 'share',
+        method: 'feed',
         //href: 'http://www.douban.com',
         //href: 'http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com//src/html/test.html',
-        href: 'http://54.179.139.143/',
+        link: url,
+        caption: "testing caption",
+        picture: "http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com/res/img/iconBig.jpg",
+        name: "testing name",
+        description: "testing description",
         // href: 'http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws.com/src/html/index2.html#CS2102',
         //href: 'http://news.163.com/14/0904/09/A59QD57O00014SEH.html',
         //href:document.URL,
       }, function(response){});
+
+
 }
 
 function bindOverPanel(currentColor) {
