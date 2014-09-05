@@ -24,6 +24,8 @@ var ModuleDatabase = Backbone.Collection.extend({
 
 var moduledb = new ModuleDatabase();
 
+var moduleData;
+
 var moduleDataInit = function(keyword) {
 	//empty string seems causes exception in database searching
 	if(keyword == ""){
@@ -33,8 +35,9 @@ var moduleDataInit = function(keyword) {
 }
 
 
-var handler = function(moduleData){
-	moduledb.reset(moduleData);
+var handler = function(moduleDataInput){
+	moduledb.reset(moduleDataInput);
+	moduleData = moduleDataInput;
 	loadModuleData();
 }
 
