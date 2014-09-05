@@ -1,7 +1,7 @@
 function shareReview(){
   FB.ui({
           method: 'share',
-          href: 'https://developers.facebook.com/docs/',
+          href: 'http://54.179.139.143/',
         }, function(response){});          
 }
 
