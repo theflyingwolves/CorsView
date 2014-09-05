@@ -32,9 +32,13 @@ var moduleReviewPanelView = Backbone.View.extend({
 		})[0];
 
 		var template;
+
 		if(data == undefined){
-			template = _.template(moduleReviewPanelViewTemplate,{});
+			var param = {};
+			param.moduleTitle = this.collection.moduleTitle;
+			template = _.template(moduleReviewPanelViewTemplate,param);
 		}else{
+			data.attributes.moduleTitle = this.collection.moduleTitle;
 			template = _.template(moduleReviewPanelViewTemplate,data.attributes);
 		}
 
