@@ -93,6 +93,8 @@
         }
 </script>
  
+
+
 	<title>Personal Page</title>
 
 </head>
@@ -186,5 +188,86 @@
 
   <aside class="col-md-2">
    </aside>
+
+<script type="text/javascript">
+function storeModulesToServer(modules){
+  FB.api('/me', function(response) {
+      userID = response.id;
+      accessToken =   FB.getAuthResponse()['accessToken'];
+
+      content = {  
+          userID: userID,
+          accessToken: accessToken,
+          list: modules
+      };
+      console.log(content);
+
+      $.ajax({
+      url: '../../api/users/'+userID+'/enrollmentList',
+        type : 'POST',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(content),
+        success : function(response) {
+          console.log(response['message']); 
+         },
+        error : function(err, req) {
+               console.log(err);
+               console.log(req);
+        }
+      });
+  });
+}
+
+function importModules(){
+  var token = ivle.getToken(window.location.href);
+  if(token != null){
+      var user = ivle.User("RLhd3fF75U1wzkSi71Ua4", token);
+        user.init().done(
+          function() {
+            user.modulesTaken(function(mods) {
+              // console.log(mods);
+              storeModulesToServer(modules);
+              displayModules(modules);
+            })
+      })
+      return true;
+  } else {
+    return false;
+  }
+}
+
+function loadModuleFromServer(){
+  FB.api('/me', function(response) {
+      userID = response.id;
+
+      $.ajax({
+      url: '../../api/users/'+userID+'/enrollments',
+        type : 'GET',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success : function(response) {
+          console.log(response);
+          displayModules(response['moduleTakenList']);
+         },
+        error : function(err, req) {
+               console.log(err);
+               console.log(req);
+        }
+      });
+  });
+}
+
+function displayModules(modules){
+  console.log(modules);
+}
+
+var wantToImport = importModules();
+if (!wantToImport) {
+  loadModuleFromServer();
+};
+
+</script>
+
 </body>
 </html>
