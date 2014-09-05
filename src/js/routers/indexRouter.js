@@ -24,7 +24,6 @@ var indexRouter = Backbone.Router.extend({
 		fadeoutSearchForm();
 	}
 	// },
-
 	// loadModuleWithQuery: function(moduleCode,queryString){
 	// 	console.log("loading module: "+moduleCode+" with query string");
 	// 	loadModulePage(moduleCode);
@@ -129,6 +128,7 @@ var loadModuleReviewPanel = function(moduleCode,color){
 };
 
 var loadModuleReviewPanelData = function(moduleCode,status){
+		moduleReviewDB.moduleTitle = moduleData[0].moduleTitle;
 		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
 		this.moduleReviewPanelViews.render(moduleCode);
 
