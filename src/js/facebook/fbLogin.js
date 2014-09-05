@@ -46,7 +46,7 @@ var FBUserName = "";
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '1457089634562844',
+    appId      : '490249021111231',
     //appId : '490249021111231',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
@@ -173,11 +173,13 @@ var FBUserName = "";
 
 //   window.fbAsyncInit = function() {
 //     FB.init({
-//         appId   : 'YOUR_APP_ID',
+//         appId   : '490249021111231',
 //         oauth   : true,
 //         status  : true, // check login status
 //         cookie  : true, // enable cookies to allow the server to access the session
-//         xfbml   : true // parse XFBML
+//         xfbml   : true,// parse XFBML
+//     version    : 'v2.1' // use version 2.1
+
 //     });
 
 //   };
@@ -191,10 +193,78 @@ var FBUserName = "";
 //             access_token = response.authResponse.accessToken; //get access token
 //             user_id = response.authResponse.userID; //get FB UID
 
-//             FB.api('/me', function(response) {
-//                 user_email = response.email; //get user email
-//           // you can store this data into your database             
-//             });
+//           FB.api('/me', function(fbResponse) {
+//             FBUserName = fbResponse.name;
+//             FBUserID = fbResponse.email.hashCode();
+//         console.log(FBUserID);
+//             console.log('Successful login for: ' + fbResponse.name);
+//             // document.getElementById('status').innerHTML =
+//               // 'Thanks for logging in, ' + response.name + '!';
+//             $("#fb-user-link").html("<a href=\"#\">"+FBUserName+"</a>");
+//             // $("#fb-logout-navbar").show();
+//             $("#user-profile-dropdown").show();
+          
+//             //register or login our own server
+//             console.log('../../api/users/'+FBUserID);
+//             $.ajax({
+//                   url: '../../api/users/'+FBUserID,
+//                     type : 'GET',
+//                     dataType: "json",
+//                     contentType: "application/json; charset=utf-8",
+//                     //data: JSON.stringify(content),
+//                     success : function(response) {
+//           console.log(response['message']);
+//                       if((response['message']) == "user's not registered"){
+//                              userInfo = {
+//                                   facebookID: FBUserID,
+//                                   facebookName: fbResponse.name,
+//                                   gender: fbResponse.gender,
+//                                   accessToken: FB.getAuthResponse()['accessToken']
+//                                 };
+//                                 $.ajax({
+//                                   url: '../../api/users',
+//                                   type: 'POST',
+//                                   dataType: "json",
+//                                   data: JSON.stringify(userInfo),
+//                                   contentType: "application/json; charset=utf-8",
+//                                   success: function(){
+//                                        //console.log("user registered successfully");
+//                                   },
+//                                   error : function(err, req) {
+//                                        console.log(err);
+//                                        console.log(req);
+//                                   }
+//                                 }); //user registration ends
+                            
+//                         } else{
+//                                 //user login
+//                                 userInfo = {
+//                                   facebookID: FBUserID,
+//                                   accessToken: FB.getAuthResponse()['accessToken']
+//                                 };
+//                                 $.ajax({
+//                                   url: '../../api/users',
+//                                   type: 'PUT',
+//                                   dataType: "json",
+//                                   data: JSON.stringify(userInfo),
+//                                   contentType: "application/json; charset=utf-8",
+//                                   success: function(){
+//                                       console.log("user logins successfully");
+//                                       window.location.href = "index.html";
+//                                   },
+//                                   error : function(err, req) {
+//                                        console.log(err);
+//                                        console.log(req);
+//                                   }
+//                                 }); //user login ends
+//                         }
+//                      },
+//                           error : function(err, req) {
+//                                  console.log(err);
+//                                  console.log(req);
+//                     }
+//                   });
+//           });
 
 //         } else {
 //             //user hit cancel button

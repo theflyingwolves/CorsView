@@ -33,3 +33,4 @@ var generateNavBarHtml = function(){
   return navBarHtml;
 };
 
+var userProfile = "<a id=\"profile\" type=\"button\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"bottom\" rel=\"tooltip\"><img></img></a>";

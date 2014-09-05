@@ -48,6 +48,6 @@ a {
 .fb-login {
 	position: fixed;
 	top: 45%;
+	text-align: center;
 	left: 43%;
 }
-
