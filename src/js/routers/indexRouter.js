@@ -15,18 +15,20 @@ var indexRouter = Backbone.Router.extend({
 	home:function(){
 		console.log("loading home");
 		loadModuleShelf();
+		fadeinSearchForm();
 	},
 
 	loadModulePage: function(moduleCode){
 		console.log("loading module: "+moduleCode);
 		moduleDataInit(moduleCode, "module-page");
 		loadSidebarToggleArea();
-		// loadModuleHomepage(moduleCode);
 	},
 
 	loadModuleWithQuery: function(moduleCode,queryString){
 		console.log("loading module: "+moduleCode+" with query string");
 		loadModulePage(moduleCode);
+		loadModuleHomepage(moduleCode);
+		fadeoutSearchForm();
 	}
 });
 
@@ -35,6 +37,8 @@ var loadNavBar = function(){
 	this.navBarView = new navBarView({el:$(".top-nav")});
 	this.navBarView.render();
 	addNavBarListener();
+	addProfileListener();
+
 };
 
 var loadModuleShelf = function(){
@@ -81,6 +85,18 @@ var loadModuleHomepage = function(moduleCode){
 		loadModuleReviewPanel(moduleCode,undefined);
 	}
 };
+
+var fadeinSearchForm = function(){
+	$(".top-nav .links:eq(0)").find("a").text("SEARCH");
+	$(".top-nav .links:eq(1)").find("a").text("MODULE");
+	$("#search-form").removeClass("inActive");
+}
+
+var fadeoutSearchForm = function(){
+	$(".top-nav .links:eq(0)").find("a").text("MODULE");
+	$(".top-nav .links:eq(1)").find("a").text("REVIEW");
+	$("#search-form").addClass("inActive");
+}
 
 var getTheme = function(){
 	var currentUrl = window.location.href;

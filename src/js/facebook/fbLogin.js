@@ -144,7 +144,8 @@ var FBUserName = "";
                                 console.log("user logins successfully");
                                 FB.api("/me/picture?width=30&height=30",  function(fbPictureResponse) {
                                   console.log(fbPictureResponse.data.url);
-                                  $("#fb-icon img").attr("src",fbPictureResponse.data.url);
+                                  $("#profile img").attr("src",fbPictureResponse.data.url);
+                                  $("#profile").show();
                                 });  
                             },
                             error : function(err, req) {
@@ -170,6 +171,8 @@ var FBUserName = "";
       // $("#fb-user-link").html("");
       $("#user-profile-dropdown").hide();
       FBUserName = "";
+      $("#profile").popover("hide");
+      $("#profile").hide();
   };
 
 //   window.fbAsyncInit = function() {

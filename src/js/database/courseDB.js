@@ -24,6 +24,7 @@ var moduleDataReceiver = function(keyword, callback){
 
 var ModuleDatabase = Backbone.Collection.extend({});
 var moduledb = new ModuleDatabase();
+var moduleData;
 
 var moduleDataInit = function(keyword,info) {
 	//empty string seems causes exception in database searching
@@ -36,7 +37,6 @@ var moduleDataInit = function(keyword,info) {
   }else if(info == "module-page"){
     moduleDataReceiver(keyword,modulePageHandler);
   }
-
 };
 
 var homepageHandler = function(moduleCode){

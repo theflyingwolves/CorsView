@@ -32,3 +32,31 @@ function addNavBarListener(){
 		$(this).parent().removeClass("active");
 	});
 }
+
+function addProfileListener(){
+
+  $('#profile').popover({ 
+    html : true,
+    content: function() {
+    	var contentHtml = "<a href=\"personalPage.html\"><input type=\"submit\" class=\"btn btn-default\"  value=\"Profile\"></input></a>";
+    	contentHtml += "<button class=\"btn btn-default\" onClick=\"fblogout();\">Log out</button>";
+
+    	return contentHtml;
+      // return $($(this).attr('data-id')).html();
+    }
+  });
+  	if(typeof(FB) !== 'undefined'){
+  	  	FB.getLoginStatus(function(response) {
+       		 if (response.session) {
+       		   console.log('I am logged in');
+       		 } else {
+       		   console.log('I am logged out');
+	  			$("#profile").hide();
+       		}
+    	});
+  	} else {
+  		console.log('I am logged out');
+	  	$("#profile").hide();
+  	}
+
+}
