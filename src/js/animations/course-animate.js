@@ -240,13 +240,27 @@ function bindOverPanel(currentColor) {
 			var data = moduledb.where({
 				moduleCode:moduleCode
 			})[0];
+			console.log(moduleData[0]);
 			var str = JSON.stringify(data);
+<<<<<<< HEAD
 			var json = JSON.parse(str);
 			moduleID = json.moduleID;
 			moduleTitle = json.moduleTitle;
 					FB.api('/me', function(response) {
 					   	creatorID = response.id;
 					   	accessToken =   FB.getAuthResponse()['accessToken'];
+=======
+			console.log(str);
+			
+			moduleID = moduleData[0].moduleID;
+			moduleTitle = moduleData[0].moduleTitle;
+			moduleCode = moduleData[0].moduleCode;
+			console.log(moduleID);
+			console.log(moduleTitle);	
+				FB.api('/me', function(response) {
+					 creatorID = response.id;
+					 accessToken =   FB.getAuthResponse()['accessToken'];
+>>>>>>> 7f686c12ee21d4402760b5809950ea98e7e33c72
 
 				var review = $("#review-area").val();
 				content = {
@@ -255,9 +269,13 @@ function bindOverPanel(currentColor) {
 			    		moduleTitle: moduleTitle,
 			    		creatorID: creatorID,
 			    		accessToken: accessToken,
-	                                                    reviewContent: review,
+	                                reviewContent: review,
 					};
+<<<<<<< HEAD
 
+=======
+					console.log(content);
+>>>>>>> 7f686c12ee21d4402760b5809950ea98e7e33c72
 					$.ajax({
 					url: '../../api/modules/'+moduleCode+'/reviews',
 					  type : 'POST',
@@ -333,21 +351,21 @@ function bindOverPanel(currentColor) {
 	});
 };
 
-
-
 function createSidebar(){
 	var showSidebar = function(e){
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    };
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  };
 
-    $("#sidebar-wrapper").hover(function(e) {
-      showSidebar(e);
-    });
+  $("#sidebar-wrapper").hover(function(e) {
+  	console.log("sidebar toggled - wrapper");
+    showSidebar(e);
+  });
 
-    $("#sidebar-toggle-area").hover(function(e){
-      showSidebar(e);
-    });
+  $("#sidebar-toggle-area").hover(function(e){
+  	console.log("sidebar toggled - area");
+    showSidebar(e);
+  });
 }
 
 function getAlphacolor(currentColor, alpha){

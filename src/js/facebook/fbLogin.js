@@ -47,7 +47,7 @@ var FBUserName = "";
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '490249021111231',
+    appId      : '1457089634562844',
     //appId : '490249021111231',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session

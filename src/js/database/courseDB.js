@@ -31,12 +31,12 @@ var moduleDataInit = function(keyword,info) {
 	}
 
   if(info == "home"){
+    console.log("Loading HOOMMEE");
     moduleDataReceiver(keyword,homepageHandler);  
   }else if(info == "module-page"){
     moduleDataReceiver(keyword,modulePageHandler);
   }
 };
-
 
 var homepageHandler = function(response,moduleCode){
 	var moduleInfoList = response['moduleInfoList'];
