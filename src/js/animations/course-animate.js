@@ -119,7 +119,7 @@ var createSlidingPanel = function(moduleReviews) {
 	// 		moduleReviewArray.push(data['reviewList'][index]['reviewContent']);
 	// 	});
 	// }
-	console.log("Creating sliding panel using module reviews: "+moduleReviews);
+
 	renderSlidingPanel(moduleReviews);
 
 	  // $.ajax({
@@ -168,8 +168,13 @@ var createSlidingPanel = function(moduleReviews) {
 };
 
 var renderSlidingPanel = function(reviewArrayFromDB) {
-
-	var slideCount = slidingPanelInit(reviewArrayFromDB,"box-container","prev-btn","next-btn", 3);
+	var slideCount;
+	if(reviewArrayFromDB.length > 0){
+		slideCount = slidingPanelInit(reviewArrayFromDB,"box-container","prev-btn","next-btn", 3);	
+	}else{
+		slideCount = 0;
+	}
+	
 	$("#main-container").append(carouselIndicators(slideCount));
 	$(".carousel-control.right").click(function(){
 		var activeIndicator = $(".carousel-indicators .active:first");
@@ -250,7 +255,7 @@ function bindOverPanel(currentColor) {
 					   	accessToken =   FB.getAuthResponse()['accessToken'];
 
 				var review = $("#review-area").val();
-				content = {  
+				content = {
 			    		moduleID: moduleID,
 			    		moduleCode: moduleCode,
 			    		moduleTitle: moduleTitle,

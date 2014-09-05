@@ -4,8 +4,7 @@ var indexRouter = Backbone.Router.extend({
 	routes:{
 		'':'home',
 		':moduleCode':'loadModulePage',
-		':moduleCode/info':'loadModulePage',
-		':moduleCode?queryString':'loadModuleWithQuery'
+		':moduleCode/info':'loadModulePage'
 	},
 
 	initialize:function(){
@@ -22,13 +21,6 @@ var indexRouter = Backbone.Router.extend({
 		console.log("loading module: "+moduleCode);
 		moduleDataInit(moduleCode, "module-page");
 		loadSidebarToggleArea();
-	},
-
-	loadModuleWithQuery: function(moduleCode,queryString){
-		console.log("loading module: "+moduleCode+" with query string");
-		loadModulePage(moduleCode);
-		loadModuleHomepage(moduleCode);
-		fadeoutSearchForm();
 	}
 });
 
@@ -38,7 +30,6 @@ var loadNavBar = function(){
 	this.navBarView.render();
 	addNavBarListener();
 	addProfileListener();
-
 };
 
 var loadModuleShelf = function(){
@@ -127,22 +118,27 @@ var loadModuleReviewPanel = function(moduleCode,color){
 	moduleReviewDataInit(moduleCode);
 };
 
-var loadModuleReviewPanelData = function(moduleCode){
+var loadModuleReviewPanelData = function(moduleCode,status){
 		this.moduleReviewPanelViews = new moduleReviewPanelView({el:$("#page-content-wrapper"),collection:moduleReviewDB});
 		this.moduleReviewPanelViews.render(moduleCode);
+
 		if(globalModuleReviewColor == undefined){
 			globalModuleReviewColor = getTheme();
 		}
 		currentColor = globalModuleReviewColor;
 		alphaColor1 = getAlphacolor(currentColor,0.4);
-		console.log(alphaColor1);
 		$(".module-shelf-inner").remove();
 		$("#sidebar-module, #sidebar-wrapper").css("background-color",currentColor);
 		$("#page-content-wrapper").css("background-color",alphaColor1);
 		verticalAlign($("#sidebar-module").find("h1"));
 		createSidebar();
 		$("#page-content-wrapper").css("height","100%");
-		createSlidingPanel(moduleReviewData.moduleReview);
+		if(moduleReviewData == undefined){
+			createSlidingPanel([]);
+		}else{
+			createSlidingPanel(moduleReviewData.moduleReview);	
+		}
+		
 		bindOverPanel(currentColor);
 };
 

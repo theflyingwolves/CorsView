@@ -61,8 +61,9 @@ var moduleReviewDataInit = function(moduleCode){
 	    //   	renderSlidingPanel(reviewArrayFromDB);
 	    		var newData = reformatData(data);
 	    		moduleReviewDB.reset(newData);
-	    		loadModuleReviewPanelData(moduleCode);
+	    		loadModuleReviewPanelData(moduleCode,"success");
 	      }else{
+	      	loadModuleReviewPanelData(moduleCode,"fail");
 	      	console.log("no module review data received");
 	      }
 	    },
