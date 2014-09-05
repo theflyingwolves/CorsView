@@ -19,7 +19,7 @@ Our app is live at [__http://ec2-54-179-139-143.ap-southeast-1.compute.amazonaws
     +front Routers
     + Animation
     + HTML,JS,CSS
-   **Wu Lifu -A0105661M**
++ **Wu Lifu -A0105661M**
     + Backend Builder
     + Backend Routers
     + Backend Frontend Integration
