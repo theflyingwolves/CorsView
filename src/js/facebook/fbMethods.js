@@ -1,7 +1,7 @@
 function shareReview(){
   FB.ui({
           method: 'share',
-          href: 'https://developers.facebook.com/docs/',
+          href: 'http://54.179.139.143/',
         }, function(response){});          
 }
 
@@ -20,7 +20,7 @@ function shareTakeModuleStory(){
 }
 
 function getUserPicture(){
-  FB.api("/me/picture?width=30&height=30",  function(fbPictureResponse) {
+  FB.api("/me/picture?width=40&height=40",  function(fbPictureResponse) {
     console.log(fbPictureResponse.data.url);
     $("#profile img").attr("src",fbPictureResponse.data.url);
     $("#profile").show();
